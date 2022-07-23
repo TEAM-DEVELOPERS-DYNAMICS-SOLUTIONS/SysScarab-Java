@@ -4,40 +4,42 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class StatementDbSQL {
 
     protected ConnectionDbSQL connectionSQl = new ConnectionDbSQL(); 
     protected Connection connect; 
-    protected Statement statementSQL = null;
+    protected static Statement statementSQL = null;
     protected Map<String, String> mapResultUsers = new HashMap<String,String>();
-    protected ResultSet RSSQL, RSSQLConnection; 
+    protected static ResultSet RSSQL ;
     protected static boolean  AuthVerify;
+    
+    static List<Map<String,String>> Users  = new ArrayList();
 
         public boolean getAuthVerify() {
             return this.AuthVerify;
         }  
 
-        public void setAuthVerify(boolean AutVerify) {
+        public void setAuthVerify (boolean AutVerify) {
             this.AuthVerify = AutVerify;
         } 
     
-    public boolean GenerateStatement_Authentication(String pass, String Email ) {
-        
+    public Statement GenerateStatement () {
         /*
          * Connection's Statement Basic Structure 
          */
-        
-        Statement statementSQL = null;
+
         connectionSQl.GenerateConnection();
         connect = connectionSQl.getConnection();
 
         try {
             System.err.println(".....................");
             System.out.println("created Statement...");
-            statementSQL = connect.createStatement();
+            this.statementSQL = connect.createStatement();
         } catch (SQLException e) {
             System.out.println("err to create StatementSQL: ");
             e.printStackTrace();	
@@ -47,8 +49,13 @@ public class StatementDbSQL {
                     System.out.println("Statement created success");
 
             System.out.println();
+            
+        return statementSQL;
+    };
         
-        /*-----------------------------------------------------------------*/
+    public boolean GenerateStatement_Authentication(String pass, String Email ) {
+        
+        GenerateStatement ();
             
         try {			
             statementSQL.execute("Select * from employees where PasswordEmployees = '" + pass + "' and EmailEmployees = '" + Email +"';");
@@ -56,7 +63,6 @@ public class StatementDbSQL {
 
             if(RSSQL.next()) {
                 System.out.println("**usuario loggeado**");
-
                 mapResultUsers.put("IdUser",RSSQL.getString("IdEmployees"));
                 mapResultUsers.put("NameUser",RSSQL.getString("nameEmployees"));
                 mapResultUsers.put("LastNameUser",RSSQL.getString("LastNameEmployees"));			
@@ -78,59 +84,20 @@ public class StatementDbSQL {
             return this.AuthVerify;
     }
     
-    public Map<String, String> GenerateStatement_GetUsers () {
-    
-        Statement statementSQL = null;
-        connectionSQl.GenerateConnection();
-        connect = connectionSQl.getConnection();
-
-        try {
-            System.err.println("........................");
-            System.out.println("created Statement...");
-            statementSQL = connect.createStatement();
-        } catch (SQLException e) {
-            System.out.println("err to create StatementSQL: ");
-            e.printStackTrace();	
-        }
-
-            if(statementSQL != null)
-                    System.out.println("Statement created success");
-
-            System.out.println();
-            
-        //aa
+    public ResultSet GenerateStatement_GetUsers () {
+        GenerateStatement();
         
          try {			
-            statementSQL.execute("Select * from employees;");
-            this.RSSQL = statementSQL.getResultSet();	
-            int n = 0;
+            statementSQL.execute("Select IdEmployees, ImageEmployees, NameEmployees, LastNameEmployees, EmailEmployees, PasswordEmployees, AddressEmployees, PhoneEmployees, StatusConnectionEmployees, StatusAdminEmployees, GenderEmployees from employees;");
             
-            if(RSSQL.next()) {
-                System.out.println("**searching Employees**");
-                
-                while(RSSQL.next()){
-                    mapResultUsers.put("IdUser",RSSQL.getString("IdEmployees"));
-                    mapResultUsers.put("NameUser",RSSQL.getString("nameEmployees"));
-                    mapResultUsers.put("LastNameUser",RSSQL.getString("LastNameEmployees"));			
-                    mapResultUsers.put("StatusAdminEmployees",RSSQL.getString("StatusAdminEmployees"));
-                    mapResultUsers.put("StatusConnectionEmployees",RSSQL.getString("StatusConnectionEmployees"));
-                    System.out.println(n + " Map: " + mapResultUsers);
-                
-                    n++;
-                }
-                
-            }else{
-                System.out.println("**err searching employees**");
-            }
+            this.RSSQL = statementSQL.getResultSet();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
             System.out.println();
-
-            connectionSQl.GenerateDisconnection();
             
-        return mapResultUsers;
+        return RSSQL;
     }
 }

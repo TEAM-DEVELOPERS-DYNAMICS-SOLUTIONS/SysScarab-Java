@@ -1,17 +1,19 @@
 package model.ModAdmin;
 
 import controller.db.StatementDbSQL;
+import java.sql.ResultSet;
 
 public class ModAdmin {
 
     protected StatementDbSQL NewStatement = new StatementDbSQL();
     protected boolean  AuthVerify = NewStatement.getAuthVerify();
+    static ResultSet RSSQL;
     
-    public void ModAdmin_GetUsers() {
+    public ResultSet ModAdmin_GetUsers() {
         
         if(AuthVerify)
-            NewStatement.GenerateStatement_GetUsers();
-        else
-            System.out.println("err run ModAdmin");
+           this.RSSQL = NewStatement.GenerateStatement_GetUsers();
+        
+        return this.RSSQL;
     }
 }

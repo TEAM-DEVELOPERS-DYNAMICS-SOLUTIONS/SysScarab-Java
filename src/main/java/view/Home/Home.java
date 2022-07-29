@@ -1,13 +1,10 @@
 package view.Home;
 
-import controller.db.ConnectionDbSQL;
+import controller.db.StatementDbSQL;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import model.ModAdmin.ModAdmin;
 
@@ -25,11 +22,13 @@ public class Home extends javax.swing.JFrame {
     public Toolkit tK = Toolkit.getDefaultToolkit();
     protected ModAdmin ModAdminActived = new ModAdmin();
     protected int AxisX, AxisY, AxisXScreen, AxisYScreen;
+    protected StatementDbSQL StatementSQL = new StatementDbSQL();
     
     public Home() {
         initComponents();
         this.screenSizeMinimize = PrimaryPanel_Home.getPreferredSize();
         jPanel_WorkSpaceAdmin.setVisible(false);
+        writeUserConnect();
     }
     
     /**
@@ -42,44 +41,34 @@ public class Home extends javax.swing.JFrame {
         return retValue;
     }
     
+    public void writeUserConnect () {
+        jLabel_NameUser.setText(StatementSQL.getMapRSSQL().get("NameUser") + " " + StatementSQL.getMapRSSQL().get("LastNameUser"));
+        jLabel_LevelAdmin.setText("Empleado");   
+    }
+        
     public void writeTableUser() {
         jTable_Users.getModel();
+            
+        ResultSet RSSSQL_Users = ModAdminActived.ModAdmin_GetUsers();    
+        DefaultTableModel modelo = new DefaultTableModel();
+        jTable_Users.setModel(modelo);
         
-        try {
-            ResultSet RSSSQL_Users = ModAdminActived.ModAdmin_GetUsers();    
-            DefaultTableModel modelo = new DefaultTableModel();
-            jTable_Users.setModel(modelo);
-            
-            
-            modelo.addColumn("ID");
-            modelo.addColumn("Perfil");
-            modelo.addColumn("Nombre");
-            modelo.addColumn("Apellido");
-            modelo.addColumn("Correo");
-            modelo.addColumn("Contraseña");
-            modelo.addColumn("Direccion");
-            modelo.addColumn("Telefono");
-            modelo.addColumn("StC");
-            modelo.addColumn("StA");
-            modelo.addColumn("Genero");
-            
-            while(RSSSQL_Users.next()){
-                Object [] rowUsers = new Object[11];
-                for (int i=0;i<11;i++)
-                    rowUsers[i] = RSSSQL_Users.getObject(i+1);
-                modelo.addRow(rowUsers);
-            }
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        modelo.addColumn("ID");
+        modelo.addColumn("Perfil");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Apellido");
+        modelo.addColumn("Correo");
+        modelo.addColumn("Contraseña");
+        modelo.addColumn("Direccion");
+        modelo.addColumn("Telefono");
+        modelo.addColumn("StC");
+        modelo.addColumn("StA");
+        modelo.addColumn("Genero");
         
-        /*
-         *ConnectionDbSQL Disconect = new ConnectionDbSQL();
-         *Disconect.GenerateDisconnection();
-         */
+
+        jTable_Users.setRowHeight(50);
     }
-    
+     
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -107,7 +96,6 @@ public class Home extends javax.swing.JFrame {
         jLabel_DragArea = new javax.swing.JLabel();
         jLabel_LogoScarab = new javax.swing.JLabel();
         jPanel_LeftBar = new javax.swing.JPanel();
-        jLabel_ImageUser = new javax.swing.JLabel();
         jLabel_NameUser = new javax.swing.JLabel();
         jSeparator_UserLeverRootDiv = new javax.swing.JSeparator();
         jLabel_LevelAdmin = new javax.swing.JLabel();
@@ -133,7 +121,6 @@ public class Home extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(800, 600));
         setName("Home"); // NOI18N
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1100, 728));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         PrimaryPanel_Home.setBackground(new java.awt.Color(51, 51, 51));
@@ -286,14 +273,8 @@ public class Home extends javax.swing.JFrame {
         jPanel_LeftBar.setBackground(new java.awt.Color(51, 51, 51));
         jPanel_LeftBar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel_ImageUser.setBackground(new java.awt.Color(51, 51, 51));
-        jLabel_ImageUser.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel_ImageUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel_ImageUser.setText("ImageProfileUnloaded");
-        jLabel_ImageUser.setOpaque(true);
-
         jLabel_NameUser.setBackground(new java.awt.Color(51, 51, 51));
-        jLabel_NameUser.setFont(new java.awt.Font("Roboto Thin", 0, 18)); // NOI18N
+        jLabel_NameUser.setFont(new java.awt.Font("Roboto Thin", 0, 12)); // NOI18N
         jLabel_NameUser.setForeground(new java.awt.Color(255, 255, 255));
         jLabel_NameUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel_NameUser.setText("User");
@@ -345,55 +326,49 @@ public class Home extends javax.swing.JFrame {
         jPanel_LeftBar.setLayout(jPanel_LeftBarLayout);
         jPanel_LeftBarLayout.setHorizontalGroup(
             jPanel_LeftBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_LeftBarLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addGroup(jPanel_LeftBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel_AccountingMod, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel_ImageUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel_NameUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jSeparator_UserLeverRootDiv, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel_LevelAdmin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel_AcconuntingModLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(12, 12, 12))
             .addGroup(jPanel_LeftBarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel_LeftBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel_InvetoryModLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel_AdminMod, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel_AdminModLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel_LeftBarLayout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addComponent(jLabel_InventoryMod, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jLabel_InvetoryModLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel_LeftBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel_AccountingMod, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                            .addComponent(jLabel_AcconuntingModLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel_InventoryMod, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE))))
                 .addContainerGap())
-            .addGroup(jPanel_LeftBarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel_LeftBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel_AdminMod, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel_AdminModLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_LeftBarLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addGroup(jPanel_LeftBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel_NameUser, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jSeparator_UserLeverRootDiv)
+                    .addComponent(jLabel_LevelAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(12, 12, 12))
         );
         jPanel_LeftBarLayout.setVerticalGroup(
             jPanel_LeftBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_LeftBarLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(jLabel_ImageUser, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel_NameUser, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator_UserLeverRootDiv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel_LevelAdmin)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
                 .addComponent(jLabel_AccountingMod, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel_AcconuntingModLabel)
-                .addGap(12, 12, 12)
+                .addGap(27, 27, 27)
                 .addComponent(jLabel_InventoryMod, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel_InvetoryModLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(27, 27, 27)
                 .addComponent(jLabel_AdminMod, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel_AdminModLabel)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addGap(51, 51, 51))
         );
 
         jPanel_WorkSpaceAdmin.setBackground(new java.awt.Color(51, 51, 51));
@@ -422,14 +397,14 @@ public class Home extends javax.swing.JFrame {
             .addGroup(jPanel_BarToolAdminLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel_ButtonQueryUser, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(772, Short.MAX_VALUE))
         );
         jPanel_BarToolAdminLayout.setVerticalGroup(
             jPanel_BarToolAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_BarToolAdminLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel_ButtonQueryUser, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(116, Short.MAX_VALUE))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
 
         jPanel_SpaceAdmin.setBackground(new java.awt.Color(255, 255, 255));
@@ -444,9 +419,9 @@ public class Home extends javax.swing.JFrame {
         jPanel_SpaceAdmin.setLayout(jPanel_SpaceAdminLayout);
         jPanel_SpaceAdminLayout.setHorizontalGroup(
             jPanel_SpaceAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_SpaceAdminLayout.createSequentialGroup()
+            .addGroup(jPanel_SpaceAdminLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 896, Short.MAX_VALUE)
+                .addComponent(jScrollPane1)
                 .addContainerGap())
         );
         jPanel_SpaceAdminLayout.setVerticalGroup(
@@ -454,7 +429,7 @@ public class Home extends javax.swing.JFrame {
             .addGroup(jPanel_SpaceAdminLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel_WorkSpaceAdminLayout = new javax.swing.GroupLayout(jPanel_WorkSpaceAdmin);
@@ -617,9 +592,6 @@ public class Home extends javax.swing.JFrame {
         });
     }
     
-    
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PrimaryPanel_Home;
     private javax.swing.JLabel jLabel_AcconuntingModLabel;
@@ -629,7 +601,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel_ButtonQueryUser;
     private javax.swing.JLabel jLabel_DragArea;
     private javax.swing.JLabel jLabel_ExitButton;
-    private javax.swing.JLabel jLabel_ImageUser;
     private javax.swing.JLabel jLabel_InventoryMod;
     private javax.swing.JLabel jLabel_InvetoryModLabel;
     private javax.swing.JLabel jLabel_LevelAdmin;

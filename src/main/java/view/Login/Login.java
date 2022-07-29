@@ -15,7 +15,7 @@ import view.textPrompt.TextPrompt;
 public class Login extends javax.swing.JFrame {
 
     protected int AxisX , AxisY , AxisXScreen, AxisYScreen;
-    protected String Pass , Email;
+    protected static String Pass , Email;
     protected boolean AuthVerify;
     AuthenticationUser newAuthentication = new AuthenticationUser();
     
@@ -25,19 +25,26 @@ public class Login extends javax.swing.JFrame {
         setShape(new RoundRectangle2D.Double(0,0,getBounds().width,getBounds().height,27,27));
     }
     
+    public String getPass() {
+        String Password = "";
+        if(AuthVerify)
+            Password = Login.Pass;
+        return Password;
+    }
+    
+    public String getEmail() {
+        String Email = "";
+        if(AuthVerify)
+            Email = Login.Pass;
+        return Email;
+    }
+    
     @Override
     public Image getIconImage (){
         Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("images\\Icons\\1x\\IsoT\\IconBase-Default.png"));
         return retValue;
     }
-
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Login().setVisible(true);   
-        }});
-    }
-   
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -246,7 +253,14 @@ public class Login extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-
+    public static void main(String args[]) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Login().setVisible(true);
+                  }
+        });
+    }
+            
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel JLabel_BackgroudImage;
     private javax.swing.JLabel JLabel_Password;

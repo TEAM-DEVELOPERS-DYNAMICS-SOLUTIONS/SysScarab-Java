@@ -6,62 +6,48 @@ import java.util.Map;
 import controller.db.StatementDbSQL;
 
 public class AuthenticationUser {
-	
-	/*
-	comparar Email equals(EmailSQL) && pass equals(passSQL)
-	
-	retornar SatatusConnecionSQL = C
-	
-	generarDeconeccion
+    protected String EmailSQL;
+    protected String PassSQL;
+    protected String StatusConnection;
+    protected boolean AuthVerify;
 
-	fin
-	*/
-	
-	protected String EmailSQL;
-	protected String PassSQL;
-	protected String StatusConnection;
-	protected List<Map<String,String>> listMapsResultUsers;
-        protected boolean AuthVerify;
-        
-        public boolean getAuthVerify(){
-            return this.AuthVerify;
-        };
-        
-	public String getEmailSQL() {
-		return EmailSQL;
-	}
+    public boolean getAuthVerify(){
+        return this.AuthVerify;
+    };
 
-	public void setEmailSQL(String Email) {
-		this.EmailSQL = Email;
-	}
+    public String getEmailSQL() {
+            return EmailSQL;
+    }
 
-	public String getPassSQL() {
-		return PassSQL;
-	}
+    public void setEmailSQL(String Email) {
+            this.EmailSQL = Email;
+    }
 
-	public void setPassSQL(String Pass) {
-		this.PassSQL = Pass;
-	}
+    public String getPassSQL() {
+            return PassSQL;
+    }
 
-	public String getStatusConnection() {
-		return StatusConnection;
-	}
+    public void setPassSQL(String Pass) {
+            this.PassSQL = Pass;
+    }
 
-	public void setStatusConnection(String statusConnection) {
-		this.StatusConnection = statusConnection;
-	}
-	
-	public void connectAuthenticator () {
-		System.out.println("···Authentication User···");
-                System.out.println();
-		System.out.println("in process Authentication...");
-                
-		StatementDbSQL NewStatement = new StatementDbSQL(); 		
-		NewStatement.GenerateStatement_Authentication(PassSQL , EmailSQL);
-                
-                AuthVerify = NewStatement.getAuthVerify();
-	}
-		
+    public String getStatusConnection() {
+            return StatusConnection;
+    }
+
+    public void setStatusConnection(String statusConnection) {
+            this.StatusConnection = statusConnection;
+    }
+
+    public void connectAuthenticator () {
+            System.out.println("···Authentication User···");
+            System.out.println();
+            System.out.println("in process Authentication...");
+
+            StatementDbSQL NewStatement = new StatementDbSQL(); 		
+            NewStatement.GenerateStatement_Authentication(PassSQL , EmailSQL);
+            AuthVerify = NewStatement.getAuthVerify();
+    }		
 }
 	
 

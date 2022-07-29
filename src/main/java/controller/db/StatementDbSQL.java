@@ -4,9 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class StatementDbSQL {
@@ -14,24 +12,23 @@ public class StatementDbSQL {
     protected ConnectionDbSQL connectionSQl = new ConnectionDbSQL(); 
     protected Connection connect; 
     protected static Statement statementSQL = null;
-    protected Map<String, String> mapResultUsers = new HashMap<String,String>();
+    protected static Map<String, String> mapResultUsers = new HashMap<>();
     protected static ResultSet RSSQL ;
     protected static boolean  AuthVerify;
-    
-    static List<Map<String,String>> Users  = new ArrayList();
 
         public boolean getAuthVerify() {
-            return this.AuthVerify;
+            return StatementDbSQL.AuthVerify;
         }  
 
         public void setAuthVerify (boolean AutVerify) {
-            this.AuthVerify = AutVerify;
-        } 
-    
+            StatementDbSQL.AuthVerify = AutVerify;
+        }
+        
+        public Map<String,String> getMapRSSQL() {
+            return StatementDbSQL.mapResultUsers;
+        }
+               
     public Statement GenerateStatement () {
-        /*
-         * Connection's Statement Basic Structure 
-         */
 
         connectionSQl.GenerateConnection();
         connect = connectionSQl.getConnection();
@@ -39,27 +36,27 @@ public class StatementDbSQL {
         try {
             System.err.println(".....................");
             System.out.println("created Statement...");
-            this.statementSQL = connect.createStatement();
+            StatementDbSQL.statementSQL = connect.createStatement();
         } catch (SQLException e) {
             System.out.println("err to create StatementSQL: ");
             e.printStackTrace();	
         }
 
-            if(statementSQL != null)
-                    System.out.println("Statement created success");
+        if(statementSQL != null)
+            System.out.println("Statement created success");
 
-            System.out.println();
+        System.out.println();
             
         return statementSQL;
     };
         
-    public boolean GenerateStatement_Authentication(String pass, String Email ) {
+    public boolean GenerateStatement_Authentication(String pass, String Email) {
         
         GenerateStatement ();
             
         try {			
             statementSQL.execute("Select * from employees where PasswordEmployees = '" + pass + "' and EmailEmployees = '" + Email +"';");
-            this.RSSQL = statementSQL.getResultSet();	
+            StatementDbSQL.RSSQL = statementSQL.getResultSet();	
 
             if(RSSQL.next()) {
                 System.out.println("**usuario loggeado**");
@@ -72,32 +69,30 @@ public class StatementDbSQL {
             }else{
                 System.out.println("**error al loggear al usuario**");
             }
-
+            
         } catch (SQLException e) {
+            System.out.println("err to create StatementSQL: ");
             e.printStackTrace();
         }
 
-            System.out.println();
-
-            connectionSQl.GenerateDisconnection();
+        System.out.println();
+        connectionSQl.GenerateDisconnection();
             
-            return this.AuthVerify;
+        return StatementDbSQL.AuthVerify;
     }
-    
+
     public ResultSet GenerateStatement_GetUsers () {
         GenerateStatement();
         
-         try {			
+        try {			
             statementSQL.execute("Select IdEmployees, ImageEmployees, NameEmployees, LastNameEmployees, EmailEmployees, PasswordEmployees, AddressEmployees, PhoneEmployees, StatusConnectionEmployees, StatusAdminEmployees, GenderEmployees from employees;");
-            
-            this.RSSQL = statementSQL.getResultSet();
-
+            StatementDbSQL.RSSQL = statementSQL.getResultSet();
         } catch (SQLException e) {
+            System.out.println("err to create StatementSQL: ");
             e.printStackTrace();
         }
-
-            System.out.println();
-            
+        
+        System.out.println();    
         return RSSQL;
     }
 }

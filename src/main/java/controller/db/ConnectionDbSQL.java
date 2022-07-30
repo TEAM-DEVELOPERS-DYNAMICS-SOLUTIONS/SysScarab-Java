@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionDbSQL {
-   
+    
     protected String urlConnectionSQL = "jdbc:mysql://localhost/sysdatabase_scarab?userTimeZone=true&serverTimeZone=true" ;
     protected String userConnectionSQL = "root";
     protected String passwordConnectionSQL = "root";
@@ -26,7 +26,7 @@ public class ConnectionDbSQL {
             connectionSQl = DriverManager.getConnection(urlConnectionSQL , userConnectionSQL , passwordConnectionSQL);
             
         if(this.connectionSQl != null)
-            this.setConnectionSQl(connectionSQl);
+                this.setConnectionSQl(connectionSQl);
         
         } catch (SQLException e) {
             System.out.println("err to stablish connection SQL: ");

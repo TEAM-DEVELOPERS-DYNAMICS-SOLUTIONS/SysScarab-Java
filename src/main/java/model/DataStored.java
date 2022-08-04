@@ -5,19 +5,23 @@ package model;
  * @author RODX
  */
 public class DataStored {
-    protected int IdEmployees;
+    protected Integer IdEmployees;
     protected byte[] ImageEmployees;
     protected String NameEmployees;
     protected String LastNameEmployees;
     protected String EmailEmployees;
     protected String AddressEmployees;
+    protected String PasswordEmployees;
     protected String PhoneEmployees;
     protected String StatusConnectionEmployees;
-    protected String StatusAdminEmployees;
-    protected String GenderEmployees;
+    protected Object StatusAdminEmployees;
+    protected Object GenderEmployees;
     
-    // - Getters 
-    public int getIdEmployees() {
+    /**
+     * Getters & Setters
+     */
+    
+    public Integer getIdEmployees() {
         return IdEmployees;
     }
 
@@ -36,6 +40,10 @@ public class DataStored {
     public String getEmailEmployees() {
         return EmailEmployees;
     }
+    
+    public String getPasswordEmployees() {
+        return PasswordEmployees;
+    }
 
     public String getAddressEmployees() {
         return AddressEmployees;
@@ -49,17 +57,15 @@ public class DataStored {
         return StatusConnectionEmployees;
     }
 
-    public String getStatusAdminEmployees() {
+    public Object getStatusAdminEmployees() {
         return StatusAdminEmployees;
     }
 
-    public String getGenderEmployees() {
+    public Object getGenderEmployees() {
         return GenderEmployees;
     }
 
-    
-    // - Setters 
-    public void setIdEmployees(int IdEmployees) {
+    public void setIdEmployees(Integer IdEmployees) {
         this.IdEmployees = IdEmployees;
     }
 
@@ -78,6 +84,10 @@ public class DataStored {
     public void setEmailEmployees(String EmailEmployees) {
         this.EmailEmployees = EmailEmployees;
     }
+    
+    public void setPasswordEmployees(String PasswordEmployees) {
+        this.PasswordEmployees = PasswordEmployees;
+    }
 
     public void setAddressEmployees(String AddressEmployees) {
         this.AddressEmployees = AddressEmployees;
@@ -91,11 +101,11 @@ public class DataStored {
         this.StatusConnectionEmployees = StatusConnectionEmployees;
     }
 
-    public void setStatusAdminEmployees(String StatusAdminEmployees) {
+    public void setStatusAdminEmployees(Object StatusAdminEmployees) {
         this.StatusAdminEmployees = StatusAdminEmployees;
     }
 
-    public void setGenderEmployees(String GenderEmployees) {
+    public void setGenderEmployees(Object GenderEmployees) {
         this.GenderEmployees = GenderEmployees;
     }
 }

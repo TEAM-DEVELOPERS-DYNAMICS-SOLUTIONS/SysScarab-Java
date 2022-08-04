@@ -21,6 +21,7 @@ public class Login extends javax.swing.JFrame {
     
     public Login() {
         initComponents();        
+        this.setLocationRelativeTo(null);
         TextPrompt Placeholder = new TextPrompt ("correo@dominio.com", jTextField_User);
         setShape(new RoundRectangle2D.Double(0,0,getBounds().width,getBounds().height,27,27));
     }
@@ -50,6 +51,8 @@ public class Login extends javax.swing.JFrame {
     private void initComponents() {
 
         PrimaryPanel_login = new javax.swing.JPanel();
+        jLabel_AlertErrAuth = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jLabel_DragArea = new javax.swing.JLabel();
         jLabel_Minimize = new javax.swing.JLabel();
         jLabel_Close = new javax.swing.JLabel();
@@ -63,7 +66,6 @@ public class Login extends javax.swing.JFrame {
         jPasswordField_Password = new javax.swing.JPasswordField();
         jSeparator_Password = new javax.swing.JSeparator();
         jButton_SignIn = new javax.swing.JButton();
-        jLabel_AlertErrAuth = new javax.swing.JLabel();
         jLabel_BackgorundPrimary = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -77,6 +79,14 @@ public class Login extends javax.swing.JFrame {
         PrimaryPanel_login.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         PrimaryPanel_login.setDoubleBuffered(false);
         PrimaryPanel_login.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel_AlertErrAuth.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
+        jLabel_AlertErrAuth.setForeground(new java.awt.Color(255, 255, 255));
+        PrimaryPanel_login.add(jLabel_AlertErrAuth, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 340, -1, -1));
+
+        jLabel1.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel1.setText("Prueba");
+        PrimaryPanel_login.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         jLabel_DragArea.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
@@ -176,10 +186,6 @@ public class Login extends javax.swing.JFrame {
         });
         PrimaryPanel_login.add(jButton_SignIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 370, -1, 30));
 
-        jLabel_AlertErrAuth.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
-        jLabel_AlertErrAuth.setForeground(new java.awt.Color(255, 255, 255));
-        PrimaryPanel_login.add(jLabel_AlertErrAuth, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 340, -1, -1));
-
         jLabel_BackgorundPrimary.setIcon(new javax.swing.ImageIcon("E:\\Programacion\\JavaProjets\\SysScarab\\src\\main\\resources\\images\\Background\\1x\\BackgrondLogin.png")); // NOI18N
         PrimaryPanel_login.add(jLabel_BackgorundPrimary, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 500));
 
@@ -201,13 +207,13 @@ public class Login extends javax.swing.JFrame {
 
     private void jButton_SignInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SignInActionPerformed
         Email = jTextField_User.getText();
-        newAuthentication.setEmailSQL(Email);
+        newAuthentication.setEmail(Email);
         
         Pass = jPasswordField_Password.getText();
-        newAuthentication.setPassSQL(Pass);
-        newAuthentication.connectAuthenticator();
+        newAuthentication.setPass(Pass);
+        newAuthentication.GetDataUser();
         
-        AuthVerify = newAuthentication.getAuthVerify();
+        AuthVerify = newAuthentication.GetAuthVerify();
                
         if(!AuthVerify){
             jLabel_AlertErrAuth.setText("El Usuario y/o Contraseña son erroneos");
@@ -226,7 +232,6 @@ public class Login extends javax.swing.JFrame {
 
     private void jLabel_MinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_MinimizeMouseClicked
         this.setState(Login.ICONIFIED);
-        
     }//GEN-LAST:event_jLabel_MinimizeMouseClicked
 
     private void jLabel_DragAreaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_DragAreaMousePressed
@@ -268,6 +273,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel JLabel_User;
     private javax.swing.JPanel PrimaryPanel_login;
     private javax.swing.JButton jButton_SignIn;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel_AlertErrAuth;
     private javax.swing.JLabel jLabel_BackgorundPrimary;
     private javax.swing.JLabel jLabel_Close;

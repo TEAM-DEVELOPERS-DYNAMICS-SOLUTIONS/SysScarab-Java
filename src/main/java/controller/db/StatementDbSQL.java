@@ -5,129 +5,135 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import model.DataStored;
 
+
+
+/**
+ *
+ * @author RODX
+ */
 public class StatementDbSQL {
     
-    protected ConnectionDbSQL connectionSQl = new ConnectionDbSQL(); 
-    protected Connection connect; 
-    protected static Statement statementSQL = null;
-    protected static PreparedStatement preStatementSQL = null;
-    protected static Map<String, String> mapResultUsers = new HashMap<>();
-    protected static ArrayList ListUsers = null;
-    protected static ResultSet RSSQL = null;
+    protected ConnectionDbSQL newConnection = new ConnectionDbSQL();
+    protected Connection connect;
+    protected static ResultSet RtSet = null;
+    protected static Statement newStatement = null;
+    protected static PreparedStatement newPreStatement = null;
     protected static boolean AuthVerify = false;
     
-    private final String getUserSQL = "Select IdEmployees, ImageEmployees, NameEmployees, LastNameEmployees, EmailEmployees, PasswordEmployees, AddressEmployees, PhoneEmployees, StatusConnectionEmployees, StatusAdminEmployees, GenderEmployees from employees;";
-    private final String setUserSQl = "insert into employees (IdEmployees, ImageEmployees, NameEmployees, LastNameEmployees, EmailEmployees, PasswordEmployees, AddressEmployees, PhoneEmployees, StatusConnectionEmployees, StatusAdminEmployees, GenderEmployees) values ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ?);"; 
+    /**
+     * queries SQL
+     */
     
+    private final String GetEmployeesSQL = "SELECT * FROM EMPLOYEES;";
+    private final String setEmployeesSQl = "INSERT INTO employees (IdEmployees, ImageEmployees, NameEmployees, LastNameEmployees, EmailEmployees, PasswordEmployees, AddressEmployees, PhoneEmployees, StatusConnectionEmployees, StatusAdminEmployees, GenderEmployees) VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ?);"; 
+
+    /** 
+     * Getters & Setters
+     */
     
-    // - getters
     public boolean getAuthVerify() {
         return StatementDbSQL.AuthVerify;
     }  
-
-    public Map<String,String> getMapRSSQL() {
-        return StatementDbSQL.mapResultUsers;
-    }
     
-    // - Setters 
     public void setAuthVerify (boolean AutVerify) {
         StatementDbSQL.AuthVerify = AutVerify;
     }
-
-    // - Methods 
+    
+    /**
+     * Methods
+     */
+    
     public Statement GenerateStatement () {
-
-        connectionSQl.GenerateConnection();
-        connect = connectionSQl.getConnection();
-
+        System.err.println("");
+        System.err.println("Start SDS_GSt");
+        newConnection.GenerateConnection();
+        connect = newConnection.getConnection();
+        
         try {
-            System.err.println(".....................");
-            System.out.println("created Statement....");
-            StatementDbSQL.statementSQL = connect.createStatement();
+            
+            System.out.println("Flag SDS: created Statement....");
+            StatementDbSQL.newStatement = connect.createStatement();
         } catch (SQLException e) {
-            System.out.println("err to create StatementSQL");
+            System.out.println("Flag SDS: err to create StatementSQL: ");
+            e.printStackTrace();
         }
-        if(statementSQL != null)
-            System.out.println("Statement created success");
         
-        System.out.println();   
-        return statementSQL;
-    };
+        if(newStatement != null)
+            System.out.println("Flag SDS: Statement created success");
         
-    public boolean GenerateStatement_Authentication(String pass, String Email) {
-        GenerateStatement ();  
+        System.err.println("Exit SDS_GT");
+        System.out.println();
+        return StatementDbSQL.newStatement;
+    }
+    
+    public ResultSet GenerateStatement_Authentication(String Pass, String Email) {
+        System.err.println("");
+        System.err.println("Start SDS_A");
+        GenerateStatement ();
+        
         try {			
-            statementSQL.execute("Select * from employees where PasswordEmployees = '" + pass + "' and EmailEmployees = '" + Email +"';");
-            StatementDbSQL.RSSQL = statementSQL.getResultSet();
-            if(RSSQL.next()) {
-                System.out.println("**usuario loggeado**");
-                mapResultUsers.put("IdUser",RSSQL.getString("IdEmployees"));
-                mapResultUsers.put("NameUser",RSSQL.getString("nameEmployees"));
-                mapResultUsers.put("LastNameUser",RSSQL.getString("LastNameEmployees"));			
-                mapResultUsers.put("StatusAdminEmployees",RSSQL.getString("StatusAdminEmployees"));
-                mapResultUsers.put("StatusConnectionEmployees",RSSQL.getString("StatusConnectionEmployees"));
-                this.setAuthVerify(true);
+            newStatement.execute("Select * from employees where PasswordEmployees = '" + Pass + "' and EmailEmployees = '" + Email +"';");
+            StatementDbSQL.RtSet = newStatement.getResultSet();
+            if(RtSet.next()) {
+                System.out.println("Flag SDS: **usuario loggeado**");
+                setAuthVerify(true);
             }else{
-                System.out.println("**error al loggear al usuario**");
+                System.out.println("Flag SDS: **err to loggin user**");
             }
         } catch (SQLException e) {
-            System.out.println("err to create StatementSQL");
+            System.out.println("Flag SDS: err to create StatementSQL: ");
+            e.printStackTrace();
         }
 
         System.out.println();
-        connectionSQl.GenerateDisconnection();  
-        return StatementDbSQL.AuthVerify;
+        //newConnection.GenerateDisconnection();
+        System.err.println("Exit SDS_A");
+        System.out.println();
+        return StatementDbSQL.RtSet;
     }
-
-    public void GenerateStatement_SetUser (DataStored DS) {
+    
+    public ResultSet GenerateStatement_GetEmployees() {
+        System.out.println();
+        System.err.println("Start SDS_GE");
+        GenerateStatement();
+        
         try {
-            preStatementSQL = connect.prepareStatement(setUserSQl);
-            preStatementSQL.setInt(1, DS.getIdEmployees());
-            preStatementSQL.setBytes(2, DS.getImageEmployees());
-            preStatementSQL.setString(3, DS.getNameEmployees());
-            preStatementSQL.setString(4, DS.getLastNameEmployees());
-            preStatementSQL.setString(5, DS.getAddressEmployees());
-            preStatementSQL.setString(6, DS.getPhoneEmployees());
-            preStatementSQL.setString(7, DS.getStatusConnectionEmployees());
-            preStatementSQL.setString(7, DS.getStatusAdminEmployees());
-            preStatementSQL.setString(7, DS.getGenderEmployees());
-            preStatementSQL.executeUpdate();    
-        } catch (SQLException ex) {
-        } finally {
-            try {
-                preStatementSQL.close();
-            } catch (SQLException ex) {
-            }
-        }
-    }
-
-    public ArrayList GenerateStatement_GetUsers () {
-                
-        try {
-            RSSQL = GenerateStatement().executeQuery(setUserSQl);
-            while (RSSQL.next()) {
-               DataStored DSUser = new DataStored();
-               DSUser.setIdEmployees(RSSQL.getInt("IdEmployees"));
-               DSUser.setImageEmployees(RSSQL.getBytes("ImageEmployees"));
-               DSUser.setNameEmployees(RSSQL.getString("NameEmployees"));
-               DSUser.setLastNameEmployees(RSSQL.getString("LastNameEmployees"));
-               DSUser.setAddressEmployees(RSSQL.getString("AddressEmployees"));
-               DSUser.setPhoneEmployees(RSSQL.getString("PhoneEmployees"));
-               DSUser.setStatusConnectionEmployees(RSSQL.getString("StatusConnectionEmployees"));
-               DSUser.setStatusAdminEmployees(RSSQL.getString("StatusAdminEmployees"));
-               DSUser.setGenderEmployees(RSSQL.getString("GenderEmployees"));
-            }    
-        } catch (Exception e) {
-            System.out.println("err to create StatementSQL");
-            return null;
+            newStatement.execute(GetEmployeesSQL);
+                RtSet = newStatement.getResultSet();
+        } catch (SQLException e) {
+            System.out.println("Flag SDS: err to execute query *getEmployees*");
+            e.printStackTrace();
         }
         
-        System.out.println();    
-        return ListUsers ;
+        System.err.println("Exit SDS_GE");
+        System.out.println();
+        return StatementDbSQL.RtSet;
+    }
+    
+    public void GenerateStatement_SetEmployees(int IdEmployees, byte[] ImageEmployees, String NameEmployees, String LastNameEmployees, String AddressEmployees, String PasswordEmployees, String PhoneEmployees, Object StatusAdminEmployees, Object GenderEmployees) {
+        System.out.println();
+        System.err.println("Start SDS_SE");
+        GenerateStatement();
+        
+        try {
+            newPreStatement.executeQuery(GetEmployeesSQL);
+            newPreStatement.setInt(1, IdEmployees);
+            newPreStatement.setBytes(2, ImageEmployees);
+            newPreStatement.setString(3, NameEmployees);
+            newPreStatement.setString(4, LastNameEmployees);
+            newPreStatement.setString(5, AddressEmployees);
+            newPreStatement.setString(5, PasswordEmployees);
+            newPreStatement.setString(6, PhoneEmployees);
+            newPreStatement.setObject(7,StatusAdminEmployees);
+            newPreStatement.setObject(8, GenderEmployees);
+            newPreStatement.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Flag SDS: err to execute query *setEmployees*");
+            e.printStackTrace();
+        }
+        
+        System.err.println("Exit SDS_SE");
+        System.out.println();
     }
 }

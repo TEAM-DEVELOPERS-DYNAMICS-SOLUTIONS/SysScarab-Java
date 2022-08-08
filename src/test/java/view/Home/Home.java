@@ -6,9 +6,16 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
 import controller.user.Employees.EmployeesData;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import view.Home.Forms.RegisterUser_form;
+import view.RenderImageTable;
 
 
 
@@ -56,10 +63,9 @@ public final class Home extends javax.swing.JFrame {
         modelTable.addColumn("Apellido");
         modelTable.addColumn("Correo");
         modelTable.addColumn("Contraseña");
-        modelTable.addColumn("Direccion");
         modelTable.addColumn("Telefono");
-        modelTable.addColumn("StC");
         modelTable.addColumn("StA");
+        modelTable.addColumn("StC");
         modelTable.addColumn("Genero");
         return modelTable;
     }
@@ -230,7 +236,6 @@ public final class Home extends javax.swing.JFrame {
 
         jLabel_LogoScarab.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
         jLabel_LogoScarab.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel_LogoScarab.setIcon(new javax.swing.ImageIcon("E:\\Programacion\\JavaProjets\\SysScarab\\src\\main\\resources\\images\\Icons\\1x\\IsoT\\Icon-20px.png")); // NOI18N
         jLabel_LogoScarab.setText("SCARAB");
         jLabel_LogoScarab.setDebugGraphicsOptions(javax.swing.DebugGraphics.BUFFERED_OPTION);
 
@@ -287,17 +292,17 @@ public final class Home extends javax.swing.JFrame {
         jLabel_AccountingMod.setBackground(new java.awt.Color(51, 51, 51));
         jLabel_AccountingMod.setForeground(new java.awt.Color(255, 255, 255));
         jLabel_AccountingMod.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel_AccountingMod.setIcon(new javax.swing.ImageIcon("E:\\Programacion\\JavaProjets\\SysScarab\\src\\main\\resources\\images\\Icons\\1x\\IconAccounting.png")); // NOI18N
+        jLabel_AccountingMod.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Icons/1x/IconAccounting.png"))); // NOI18N
 
         jLabel_InventoryMod.setBackground(new java.awt.Color(51, 51, 51));
         jLabel_InventoryMod.setForeground(new java.awt.Color(255, 255, 255));
         jLabel_InventoryMod.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel_InventoryMod.setIcon(new javax.swing.ImageIcon("E:\\Programacion\\JavaProjets\\SysScarab\\src\\main\\resources\\images\\Icons\\1x\\IconInventoy.png")); // NOI18N
+        jLabel_InventoryMod.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Icons/1x/IconInventoy.png"))); // NOI18N
 
         jLabel_AdminMod.setBackground(new java.awt.Color(51, 51, 51));
         jLabel_AdminMod.setForeground(new java.awt.Color(255, 255, 255));
         jLabel_AdminMod.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel_AdminMod.setIcon(new javax.swing.ImageIcon("E:\\Programacion\\JavaProjets\\SysScarab\\src\\main\\resources\\images\\Icons\\1x\\IconManagement.png")); // NOI18N
+        jLabel_AdminMod.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Icons/1x/IconManagement.png"))); // NOI18N
         jLabel_AdminMod.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel_AdminModMouseClicked(evt);
@@ -447,6 +452,7 @@ public final class Home extends javax.swing.JFrame {
         jTable_TableAdminSQL.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         jTable_TableAdminSQL.setFont(new java.awt.Font("Roboto Light", 0, 16)); // NOI18N
         jTable_TableAdminSQL.setModel(jTable_TableAdminSQL.getModel());
+        jTable_TableAdminSQL.setRowHeight(60);
         jScrollPane1.setViewportView(jTable_TableAdminSQL);
 
         jLabel_ButtonCleanTable.setForeground(new java.awt.Color(102, 102, 102));
@@ -609,20 +615,31 @@ public final class Home extends javax.swing.JFrame {
         DefaultTableModel modelTable = CreateModelTableEmployees();
         EmployeesData ED_GetData = new EmployeesData();
         ResultSet RtSet = ED_GetData.GetDataEmployees();;
+        jTable_TableAdminSQL.setDefaultRenderer(Object.class, new RenderImageTable());
+        
         if(AuthVerify){
             Object EmployeesData[] = new Object[11];
             try {
                 while (RtSet.next()) {
                     EmployeesData[0] = String.valueOf(RtSet.getString("IdEmployees"));
-                    EmployeesData[1] = String.valueOf(RtSet.getString("ImageEmployees"));
                     EmployeesData[2] = String.valueOf(RtSet.getString("NameEmployees"));
                     EmployeesData[3] = String.valueOf(RtSet.getString("LastNameEmployees"));
-                    EmployeesData[4] = String.valueOf(RtSet.getString("AddressEmployees"));
+                    EmployeesData[4] = String.valueOf(RtSet.getString("EmailEmployees"));
                     EmployeesData[5] = String.valueOf(RtSet.getString("PasswordEmployees"));
                     EmployeesData[6] = String.valueOf(RtSet.getString("PhoneEmployees"));
                     EmployeesData[7] = String.valueOf(RtSet.getString("StatusAdminEmployees"));
                     EmployeesData[8] = String.valueOf(RtSet.getString("StatusConnectionEmployees"));
                     EmployeesData[9] = String.valueOf(RtSet.getString("GenderEmployees"));
+                    try {
+                        byte [] images = RtSet.getBytes("ImageEmployees");
+                        BufferedImage bfImages = null;
+                        InputStream iStImage = new ByteArrayInputStream(images);
+                        bfImages = ImageIO.read(iStImage);
+                        ImageIcon iIcImages = new ImageIcon(bfImages.getScaledInstance(60, 60, 0));
+                        EmployeesData[1] = new JLabel(iIcImages);
+                    } catch (Exception e) {
+                        EmployeesData[1] = "Sin Imagen";
+                    }
                     modelTable.addRow(EmployeesData);
                 } 
             } catch (SQLException e){

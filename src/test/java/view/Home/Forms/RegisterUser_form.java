@@ -4,18 +4,72 @@
  */
 package view.Home.Forms;
 
+import controller.db.StatementDbSQL;
+import java.awt.Image;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import view.textPrompt.TextPrompt;
+
 /**
  *
  * @author RODX
  */
 public class RegisterUser_form extends javax.swing.JFrame {
-
+    
+    protected StatementDbSQL newStatement = new StatementDbSQL();
+    protected String ruta;
+    protected boolean AuthVerify = newStatement.getAuthVerify();
+    
     /**
      * Creates new form RegisterUser_form
      */
     public RegisterUser_form() {
-        initComponents();
-        this.setLocationRelativeTo(null);
+        if (AuthVerify){
+                initComponents();
+            this.setLocationRelativeTo(null);
+
+                //PlaceHolders
+            TextPrompt PlaceholderId = new TextPrompt ("Id/Identidicacion", jTextField_IdEmployees);
+            TextPrompt PlaceholderName = new TextPrompt ("Nombres Completos", jTextField_nameEmployees);
+            TextPrompt PlaceholderLastName = new TextPrompt ("Apellidos Completos", jTextField_LastNameEmployees);
+            TextPrompt PlaceholderEmail = new TextPrompt ("correo@dominio.com", jTextField_EmailEmployees);
+            TextPrompt PlaceholderPassword = new TextPrompt ("contraseña", jTextField_PassEmployees);
+            TextPrompt PlaceholderAddress = new TextPrompt ("cra 0 # 0 - null Complemento, Departamento, Ciudad", jTextField_AddressEmployees);
+            TextPrompt PlaceholderPhone = new TextPrompt ("3103103131", jTextField_PhoneEmployees);
+
+                //Items ComboBoxs
+                //StatusAdmin
+            jComboBox_SAEmployees.removeAllItems();
+            jComboBox_SAEmployees.addItem("Administrador");
+            jComboBox_SAEmployees.addItem("Empleado");
+            jComboBox_SAEmployees.addItem("No Aplica");
+                //Gender
+            jComboBox_GenderEmployees.removeAllItems();
+            jComboBox_GenderEmployees.addItem("Masculino");
+            jComboBox_GenderEmployees.addItem("Femenino");
+            jComboBox_GenderEmployees.addItem("Indefinido");
+        } else {
+            JOptionPane.showMessageDialog(null,"Accion no permitida: Usuario no loggeado");
+            System.exit(0);
+        }
+    }
+    
+    private byte[] convertImage () {
+        File image = new File(ruta);
+        
+        try {
+            byte[] icon =  new byte[(int) image.length()];
+            InputStream input = new FileInputStream(image);
+            input.read(icon);
+            return icon;
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     /**
@@ -89,7 +143,7 @@ public class RegisterUser_form extends javax.swing.JFrame {
         jLabel_TFIdEmployees.setForeground(new java.awt.Color(36, 36, 36));
         jLabel_TFIdEmployees.setText("Id");
 
-        jTextField_IdEmployees.setText("jTextField1");
+        jTextField_IdEmployees.setBackground(new java.awt.Color(255, 255, 255));
         jTextField_IdEmployees.setBorder(null);
 
         jSeparator1.setBackground(new java.awt.Color(255, 255, 255));
@@ -99,7 +153,7 @@ public class RegisterUser_form extends javax.swing.JFrame {
         jLabel_TFNameEmployees.setForeground(new java.awt.Color(36, 36, 36));
         jLabel_TFNameEmployees.setText("Nombre");
 
-        jTextField_nameEmployees.setText("jTextField1");
+        jTextField_nameEmployees.setBackground(new java.awt.Color(255, 255, 255));
         jTextField_nameEmployees.setBorder(null);
 
         jSeparator2.setBackground(new java.awt.Color(255, 255, 255));
@@ -109,7 +163,7 @@ public class RegisterUser_form extends javax.swing.JFrame {
         jLabel_TFLastNameEmployees.setForeground(new java.awt.Color(36, 36, 36));
         jLabel_TFLastNameEmployees.setText("Apellidos");
 
-        jTextField_LastNameEmployees.setText("jTextField1");
+        jTextField_LastNameEmployees.setBackground(new java.awt.Color(255, 255, 255));
         jTextField_LastNameEmployees.setBorder(null);
 
         jSeparator3.setBackground(new java.awt.Color(255, 255, 255));
@@ -119,7 +173,7 @@ public class RegisterUser_form extends javax.swing.JFrame {
         jLabel_TFEmailEmployees.setForeground(new java.awt.Color(36, 36, 36));
         jLabel_TFEmailEmployees.setText("Correo");
 
-        jTextField_EmailEmployees.setText("jTextField1");
+        jTextField_EmailEmployees.setBackground(new java.awt.Color(255, 255, 255));
         jTextField_EmailEmployees.setBorder(null);
 
         jSeparator4.setBackground(new java.awt.Color(255, 255, 255));
@@ -129,7 +183,7 @@ public class RegisterUser_form extends javax.swing.JFrame {
         jLabel_TFPassEmployees.setForeground(new java.awt.Color(36, 36, 36));
         jLabel_TFPassEmployees.setText("Contraseña");
 
-        jTextField_PassEmployees.setText("jTextField1");
+        jTextField_PassEmployees.setBackground(new java.awt.Color(255, 255, 255));
         jTextField_PassEmployees.setBorder(null);
 
         jSeparator5.setBackground(new java.awt.Color(255, 255, 255));
@@ -139,7 +193,7 @@ public class RegisterUser_form extends javax.swing.JFrame {
         jLabel_TFAddressEmployees.setForeground(new java.awt.Color(36, 36, 36));
         jLabel_TFAddressEmployees.setText("Direccion");
 
-        jTextField_AddressEmployees.setText("jTextField1");
+        jTextField_AddressEmployees.setBackground(new java.awt.Color(255, 255, 255));
         jTextField_AddressEmployees.setBorder(null);
 
         jSeparator6.setBackground(new java.awt.Color(255, 255, 255));
@@ -149,7 +203,7 @@ public class RegisterUser_form extends javax.swing.JFrame {
         jLabel_TFPhoneEmployees.setForeground(new java.awt.Color(36, 36, 36));
         jLabel_TFPhoneEmployees.setText("Telefono");
 
-        jTextField_PhoneEmployees.setText("jTextField1");
+        jTextField_PhoneEmployees.setBackground(new java.awt.Color(255, 255, 255));
         jTextField_PhoneEmployees.setBorder(null);
 
         jSeparator7.setBackground(new java.awt.Color(255, 255, 255));
@@ -418,11 +472,53 @@ public class RegisterUser_form extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel_ButtonSelectImageEmployeesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ButtonSelectImageEmployeesMouseClicked
-        //&&
+        JFileChooser fileChooser = new JFileChooser();
+        FileNameExtensionFilter extensionFilter = new FileNameExtensionFilter("jpg, png & gif", "jpg", "jpeg", "png", "gif");
+        fileChooser.setFileFilter(extensionFilter);
+        if(fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
+            ruta = fileChooser.getSelectedFile().getAbsolutePath();
+            Image fcImages = new ImageIcon(ruta).getImage();
+            ImageIcon iIcFCImage = new ImageIcon(fcImages.getScaledInstance(jLabel_imageLoadEmployees.getWidth(),jLabel_imageLoadEmployees.getHeight(), 0));
+            jLabel_imageLoadEmployees.setIcon(iIcFCImage);
+            jLabel_imageLoadEmployees.setText("");
+        }
     }//GEN-LAST:event_jLabel_ButtonSelectImageEmployeesMouseClicked
 
     private void jLabel_ButtonSaveDataEmployeesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ButtonSaveDataEmployeesMouseClicked
-        //&&
+        String Id = jTextField_IdEmployees.getText()
+             , Name = jTextField_nameEmployees.getText()
+             , LastName = jTextField_LastNameEmployees.getText()
+             , Email = jTextField_EmailEmployees.getText()
+             , Password = jTextField_PassEmployees.getText()
+             , Phone = jTextField_PhoneEmployees.getText()
+             , Address = jTextField_AddressEmployees.getText();
+        
+        Object StatusAdmin = null
+             , Gender = null;
+        
+        switch (jComboBox_SAEmployees.getSelectedIndex()) {
+            case 0:
+                StatusAdmin = "AD";
+            
+            case 1:
+                StatusAdmin = "EP";
+            
+            case 2:
+                StatusAdmin = "NA";
+        }
+        
+        switch (jComboBox_GenderEmployees.getSelectedIndex()) {
+            case 0: 
+                Gender = "M";
+            
+            case 1:
+                Gender = "F";
+            
+            case 3: 
+                Gender = "I";
+        }
+        
+        newStatement.GenerateStatement_SetEmployees(Integer.parseInt(Id), convertImage(), Name, LastName, Email ,Address, Password, Phone, StatusAdmin, Gender);
     }//GEN-LAST:event_jLabel_ButtonSaveDataEmployeesMouseClicked
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked

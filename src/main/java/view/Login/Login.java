@@ -186,7 +186,7 @@ public class Login extends javax.swing.JFrame {
         });
         PrimaryPanel_login.add(jButton_SignIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 370, -1, 30));
 
-        jLabel_BackgorundPrimary.setIcon(new javax.swing.ImageIcon("E:\\Programacion\\JavaProjets\\SysScarab\\src\\main\\resources\\images\\Background\\1x\\BackgrondLogin.png")); // NOI18N
+        jLabel_BackgorundPrimary.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Background/1x/BackgrondLogin.png"))); // NOI18N
         PrimaryPanel_login.add(jLabel_BackgorundPrimary, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 500));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

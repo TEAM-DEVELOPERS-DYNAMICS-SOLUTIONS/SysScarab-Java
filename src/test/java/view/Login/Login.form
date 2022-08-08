@@ -316,7 +316,7 @@
         <Component class="javax.swing.JLabel" name="jLabel_BackgorundPrimary">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="E:\Programacion\JavaProjets\SysScarab\src\main\resources\images\Background\1x\BackgrondLogin.png"/>
+              <Image iconType="3" name="/images/Background/1x/BackgrondLogin.png"/>
             </Property>
           </Properties>
           <Constraints>

@@ -5,6 +5,7 @@
 package view.Home.Forms;
 
 import controller.db.StatementDbSQL;
+import controller.user.Employees.EmployeesData;
 import java.awt.Image;
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,6 +14,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import view.Home.Home;
 import view.textPrompt.TextPrompt;
 
 /**
@@ -21,49 +23,50 @@ import view.textPrompt.TextPrompt;
  */
 public class RegisterUser_form extends javax.swing.JFrame {
     
+    protected EmployeesData NewEmployeesData = new EmployeesData();
     protected StatementDbSQL newStatement = new StatementDbSQL();
     protected String ruta;
     protected boolean AuthVerify = newStatement.getAuthVerify();
-    
+
     /**
      * Creates new form RegisterUser_form
      */
     public RegisterUser_form() {
-        if (AuthVerify){
-                initComponents();
+        if (AuthVerify) {
+            initComponents();
             this.setLocationRelativeTo(null);
 
-                //PlaceHolders
-            TextPrompt PlaceholderId = new TextPrompt ("Id/Identidicacion", jTextField_IdEmployees);
-            TextPrompt PlaceholderName = new TextPrompt ("Nombres Completos", jTextField_nameEmployees);
-            TextPrompt PlaceholderLastName = new TextPrompt ("Apellidos Completos", jTextField_LastNameEmployees);
-            TextPrompt PlaceholderEmail = new TextPrompt ("correo@dominio.com", jTextField_EmailEmployees);
-            TextPrompt PlaceholderPassword = new TextPrompt ("contraseña", jTextField_PassEmployees);
-            TextPrompt PlaceholderAddress = new TextPrompt ("cra 0 # 0 - null Complemento, Departamento, Ciudad", jTextField_AddressEmployees);
-            TextPrompt PlaceholderPhone = new TextPrompt ("3103103131", jTextField_PhoneEmployees);
+            //PlaceHolders
+            TextPrompt PlaceholderId = new TextPrompt("Id/Identidicacion", jTextField_IdEmployees);
+            TextPrompt PlaceholderName = new TextPrompt("Nombres Completos", jTextField_nameEmployees);
+            TextPrompt PlaceholderLastName = new TextPrompt("Apellidos Completos", jTextField_LastNameEmployees);
+            TextPrompt PlaceholderEmail = new TextPrompt("correo@dominio.com", jTextField_EmailEmployees);
+            TextPrompt PlaceholderPassword = new TextPrompt("contraseña", jTextField_PassEmployees);
+            TextPrompt PlaceholderAddress = new TextPrompt("cra 0 # 0 - null Complemento, Departamento, Ciudad", jTextField_AddressEmployees);
+            TextPrompt PlaceholderPhone = new TextPrompt("3103103131", jTextField_PhoneEmployees);
 
-                //Items ComboBoxs
-                //StatusAdmin
+            //Items ComboBoxs
+            //StatusAdmin
             jComboBox_SAEmployees.removeAllItems();
             jComboBox_SAEmployees.addItem("Administrador");
             jComboBox_SAEmployees.addItem("Empleado");
             jComboBox_SAEmployees.addItem("No Aplica");
-                //Gender
+            //Gender
             jComboBox_GenderEmployees.removeAllItems();
             jComboBox_GenderEmployees.addItem("Masculino");
             jComboBox_GenderEmployees.addItem("Femenino");
             jComboBox_GenderEmployees.addItem("Indefinido");
         } else {
-            JOptionPane.showMessageDialog(null,"Accion no permitida: Usuario no loggeado");
+            JOptionPane.showMessageDialog(null, "Accion no permitida: Usuario no loggeado");
             System.exit(0);
         }
     }
-    
-    private byte[] convertImage () {
+
+    private byte[] convertImage() {
         File image = new File(ruta);
-        
+
         try {
-            byte[] icon =  new byte[(int) image.length()];
+            byte[] icon = new byte[(int) image.length()];
             InputStream input = new FileInputStream(image);
             input.read(icon);
             return icon;
@@ -83,7 +86,7 @@ public class RegisterUser_form extends javax.swing.JFrame {
 
         PrimaryPanel_FormRegisterUser = new javax.swing.JPanel();
         jPanel_registerEmployees = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        jLabel_Exit = new javax.swing.JLabel();
         jLabel_TitlePanelRE = new javax.swing.JLabel();
         jPanel_TextFieldsForm = new javax.swing.JPanel();
         jLabel_TFIdEmployees = new javax.swing.JLabel();
@@ -119,16 +122,17 @@ public class RegisterUser_form extends javax.swing.JFrame {
         jLabel_ButtonSaveDataEmployees = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Registro");
         setUndecorated(true);
 
         jPanel_registerEmployees.setBackground(new java.awt.Color(255, 255, 255));
         jPanel_registerEmployees.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         jPanel_registerEmployees.setForeground(java.awt.Color.darkGray);
 
-        jLabel1.setText("X");
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabel_Exit.setText("X");
+        jLabel_Exit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel1MouseClicked(evt);
+                jLabel_ExitMouseClicked(evt);
             }
         });
 
@@ -410,7 +414,7 @@ public class RegisterUser_form extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel_TitlePanelRE, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
-                .addComponent(jLabel1)
+                .addComponent(jLabel_Exit)
                 .addContainerGap())
             .addGroup(jPanel_registerEmployeesLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -433,7 +437,7 @@ public class RegisterUser_form extends javax.swing.JFrame {
                         .addComponent(jLabel_TitlePanelRE))
                     .addGroup(jPanel_registerEmployeesLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel1)))
+                        .addComponent(jLabel_Exit)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel_registerEmployeesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel_TextFieldsForm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -475,56 +479,52 @@ public class RegisterUser_form extends javax.swing.JFrame {
         JFileChooser fileChooser = new JFileChooser();
         FileNameExtensionFilter extensionFilter = new FileNameExtensionFilter("jpg, png & gif", "jpg", "jpeg", "png", "gif");
         fileChooser.setFileFilter(extensionFilter);
-        if(fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
+        if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             ruta = fileChooser.getSelectedFile().getAbsolutePath();
             Image fcImages = new ImageIcon(ruta).getImage();
-            ImageIcon iIcFCImage = new ImageIcon(fcImages.getScaledInstance(jLabel_imageLoadEmployees.getWidth(),jLabel_imageLoadEmployees.getHeight(), 0));
+            ImageIcon iIcFCImage = new ImageIcon(fcImages.getScaledInstance(jLabel_imageLoadEmployees.getWidth(), jLabel_imageLoadEmployees.getHeight(), 0));
             jLabel_imageLoadEmployees.setIcon(iIcFCImage);
             jLabel_imageLoadEmployees.setText("");
         }
     }//GEN-LAST:event_jLabel_ButtonSelectImageEmployeesMouseClicked
 
     private void jLabel_ButtonSaveDataEmployeesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ButtonSaveDataEmployeesMouseClicked
-        String Id = jTextField_IdEmployees.getText()
-             , Name = jTextField_nameEmployees.getText()
-             , LastName = jTextField_LastNameEmployees.getText()
-             , Email = jTextField_EmailEmployees.getText()
-             , Password = jTextField_PassEmployees.getText()
-             , Phone = jTextField_PhoneEmployees.getText()
-             , Address = jTextField_AddressEmployees.getText();
-        
-        Object StatusAdmin = null
-             , Gender = null;
-        
+        String Id = jTextField_IdEmployees.getText(), Name = jTextField_nameEmployees.getText(), LastName = jTextField_LastNameEmployees.getText(), Email = jTextField_EmailEmployees.getText(), Password = jTextField_PassEmployees.getText(), Phone = jTextField_PhoneEmployees.getText(), Address = jTextField_AddressEmployees.getText();
+
+        Object StatusAdmin = null, Gender = null;
+
         switch (jComboBox_SAEmployees.getSelectedIndex()) {
             case 0:
                 StatusAdmin = "AD";
-            
+
             case 1:
                 StatusAdmin = "EP";
-            
+
             case 2:
                 StatusAdmin = "NA";
         }
-        
+
         switch (jComboBox_GenderEmployees.getSelectedIndex()) {
-            case 0: 
+            case 0:
                 Gender = "M";
-            
+
             case 1:
                 Gender = "F";
-            
-            case 3: 
+
+            case 3:
                 Gender = "I";
         }
-        
-        newStatement.GenerateStatement_SetEmployees(Integer.parseInt(Id), convertImage(), Name, LastName, Email ,Address, Password, Phone, StatusAdmin, Gender);
+
+       // newStatement.GenerateStatement_SetEmployees(Integer.parseInt(Id), convertImage(), Name, LastName, Email, Address, Password, Phone, StatusAdmin, Gender);
+        NewEmployeesData.setDataEmployees(Integer.parseInt(Id), convertImage(), Name, LastName, Email, Address, Password, Phone, StatusAdmin, Gender);
+        JOptionPane.showMessageDialog(null, "Usuario Registrado");
+        setVisible(false);
     }//GEN-LAST:event_jLabel_ButtonSaveDataEmployeesMouseClicked
 
-    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+    private void jLabel_ExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ExitMouseClicked
         // TODO add your handling code here:
         setVisible(false);
-    }//GEN-LAST:event_jLabel1MouseClicked
+    }//GEN-LAST:event_jLabel_ExitMouseClicked
 
     /**
      * @param args the command line arguments
@@ -565,9 +565,9 @@ public class RegisterUser_form extends javax.swing.JFrame {
     private javax.swing.JPanel PrimaryPanel_FormRegisterUser;
     private javax.swing.JComboBox<String> jComboBox_GenderEmployees;
     private javax.swing.JComboBox<String> jComboBox_SAEmployees;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel_ButtonSaveDataEmployees;
     private javax.swing.JLabel jLabel_ButtonSelectImageEmployees;
+    private javax.swing.JLabel jLabel_Exit;
     private javax.swing.JLabel jLabel_PerfilEmployees;
     private javax.swing.JLabel jLabel_TFAddressEmployees;
     private javax.swing.JLabel jLabel_TFEmailEmployees;

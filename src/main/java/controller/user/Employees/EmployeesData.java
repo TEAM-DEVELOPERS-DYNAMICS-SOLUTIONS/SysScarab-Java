@@ -27,7 +27,7 @@ public class EmployeesData {
         return EmployeesData.RtSet;
     }
     
-    public void setDataUser(int IdEmployees, byte[] ImageEmployees, String NameEmployees, String LastNameEmployees, String EmailEmployees , String AddressEmployees, String PasswordEmployees, String PhoneEmployees, Object StatusAdminEmployees, Object GenderEmployees) {
+    public void setDataEmployees(int IdEmployees, byte[] ImageEmployees, String NameEmployees, String LastNameEmployees, String EmailEmployees , String AddressEmployees, String PasswordEmployees, String PhoneEmployees, Object StatusAdminEmployees, Object GenderEmployees) {
         System.out.println();
         System.err.println("Start ED");
         newStatement.GenerateStatement_SetEmployees(IdEmployees, ImageEmployees, NameEmployees, LastNameEmployees, EmailEmployees, AddressEmployees, PasswordEmployees, PhoneEmployees, StatusAdminEmployees, GenderEmployees);

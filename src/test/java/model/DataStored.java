@@ -5,6 +5,7 @@ package model;
  * @author RODX
  */
 public class DataStored {
+
     protected Integer IdEmployees;
     protected byte[] ImageEmployees;
     protected String NameEmployees;
@@ -16,11 +17,10 @@ public class DataStored {
     protected String StatusConnectionEmployees;
     protected Object StatusAdminEmployees;
     protected Object GenderEmployees;
-    
+
     /**
      * Getters & Setters
      */
-    
     public Integer getIdEmployees() {
         return IdEmployees;
     }
@@ -40,7 +40,7 @@ public class DataStored {
     public String getEmailEmployees() {
         return EmailEmployees;
     }
-    
+
     public String getPasswordEmployees() {
         return PasswordEmployees;
     }
@@ -84,7 +84,7 @@ public class DataStored {
     public void setEmailEmployees(String EmailEmployees) {
         this.EmailEmployees = EmailEmployees;
     }
-    
+
     public void setPasswordEmployees(String PasswordEmployees) {
         this.PasswordEmployees = PasswordEmployees;
     }

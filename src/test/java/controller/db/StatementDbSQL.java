@@ -29,12 +29,15 @@ public class StatementDbSQL {
     public void setAuthVerify(boolean AutVerify) {
         StatementDbSQL.AuthVerify = AutVerify;
     }
-
+    
+    // <editor-fold defaultstate="collapsed" desc="Methods">
+    
     /**
-     * Methods
+     * el sistema aun no esta optimizado!
+     * Faltan uno cuantos ajustes para mejorar y generalizar mas los metodos.
      */
     
-    // generators 
+    // <editor-fold defaultstate="collapsed" desc="Generators">  
     public Statement GenerateStatement() {
         System.err.println("");
         System.err.println("Start SDS_GSt");
@@ -82,8 +85,9 @@ public class StatementDbSQL {
         System.out.println();
         return StatementDbSQL.newPreStatement;
     }
+    // </editor-fold> 
     
-    // Employees
+    // <editor-fold defaultstate="collapsed" desc="Employees Methods">
     public ResultSet GenerateStatement_Authentication(String Pass, String Email) {
         System.err.println("");
         System.err.println("Start SDS_A");
@@ -154,15 +158,21 @@ public class StatementDbSQL {
         System.out.println();
     }
 
-    public void GenerateStatement_UpdateEmployees(String ColumnTag, Object Value, Object ConditionWhere) {
+    public void GenerateStatement_UpdateEmployees(byte[] ImageEmployees, String NameEmployees, String LastNameEmployees, String EmailEmployees, String PasswordEmployees, String AddressEmployees, String PhoneEmployees, Object GenderEmployees, int IdEmployees) {
         System.out.println();
         System.err.println("Start SDS_UE");
 
         try {
-            newPreStatement = GeneratePreparedStament("UPDATE employees SET ? = \"?\" WHERE IdEmployees = ?;");
-            newPreStatement.setString(1, ColumnTag);
-            newPreStatement.setObject(2, Value);
-            newPreStatement.setObject(3, ConditionWhere);
+            newPreStatement = GeneratePreparedStament("UPDATE employees SET ImageEmployees = ?, NameEmployees = ?, LastNameEmployees = ?, EmailEmployees = ?, PasswordEmployees = ?, AddressEmployees = ?, PhoneEmployees = ?, GenderEmployees = ?  WHERE IdEmployees = ?;");
+            newPreStatement.setBytes(1, ImageEmployees);
+            newPreStatement.setString(2, NameEmployees);
+            newPreStatement.setString(3, LastNameEmployees);
+            newPreStatement.setString(4, EmailEmployees);
+            newPreStatement.setString(5, PasswordEmployees);
+            newPreStatement.setString(6, AddressEmployees);
+            newPreStatement.setString(7, PhoneEmployees);
+            newPreStatement.setString(8,(String) GenderEmployees);
+            newPreStatement.setInt(9, IdEmployees);
             newPreStatement.executeUpdate();
         } catch (Exception e) {
             System.out.println("Flag SDS: err to execute query *UpdateEmployees*");
@@ -185,7 +195,9 @@ public class StatementDbSQL {
             e.printStackTrace();
         }
         
-        System.err.println("Exit SDS_UE");
+        System.err.println("Exit SDS_DE");
         System.out.println();
-    }        
+    }
+    // </editor-fold> 
+    // </editor-fold>
 }

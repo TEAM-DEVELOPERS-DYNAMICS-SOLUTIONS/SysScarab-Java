@@ -7,52 +7,52 @@ import java.awt.geom.RoundRectangle2D;
 import view.Home.Home;
 import view.textPrompt.TextPrompt;
 
-
 /**
  *
  * @author RODX
  */
 public class Login extends javax.swing.JFrame {
 
-    protected int AxisX , AxisY , AxisXScreen, AxisYScreen;
-    protected static String Pass , Email;
+    protected int AxisX, AxisY, AxisXScreen, AxisYScreen;
+    protected static String Pass, Email;
     protected boolean AuthVerify;
     AuthenticationUser newAuthentication = new AuthenticationUser();
-    
+
     public Login() {
-        initComponents();        
+        initComponents();
         this.setLocationRelativeTo(null);
-        TextPrompt Placeholder = new TextPrompt ("correo@dominio.com", jTextField_User);
-        setShape(new RoundRectangle2D.Double(0,0,getBounds().width,getBounds().height,27,27));
+        TextPrompt Placeholder = new TextPrompt("correo@dominio.com", jTextField_User);
+        setShape(new RoundRectangle2D.Double(0, 0, getBounds().width, getBounds().height, 27, 27));
     }
-    
+
     public String getPass() {
         String Password = "";
-        if(AuthVerify)
+        if (AuthVerify) {
             Password = Login.Pass;
+        }
         return Password;
     }
-    
+
     public String getEmail() {
         String Email = "";
-        if(AuthVerify)
+        if (AuthVerify) {
             Email = Login.Pass;
+        }
         return Email;
     }
-    
+
     @Override
-    public Image getIconImage (){
+    public Image getIconImage() {
         Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("images\\Icons\\1x\\IsoT\\IconBase-Default.png"));
         return retValue;
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         PrimaryPanel_login = new javax.swing.JPanel();
         jLabel_AlertErrAuth = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel_DragArea = new javax.swing.JLabel();
         jLabel_Minimize = new javax.swing.JLabel();
         jLabel_Close = new javax.swing.JLabel();
@@ -83,10 +83,6 @@ public class Login extends javax.swing.JFrame {
         jLabel_AlertErrAuth.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
         jLabel_AlertErrAuth.setForeground(new java.awt.Color(255, 255, 255));
         PrimaryPanel_login.add(jLabel_AlertErrAuth, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 340, -1, -1));
-
-        jLabel1.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel1.setText("Prueba");
-        PrimaryPanel_login.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         jLabel_DragArea.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
@@ -208,17 +204,16 @@ public class Login extends javax.swing.JFrame {
     private void jButton_SignInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SignInActionPerformed
         Email = jTextField_User.getText();
         newAuthentication.setEmail(Email);
-        
+
         Pass = jPasswordField_Password.getText();
         newAuthentication.setPass(Pass);
         newAuthentication.GetDataUser();
-        
+
         AuthVerify = newAuthentication.GetAuthVerify();
-               
-        if(!AuthVerify){
+
+        if (!AuthVerify) {
             jLabel_AlertErrAuth.setText("El Usuario y/o Contraseña son erroneos");
-        }
-        else{
+        } else {
             jLabel_AlertErrAuth.setText("");
             Home Home = new Home();
             Home.setVisible(true);
@@ -262,10 +257,10 @@ public class Login extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Login().setVisible(true);
-                  }
+            }
         });
     }
-            
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel JLabel_BackgroudImage;
     private javax.swing.JLabel JLabel_Password;
@@ -273,7 +268,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel JLabel_User;
     private javax.swing.JPanel PrimaryPanel_login;
     private javax.swing.JButton jButton_SignIn;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel_AlertErrAuth;
     private javax.swing.JLabel jLabel_BackgorundPrimary;
     private javax.swing.JLabel jLabel_Close;

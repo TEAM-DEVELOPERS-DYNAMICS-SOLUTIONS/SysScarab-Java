@@ -5,7 +5,6 @@
 package view.Home.Forms;
 
 import controller.db.StatementDbSQL;
-import controller.user.Employees.EmployeesData;
 import java.awt.Image;
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,7 +13,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import view.Home.Home;
 import view.textPrompt.TextPrompt;
 
 /**
@@ -23,7 +21,6 @@ import view.textPrompt.TextPrompt;
  */
 public class RegisterUser_form extends javax.swing.JFrame {
     
-    protected EmployeesData NewEmployeesData = new EmployeesData();
     protected StatementDbSQL newStatement = new StatementDbSQL();
     protected String ruta;
     protected boolean AuthVerify = newStatement.getAuthVerify();
@@ -504,19 +501,18 @@ public class RegisterUser_form extends javax.swing.JFrame {
                 StatusAdmin = "NA";
         }
 
-        switch (jComboBox_GenderEmployees.getSelectedIndex()) {
-            case 0:
+        switch ((String) jComboBox_GenderEmployees.getSelectedItem()) {
+            case "Masculino":
                 Gender = "M";
 
-            case 1:
+            case "Femenino":
                 Gender = "F";
 
-            case 3:
+            case "Indefinido":
                 Gender = "I";
         }
 
-       // newStatement.GenerateStatement_SetEmployees(Integer.parseInt(Id), convertImage(), Name, LastName, Email, Address, Password, Phone, StatusAdmin, Gender);
-        NewEmployeesData.setDataEmployees(Integer.parseInt(Id), convertImage(), Name, LastName, Email, Address, Password, Phone, StatusAdmin, Gender);
+        newStatement.GenerateStatement_SetEmployees(Integer.parseInt(Id), convertImage(), Name, LastName, Email, Address, Password, Phone, StatusAdmin, Gender);
         JOptionPane.showMessageDialog(null, "Usuario Registrado");
         setVisible(false);
     }//GEN-LAST:event_jLabel_ButtonSaveDataEmployeesMouseClicked

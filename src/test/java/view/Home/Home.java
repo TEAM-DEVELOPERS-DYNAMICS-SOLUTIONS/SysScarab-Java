@@ -5,7 +5,6 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
-import controller.user.Employees.EmployeesData;
 import controller.user.authenticationUser.AuthenticationUser;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -20,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
 import view.Home.Forms.RegisterUser_form;
+import view.Home.Forms.UpdateUser_form;
 import view.RenderImageTable;
 
 /**
@@ -28,16 +28,13 @@ import view.RenderImageTable;
  */
 public final class Home extends javax.swing.JFrame {
 
-    /**
-     * variables declarated from the class - RODX
-     */
     public boolean StatusMaximize = false;
     public Dimension screenSizeMaximize = Toolkit.getDefaultToolkit().getScreenSize(), screenSizeMinimize;
     public Toolkit tK = Toolkit.getDefaultToolkit();
     protected int AxisX, AxisY, AxisXScreen, AxisYScreen;
     protected StatementDbSQL stDb = new StatementDbSQL();
     protected boolean AuthVerify = stDb.getAuthVerify();
-    
+
     private Object ValuePointSelectedDeleteTable;
 
     public Home() {
@@ -47,9 +44,6 @@ public final class Home extends javax.swing.JFrame {
         jPanel_WorkSpaceAdmin.setVisible(false);
     }
 
-    /**
-     * methods custom
-     */
     @Override // this method change default icon for Custom Icon
     public Image getIconImage() {
         Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("images\\Icons\\1x\\IsoT\\IconBase-Default.png"));
@@ -129,7 +123,7 @@ public final class Home extends javax.swing.JFrame {
         jPanel_BarToolAdmin = new javax.swing.JPanel();
         jLabel_ButtonGetEmployees = new javax.swing.JLabel();
         jLabel_ButtonSetEmployees = new javax.swing.JLabel();
-        jLabel_Button_c = new javax.swing.JLabel();
+        jLabel_ButtonUpdateUser = new javax.swing.JLabel();
         jPanel_SpaceAdmin = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable_TableAdminSQL = new javax.swing.JTable();
@@ -426,14 +420,19 @@ public final class Home extends javax.swing.JFrame {
             }
         });
 
-        jLabel_Button_c.setBackground(new java.awt.Color(51, 51, 51));
-        jLabel_Button_c.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
-        jLabel_Button_c.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel_Button_c.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel_Button_c.setText("Generar Reporte");
-        jLabel_Button_c.setToolTipText("");
-        jLabel_Button_c.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jLabel_Button_c.setOpaque(true);
+        jLabel_ButtonUpdateUser.setBackground(new java.awt.Color(51, 51, 51));
+        jLabel_ButtonUpdateUser.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        jLabel_ButtonUpdateUser.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel_ButtonUpdateUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel_ButtonUpdateUser.setText("Actualizar Usuarios");
+        jLabel_ButtonUpdateUser.setToolTipText("");
+        jLabel_ButtonUpdateUser.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel_ButtonUpdateUser.setOpaque(true);
+        jLabel_ButtonUpdateUser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_ButtonUpdateUserMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel_BarToolAdminLayout = new javax.swing.GroupLayout(jPanel_BarToolAdmin);
         jPanel_BarToolAdmin.setLayout(jPanel_BarToolAdminLayout);
@@ -444,7 +443,7 @@ public final class Home extends javax.swing.JFrame {
                 .addGroup(jPanel_BarToolAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel_ButtonGetEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel_ButtonSetEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel_Button_c, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel_ButtonUpdateUser, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel_BarToolAdminLayout.setVerticalGroup(
@@ -455,7 +454,7 @@ public final class Home extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel_ButtonSetEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel_Button_c, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel_ButtonUpdateUser, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -702,11 +701,21 @@ public final class Home extends javax.swing.JFrame {
     private void jLabel_ButtonDeleteEntitiesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ButtonDeleteEntitiesMouseClicked
         // TODO add your handling code here:
         int input = JOptionPane.showConfirmDialog(null, "Desea eliminar al Empleado/Usuario con ID: " + ValuePointSelectedDeleteTable + "?", "Eliminacion", JOptionPane.OK_CANCEL_OPTION, JOptionPane.DEFAULT_OPTION);
-        if (input == 0){
-            stDb.GenerateStatement_DeleteEmployees(ValuePointSelectedDeleteTable);            
+        if (input == 0) {
+            stDb.GenerateStatement_DeleteEmployees(ValuePointSelectedDeleteTable);
             JOptionPane.showMessageDialog(null, "eliminacion Satisfactoria");
         }
     }//GEN-LAST:event_jLabel_ButtonDeleteEntitiesMouseClicked
+
+    private void jLabel_ButtonUpdateUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ButtonUpdateUserMouseClicked
+        // TODO add your handling code here:
+        if (AuthVerify) {
+            UpdateUser_form UpdateUser = new UpdateUser_form();
+            UpdateUser.setVisible(true);
+        } else {
+            System.out.println("Flag Home: Action don't Allow - User Don't Logged");
+        }
+    }//GEN-LAST:event_jLabel_ButtonUpdateUserMouseClicked
 
     /**
      * @param args the command line arguments
@@ -751,9 +760,9 @@ public final class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel_AdminModLabel;
     private javax.swing.JLabel jLabel_ButtonCleanTable;
     private javax.swing.JLabel jLabel_ButtonDeleteEntities;
-    public javax.swing.JLabel jLabel_ButtonGetEmployees;
+    private javax.swing.JLabel jLabel_ButtonGetEmployees;
     private javax.swing.JLabel jLabel_ButtonSetEmployees;
-    private javax.swing.JLabel jLabel_Button_c;
+    private javax.swing.JLabel jLabel_ButtonUpdateUser;
     private javax.swing.JLabel jLabel_DragArea;
     private javax.swing.JLabel jLabel_ExitButton;
     private javax.swing.JLabel jLabel_InventoryMod;

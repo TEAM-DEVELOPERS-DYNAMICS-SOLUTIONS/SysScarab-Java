@@ -19,7 +19,7 @@ import view.textPrompt.TextPrompt;
  *
  * @author RODX
  */
-public class RegisterUser_form extends javax.swing.JFrame {
+public class UpdateUser_form extends javax.swing.JFrame {
     
     protected StatementDbSQL newStatement = new StatementDbSQL();
     protected String ruta;
@@ -28,7 +28,7 @@ public class RegisterUser_form extends javax.swing.JFrame {
     /**
      * Creates new form RegisterUser_form
      */
-    public RegisterUser_form() {
+    public UpdateUser_form() {
         if (AuthVerify) {
             initComponents();
             this.setLocationRelativeTo(null);
@@ -136,7 +136,7 @@ public class RegisterUser_form extends javax.swing.JFrame {
         jLabel_TitlePanelRE.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         jLabel_TitlePanelRE.setForeground(new java.awt.Color(51, 51, 51));
         jLabel_TitlePanelRE.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel_TitlePanelRE.setText("Registro Empleados");
+        jLabel_TitlePanelRE.setText("Actualizacion Empleados");
 
         jPanel_TextFieldsForm.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -487,7 +487,8 @@ public class RegisterUser_form extends javax.swing.JFrame {
 
     private void jLabel_ButtonSaveDataEmployeesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ButtonSaveDataEmployeesMouseClicked
         String Id = jTextField_IdEmployees.getText(), Name = jTextField_nameEmployees.getText(), LastName = jTextField_LastNameEmployees.getText(), Email = jTextField_EmailEmployees.getText(), Password = jTextField_PassEmployees.getText(), Phone = jTextField_PhoneEmployees.getText(), Address = jTextField_AddressEmployees.getText();
-
+        byte[] image = convertImage();
+        
         Object StatusAdmin = null, Gender = null;
 
         switch (jComboBox_SAEmployees.getSelectedIndex()) {
@@ -511,9 +512,9 @@ public class RegisterUser_form extends javax.swing.JFrame {
             case "Indefinido":
                 Gender = "I";
         }
-
-        newStatement.GenerateStatement_SetEmployees(Integer.parseInt(Id), convertImage(), Name, LastName, Email, Address, Password, Phone, StatusAdmin, Gender);
-        JOptionPane.showMessageDialog(null, "Usuario Registrado");
+        
+        newStatement.GenerateStatement_UpdateEmployees(image, Name, LastName, Email, Password, Address, Phone, Gender, Integer.parseInt(Id));
+        JOptionPane.showMessageDialog(null, "Usuario Actualiazdo");
         setVisible(false);
     }//GEN-LAST:event_jLabel_ButtonSaveDataEmployeesMouseClicked
 
@@ -539,20 +540,21 @@ public class RegisterUser_form extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RegisterUser_form.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpdateUser_form.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RegisterUser_form.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpdateUser_form.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RegisterUser_form.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpdateUser_form.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RegisterUser_form.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpdateUser_form.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RegisterUser_form().setVisible(true);
+                new UpdateUser_form().setVisible(true);
             }
         });
     }

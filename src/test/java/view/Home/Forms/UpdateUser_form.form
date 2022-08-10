@@ -142,7 +142,7 @@
                   <Color blue="33" green="33" red="33" type="rgb"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="Registro Empleados"/>
+                <Property name="text" type="java.lang.String" value="Actualizacion Empleados"/>
               </Properties>
             </Component>
             <Container class="javax.swing.JPanel" name="jPanel_TextFieldsForm">

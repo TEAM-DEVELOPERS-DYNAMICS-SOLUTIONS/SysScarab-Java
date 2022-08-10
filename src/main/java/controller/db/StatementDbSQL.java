@@ -11,17 +11,17 @@ import java.sql.Statement;
  * @author RODX
  */
 public class StatementDbSQL {
-
+    
+    //<editor-fold defaultstate="colapsed" desc="* Variables">
     protected ConnectionDbSQL newConnection = new ConnectionDbSQL();
     protected Connection connect;
     protected static ResultSet RtSet = null;
     protected static Statement newStatement = null;
     protected static PreparedStatement newPreStatement = null;
     protected static boolean AuthVerify = false;
-
-    /**
-     * Getters & Setters
-     */
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="colapsed" desc="** Getters & Setters">
     public boolean getAuthVerify() {
         return StatementDbSQL.AuthVerify;
     }
@@ -29,8 +29,9 @@ public class StatementDbSQL {
     public void setAuthVerify(boolean AutVerify) {
         StatementDbSQL.AuthVerify = AutVerify;
     }
+    //</editor-fold>
     
-    // <editor-fold defaultstate="collapsed" desc="Methods">
+    // <editor-fold defaultstate="collapsed" desc="*** Methods">
     
     /**
      * el sistema aun no esta optimizado!

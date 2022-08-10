@@ -21,13 +21,13 @@ import view.textPrompt.TextPrompt;
  */
 public class UpdateUser_form extends javax.swing.JFrame {
     
+    //<editor-fold defaultstate="colapsed" desc="* Variables">
     protected StatementDbSQL newStatement = new StatementDbSQL();
     protected String ruta;
     protected boolean AuthVerify = newStatement.getAuthVerify();
+    //</editor-fold>
 
-    /**
-     * Creates new form RegisterUser_form
-     */
+    //<editor-fold defaultstate="colapsed" desc="** Methods">
     public UpdateUser_form() {
         if (AuthVerify) {
             initComponents();
@@ -71,6 +71,7 @@ public class UpdateUser_form extends javax.swing.JFrame {
             return null;
         }
     }
+    //</editor-fold>
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -472,6 +473,7 @@ public class UpdateUser_form extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //<editor-fold defaultstate="colapsed" desc="Event">
     private void jLabel_ButtonSelectImageEmployeesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ButtonSelectImageEmployeesMouseClicked
         JFileChooser fileChooser = new JFileChooser();
         FileNameExtensionFilter extensionFilter = new FileNameExtensionFilter("jpg, png & gif", "jpg", "jpeg", "png", "gif");
@@ -523,6 +525,8 @@ public class UpdateUser_form extends javax.swing.JFrame {
         setVisible(false);
     }//GEN-LAST:event_jLabel_ExitMouseClicked
 
+    //</editor-fold>
+    
     /**
      * @param args the command line arguments
      */
@@ -549,8 +553,6 @@ public class UpdateUser_form extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(UpdateUser_form.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

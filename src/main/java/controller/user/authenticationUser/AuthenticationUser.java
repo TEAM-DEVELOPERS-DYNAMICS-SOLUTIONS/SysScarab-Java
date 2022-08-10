@@ -13,16 +13,16 @@ import java.util.Map;
  */
 public class AuthenticationUser {
 
+    //<editor-fold defaultstate="colapsed" desc="* Variables">
     protected ConnectionDbSQL connection = new ConnectionDbSQL();
     protected Map<String, Object> mapRtSet_Auth = new HashMap<>();
     protected StatementDbSQL newStatement = new StatementDbSQL();
     protected static ResultSet RtSet = null;
     private String Pass, Email;
     private boolean AuthVerify;
+    //</editor-fold>
 
-    /**
-     * Getters & Setters
-     */
+    //<editor-fold defaultstate="colapsed" desc="** Getters & Setters">
     public boolean GetAuthVerify() {
         AuthVerify = newStatement.getAuthVerify();
         return AuthVerify;
@@ -43,10 +43,9 @@ public class AuthenticationUser {
     public void setMapRtSet_Auth(Map<String, Object> mapRtSet_Auth) {
         this.mapRtSet_Auth = mapRtSet_Auth;
     }
+    //</editor-fold>
 
-    /**
-     * Methods
-     */
+    //<editor-fold defaultstate="colapsed" desc="*** Methods">
     public Map<String, Object> GetDataUser() {
         System.out.println();
         System.err.println("Start AU");
@@ -70,4 +69,5 @@ public class AuthenticationUser {
         System.out.println("-------");
         return mapRtSet_Auth;
     }
+    //</editor-fold>
 }

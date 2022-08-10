@@ -20,6 +20,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
 import view.Home.Forms.RegisterUser_form;
 import view.Home.Forms.UpdateUser_form;
+import view.Login.Login;
 import view.RenderImageTable;
 
 /**
@@ -28,6 +29,7 @@ import view.RenderImageTable;
  */
 public final class Home extends javax.swing.JFrame {
 
+    //<editor-fold defaultstate="colapsed" desc="* Variables">
     public boolean StatusMaximize = false;
     public Dimension screenSizeMaximize = Toolkit.getDefaultToolkit().getScreenSize(), screenSizeMinimize;
     public Toolkit tK = Toolkit.getDefaultToolkit();
@@ -36,19 +38,24 @@ public final class Home extends javax.swing.JFrame {
     protected boolean AuthVerify = stDb.getAuthVerify();
 
     private Object ValuePointSelectedDeleteTable;
+    //</editor-fold>    
 
+    //<editor-fold defaultstate="colapsed" desc="** Getters & Setters / Constructors">
     public Home() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.screenSizeMinimize = PrimaryPanel_Home.getPreferredSize();
         jPanel_WorkSpaceAdmin.setVisible(false);
     }
-
+    
     @Override // this method change default icon for Custom Icon
     public Image getIconImage() {
         Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("images\\Icons\\1x\\IsoT\\IconBase-Default.png"));
         return retValue;
     }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="colapsed" desc="*** Methods">
 
     public DefaultTableModel CreateModelTableEmployees() {
         DefaultTableModel modelTable = new DefaultTableModel();;
@@ -83,7 +90,8 @@ public final class Home extends javax.swing.JFrame {
                 jLabel_LevelAdmin.setText("No Usuario");
         }
     }
-
+    //</editor-fold>
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -119,6 +127,7 @@ public final class Home extends javax.swing.JFrame {
         jLabel_AcconuntingModLabel = new javax.swing.JLabel();
         jLabel_InvetoryModLabel = new javax.swing.JLabel();
         jLabel_AdminModLabel = new javax.swing.JLabel();
+        jLabel_ButtonLogOut = new javax.swing.JLabel();
         jPanel_WorkSpaceAdmin = new javax.swing.JPanel();
         jPanel_BarToolAdmin = new javax.swing.JPanel();
         jLabel_ButtonGetEmployees = new javax.swing.JLabel();
@@ -338,6 +347,20 @@ public final class Home extends javax.swing.JFrame {
         jLabel_AdminModLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel_AdminModLabel.setText("Administracion");
 
+        jLabel_ButtonLogOut.setBackground(new java.awt.Color(51, 51, 51));
+        jLabel_ButtonLogOut.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        jLabel_ButtonLogOut.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel_ButtonLogOut.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel_ButtonLogOut.setText("Cerrar Sesión");
+        jLabel_ButtonLogOut.setToolTipText("");
+        jLabel_ButtonLogOut.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel_ButtonLogOut.setOpaque(true);
+        jLabel_ButtonLogOut.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_ButtonLogOutMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel_LeftBarLayout = new javax.swing.GroupLayout(jPanel_LeftBar);
         jPanel_LeftBar.setLayout(jPanel_LeftBarLayout);
         jPanel_LeftBarLayout.setHorizontalGroup(
@@ -362,6 +385,10 @@ public final class Home extends javax.swing.JFrame {
                     .addComponent(jSeparator_UserLeverRootDiv)
                     .addComponent(jLabel_LevelAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(12, 12, 12))
+            .addGroup(jPanel_LeftBarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel_ButtonLogOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel_LeftBarLayout.setVerticalGroup(
             jPanel_LeftBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -384,6 +411,8 @@ public final class Home extends javax.swing.JFrame {
                 .addComponent(jLabel_AdminMod, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel_AdminModLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel_ButtonLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -444,7 +473,7 @@ public final class Home extends javax.swing.JFrame {
                     .addComponent(jLabel_ButtonGetEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel_ButtonSetEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel_ButtonUpdateUser, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(776, Short.MAX_VALUE))
         );
         jPanel_BarToolAdminLayout.setVerticalGroup(
             jPanel_BarToolAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -591,7 +620,8 @@ public final class Home extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    //<editor-fold defaultstate="colapsed" desc="Events">
     private void jLabel_DragAreaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_DragAreaMousePressed
         // TODO add your handling code here:
         AxisY = evt.getY();
@@ -717,6 +747,19 @@ public final class Home extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jLabel_ButtonUpdateUserMouseClicked
 
+    private void jLabel_ButtonLogOutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ButtonLogOutMouseClicked
+        // TODO add your handling code here:
+        int input = JOptionPane.showConfirmDialog(null, "¿Desea cerrar sesión?", "cerrar sesión", JOptionPane.OK_CANCEL_OPTION, JOptionPane.DEFAULT_OPTION);
+        if (input == 0) {
+            setVisible(false);
+            Login login = new Login();
+            login.setVisible(true);
+            stDb.setAuthVerify(false);
+        }
+    }//GEN-LAST:event_jLabel_ButtonLogOutMouseClicked
+    
+    //</editor-fold>
+
     /**
      * @param args the command line arguments
      */
@@ -761,6 +804,7 @@ public final class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel_ButtonCleanTable;
     private javax.swing.JLabel jLabel_ButtonDeleteEntities;
     private javax.swing.JLabel jLabel_ButtonGetEmployees;
+    private javax.swing.JLabel jLabel_ButtonLogOut;
     private javax.swing.JLabel jLabel_ButtonSetEmployees;
     private javax.swing.JLabel jLabel_ButtonUpdateUser;
     private javax.swing.JLabel jLabel_DragArea;

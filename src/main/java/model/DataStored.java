@@ -5,7 +5,8 @@ package model;
  * @author RODX
  */
 public class DataStored {
-
+    
+    //<editor-fold defaultstate="colapsed" desc="* Variables">
     protected Integer IdEmployees;
     protected byte[] ImageEmployees;
     protected String NameEmployees;
@@ -17,10 +18,10 @@ public class DataStored {
     protected String StatusConnectionEmployees;
     protected Object StatusAdminEmployees;
     protected Object GenderEmployees;
-
-    /**
-     * Getters & Setters
-     */
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="colapsed" desc="** Getters & Setters">
+    //<editor-fold defaultstate="colapsed" desc="get">
     public Integer getIdEmployees() {
         return IdEmployees;
     }
@@ -64,7 +65,8 @@ public class DataStored {
     public Object getGenderEmployees() {
         return GenderEmployees;
     }
-
+    //</editor-fold>
+    //<editor-fold defaultstate="colapsed" desc="Set">
     public void setIdEmployees(Integer IdEmployees) {
         this.IdEmployees = IdEmployees;
     }
@@ -108,4 +110,6 @@ public class DataStored {
     public void setGenderEmployees(Object GenderEmployees) {
         this.GenderEmployees = GenderEmployees;
     }
+    //</editor-fold>
+    //</editor-fold>
 }

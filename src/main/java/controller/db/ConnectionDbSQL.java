@@ -6,11 +6,14 @@ import java.sql.SQLException;
 
 public class ConnectionDbSQL {
 
+    //<editor-fold defaultstate="colapsed" desc="* Variables">
     protected String urlConnectionSQL = "jdbc:mysql://localhost/sysdatabase_scarab?userTimeZone=true&serverTimeZone=true";
     protected String userConnectionSQL = "root";
     protected String passwordConnectionSQL = "root";
     protected Connection connectionSQl = null;
-
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="colapsed" desc="** Getters & Setters">
     protected void setConnectionSQl(Connection connectionSQl) {
         this.connectionSQl = connectionSQl;
     }
@@ -18,7 +21,9 @@ public class ConnectionDbSQL {
     protected Connection getConnection() {
         return this.connectionSQl;
     }
-
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="colapsed" desc="*** Methods">
     public void GenerateConnection() {
         System.out.println("Start CDS_GC");
         try {
@@ -54,4 +59,5 @@ public class ConnectionDbSQL {
         }
         System.out.println("Exit CDS_GD");
     }
+    //</editor-fold>
 }

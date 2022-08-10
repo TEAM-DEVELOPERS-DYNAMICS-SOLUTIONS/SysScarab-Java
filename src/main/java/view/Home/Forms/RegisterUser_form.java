@@ -21,13 +21,14 @@ import view.textPrompt.TextPrompt;
  */
 public class RegisterUser_form extends javax.swing.JFrame {
     
+    
+    //<editor-fold defaultstate="colapsed" desc="* Variables">
     protected StatementDbSQL newStatement = new StatementDbSQL();
     protected String ruta;
     protected boolean AuthVerify = newStatement.getAuthVerify();
+    //</editor-fold>
 
-    /**
-     * Creates new form RegisterUser_form
-     */
+    //<editor-fold defaultstate="colapsed" desc="** Methods">
     public RegisterUser_form() {
         if (AuthVerify) {
             initComponents();
@@ -71,6 +72,7 @@ public class RegisterUser_form extends javax.swing.JFrame {
             return null;
         }
     }
+    //</editor-fold>
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -472,6 +474,7 @@ public class RegisterUser_form extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //<editor-fold defaultstate="colapsed" desc="Event">
     private void jLabel_ButtonSelectImageEmployeesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ButtonSelectImageEmployeesMouseClicked
         JFileChooser fileChooser = new JFileChooser();
         FileNameExtensionFilter extensionFilter = new FileNameExtensionFilter("jpg, png & gif", "jpg", "jpeg", "png", "gif");
@@ -521,6 +524,7 @@ public class RegisterUser_form extends javax.swing.JFrame {
         // TODO add your handling code here:
         setVisible(false);
     }//GEN-LAST:event_jLabel_ExitMouseClicked
+    //</editor-fold>
 
     /**
      * @param args the command line arguments

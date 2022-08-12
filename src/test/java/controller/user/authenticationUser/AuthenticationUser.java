@@ -2,6 +2,8 @@ package controller.user.authenticationUser;
 
 import controller.db.ConnectionDbSQL;
 import controller.db.StatementDbSQL;
+import java.math.BigInteger;
+import java.security.MessageDigest;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -37,7 +39,18 @@ public class AuthenticationUser {
     }
 
     public void setPass(String Pass) {
-        this.Pass = Pass;
+        String sha1 = "";
+        
+	try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-1");
+	    digest.reset();
+	    digest.update(Pass.getBytes("utf8"));
+	    sha1 = String.format("%040x", new BigInteger(1, digest.digest()));
+	} catch (Exception e){
+	    e.printStackTrace();
+	}
+        
+        this.Pass = sha1;
     }
 
     public void setMapRtSet_Auth(Map<String, Object> mapRtSet_Auth) {

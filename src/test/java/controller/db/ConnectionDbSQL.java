@@ -18,7 +18,7 @@ public class ConnectionDbSQL {
         this.connectionSQl = connectionSQl;
     }
 
-    protected Connection getConnection() {
+    public Connection getConnection() {
         return this.connectionSQl;
     }
     //</editor-fold>

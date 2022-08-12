@@ -9,6 +9,8 @@ import java.awt.Image;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.math.BigInteger;
+import java.security.MessageDigest;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -50,9 +52,9 @@ public class UpdateUser_form extends javax.swing.JFrame {
             jComboBox_SAEmployees.addItem("No Aplica");
             //Gender
             jComboBox_GenderEmployees.removeAllItems();
-            jComboBox_GenderEmployees.addItem("Masculino");
-            jComboBox_GenderEmployees.addItem("Femenino");
-            jComboBox_GenderEmployees.addItem("Indefinido");
+            jComboBox_GenderEmployees.addItem("M");
+            jComboBox_GenderEmployees.addItem("F");
+            jComboBox_GenderEmployees.addItem("I");
         } else {
             JOptionPane.showMessageDialog(null, "Accion no permitida: Usuario no loggeado");
             System.exit(0);
@@ -489,9 +491,23 @@ public class UpdateUser_form extends javax.swing.JFrame {
 
     private void jLabel_ButtonSaveDataEmployeesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ButtonSaveDataEmployeesMouseClicked
         String Id = jTextField_IdEmployees.getText(), Name = jTextField_nameEmployees.getText(), LastName = jTextField_LastNameEmployees.getText(), Email = jTextField_EmailEmployees.getText(), Password = jTextField_PassEmployees.getText(), Phone = jTextField_PhoneEmployees.getText(), Address = jTextField_AddressEmployees.getText();
+        
+        String sha1 = "";
+        
+	try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-1");
+	    digest.reset();
+	    digest.update(Password.getBytes("utf8"));
+	    sha1 = String.format("%040x", new BigInteger(1, digest.digest()));
+	} catch (Exception e){
+	    e.printStackTrace();
+	}
+        
+        Password = sha1;
+        
         byte[] image = convertImage();
         
-        Object StatusAdmin = null, Gender = null;
+        Object StatusAdmin = null, Gender = (String) jComboBox_GenderEmployees.getSelectedItem();
 
         switch (jComboBox_SAEmployees.getSelectedIndex()) {
             case 0:
@@ -502,17 +518,6 @@ public class UpdateUser_form extends javax.swing.JFrame {
 
             case 2:
                 StatusAdmin = "NA";
-        }
-
-        switch ((String) jComboBox_GenderEmployees.getSelectedItem()) {
-            case "Masculino":
-                Gender = "M";
-
-            case "Femenino":
-                Gender = "F";
-
-            case "Indefinido":
-                Gender = "I";
         }
         
         newStatement.GenerateStatement_UpdateEmployees(image, Name, LastName, Email, Password, Address, Phone, Gender, Integer.parseInt(Id));

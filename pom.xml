@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.tdds</groupId>
   <artifactId>SysScarab</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>Alfa-1.7</version>
   <name>Scarab System Management</name>
   <description>system modular of management for companies</description>
   <properties>
@@ -11,16 +11,27 @@
   </properties>
   
   <dependencies>
-        <dependency>
-  		<groupId>mysql</groupId>
-  		<artifactId>mysql-connector-java</artifactId>
-  		<version>8.0.30</version>
-  	</dependency>
-        <dependency>
-            <groupId>unknown.binary</groupId>
-            <artifactId>AbsoluteLayout</artifactId>
-            <version>SNAPSHOT</version>
-        </dependency>
+    <dependency>
+        <groupId>unknown.binary</groupId>
+        <artifactId>AbsoluteLayout</artifactId>
+        <version>SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>8.0.30</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.codehaus.groovy</groupId>
+      <artifactId>groovy-all</artifactId>
+      <version>2.1.4</version>
+    </dependency>
+    <dependency>
+      <groupId>net.sf.jasperreports</groupId>
+      <artifactId>jasperreports</artifactId>
+      <version>6.20.0</version>
+    </dependency>
   </dependencies>
   
   <build>
@@ -30,6 +41,7 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.10.1</version>
         <configuration>
+          <argLine>--add-opens java.base/java.lang=ALL_UNNAMED</argLine>
           <source>${java.version}</source>
           <target>${java.version}</target>
           <optimize>true</optimize>

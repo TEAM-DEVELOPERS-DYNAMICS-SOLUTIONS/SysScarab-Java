@@ -266,7 +266,7 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         jLabel_Close.setForeground(new java.awt.Color(255, 255, 255));
     }//GEN-LAST:event_jLabel_CloseMouseExited
-    
+
     //</editor-fold>
 
     /**

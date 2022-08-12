@@ -18,6 +18,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
+import model.reports.GenerateReport;
 import view.Home.Forms.RegisterUser_form;
 import view.Home.Forms.UpdateUser_form;
 import view.Login.Login;
@@ -133,6 +134,7 @@ public final class Home extends javax.swing.JFrame {
         jLabel_ButtonGetEmployees = new javax.swing.JLabel();
         jLabel_ButtonSetEmployees = new javax.swing.JLabel();
         jLabel_ButtonUpdateUser = new javax.swing.JLabel();
+        jLabel_ButtonGenerateReport = new javax.swing.JLabel();
         jPanel_SpaceAdmin = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable_TableAdminSQL = new javax.swing.JTable();
@@ -463,6 +465,20 @@ public final class Home extends javax.swing.JFrame {
             }
         });
 
+        jLabel_ButtonGenerateReport.setBackground(new java.awt.Color(51, 51, 51));
+        jLabel_ButtonGenerateReport.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        jLabel_ButtonGenerateReport.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel_ButtonGenerateReport.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel_ButtonGenerateReport.setText("Reporte Usuarios-Log");
+        jLabel_ButtonGenerateReport.setToolTipText("");
+        jLabel_ButtonGenerateReport.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel_ButtonGenerateReport.setOpaque(true);
+        jLabel_ButtonGenerateReport.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_ButtonGenerateReportMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel_BarToolAdminLayout = new javax.swing.GroupLayout(jPanel_BarToolAdmin);
         jPanel_BarToolAdmin.setLayout(jPanel_BarToolAdminLayout);
         jPanel_BarToolAdminLayout.setHorizontalGroup(
@@ -472,19 +488,22 @@ public final class Home extends javax.swing.JFrame {
                 .addGroup(jPanel_BarToolAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel_ButtonGetEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel_ButtonSetEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel_ButtonUpdateUser, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(776, Short.MAX_VALUE))
+                    .addComponent(jLabel_ButtonUpdateUser, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_ButtonGenerateReport, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel_BarToolAdminLayout.setVerticalGroup(
             jPanel_BarToolAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_BarToolAdminLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel_ButtonGetEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel_ButtonGetEmployees)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel_ButtonSetEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel_ButtonSetEmployees)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel_ButtonUpdateUser, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel_ButtonUpdateUser)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel_ButtonGenerateReport)
+                .addContainerGap())
         );
 
         jPanel_SpaceAdmin.setBackground(new java.awt.Color(255, 255, 255));
@@ -543,7 +562,7 @@ public final class Home extends javax.swing.JFrame {
             jPanel_SpaceAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_SpaceAdminLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 514, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel_SpaceAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_ButtonCleanTable, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -561,7 +580,7 @@ public final class Home extends javax.swing.JFrame {
         jPanel_WorkSpaceAdminLayout.setVerticalGroup(
             jPanel_WorkSpaceAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_WorkSpaceAdminLayout.createSequentialGroup()
-                .addComponent(jPanel_BarToolAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel_BarToolAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel_SpaceAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -757,6 +776,12 @@ public final class Home extends javax.swing.JFrame {
             stDb.setAuthVerify(false);
         }
     }//GEN-LAST:event_jLabel_ButtonLogOutMouseClicked
+
+    private void jLabel_ButtonGenerateReportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ButtonGenerateReportMouseClicked
+        // TODO add your handling code here:
+        GenerateReport GR = new GenerateReport();
+        GR.GenerateReport();
+    }//GEN-LAST:event_jLabel_ButtonGenerateReportMouseClicked
     
     //</editor-fold>
 
@@ -803,6 +828,7 @@ public final class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel_AdminModLabel;
     private javax.swing.JLabel jLabel_ButtonCleanTable;
     private javax.swing.JLabel jLabel_ButtonDeleteEntities;
+    private javax.swing.JLabel jLabel_ButtonGenerateReport;
     private javax.swing.JLabel jLabel_ButtonGetEmployees;
     private javax.swing.JLabel jLabel_ButtonLogOut;
     private javax.swing.JLabel jLabel_ButtonSetEmployees;

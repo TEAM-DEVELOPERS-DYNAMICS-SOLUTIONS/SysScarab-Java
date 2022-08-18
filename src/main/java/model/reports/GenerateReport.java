@@ -14,7 +14,7 @@ import net.sf.jasperreports.view.JasperViewer;
  */
 public class GenerateReport {
    
-    public void GenerateReport () {
+    public void GenerateReport_EmployeesLogs () {
         ConnectionDbSQL CDbSQL = new ConnectionDbSQL();
         CDbSQL.GenerateConnection();
         Connection con = CDbSQL.getConnection();

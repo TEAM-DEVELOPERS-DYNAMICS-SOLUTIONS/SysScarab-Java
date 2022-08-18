@@ -21,7 +21,8 @@ import view.textPrompt.TextPrompt;
  *
  * @author RODX
  */
-public class UpdateUser_form extends javax.swing.JFrame {
+public class RegisterClient_form extends javax.swing.JFrame {
+    
     
     //<editor-fold defaultstate="colapsed" desc="* Variables">
     protected StatementDbSQL newStatement = new StatementDbSQL();
@@ -30,26 +31,26 @@ public class UpdateUser_form extends javax.swing.JFrame {
     //</editor-fold>
 
     //<editor-fold defaultstate="colapsed" desc="** Methods">
-    public UpdateUser_form() {
+    public RegisterClient_form() {
         if (AuthVerify) {
             initComponents();
             this.setLocationRelativeTo(null);
 
             //PlaceHolders
             TextPrompt PlaceholderId = new TextPrompt("Id/Identidicacion", jTextField_IdEmployees);
-            TextPrompt PlaceholderName = new TextPrompt("Nombres Completos", jTextField_nameEmployees);
-            TextPrompt PlaceholderLastName = new TextPrompt("Apellidos Completos", jTextField_LastNameEmployees);
-            TextPrompt PlaceholderEmail = new TextPrompt("correo@dominio.com", jTextField_EmailEmployees);
-            TextPrompt PlaceholderPassword = new TextPrompt("contraseña", jTextField_PassEmployees);
-            TextPrompt PlaceholderAddress = new TextPrompt("cra 0 # 0 - null Complemento, Departamento, Ciudad", jTextField_AddressEmployees);
-            TextPrompt PlaceholderPhone = new TextPrompt("3103103131", jTextField_PhoneEmployees);
+            TextPrompt PlaceholderName = new TextPrompt("Nombres Completos", jTextField_nameClient);
+            TextPrompt PlaceholderLastName = new TextPrompt("Apellidos Completos", jTextField_LastNameClient);
+            TextPrompt PlaceholderEmail = new TextPrompt("correo@dominio.com", jTextField_EmailClient);
+            TextPrompt PlaceholderPassword = new TextPrompt("contraseña", jTextField_PassClient);
+            TextPrompt PlaceholderAddress = new TextPrompt("cra 0 # 0 - null Complemento, Departamento, Ciudad", jTextField_AddressClient);
+            TextPrompt PlaceholderPhone = new TextPrompt("3103103131", jTextField_PhoneClient);
 
             //Items ComboBoxs
             //Gender
-            jComboBox_GenderEmployees.removeAllItems();
-            jComboBox_GenderEmployees.addItem("M");
-            jComboBox_GenderEmployees.addItem("F");
-            jComboBox_GenderEmployees.addItem("I");
+            jComboBox_GenderClient.removeAllItems();
+            jComboBox_GenderClient.addItem("M");
+            jComboBox_GenderClient.addItem("F");
+            jComboBox_GenderClient.addItem("I");
         } else {
             JOptionPane.showMessageDialog(null, "Accion no permitida: Usuario no loggeado");
             System.exit(0);
@@ -84,34 +85,34 @@ public class UpdateUser_form extends javax.swing.JFrame {
         jLabel_Exit = new javax.swing.JLabel();
         jLabel_TitlePanelRE = new javax.swing.JLabel();
         jPanel_TextFieldsForm = new javax.swing.JPanel();
-        jLabel_TFIdEmployees = new javax.swing.JLabel();
+        jLabel_TFIdClient = new javax.swing.JLabel();
         jTextField_IdEmployees = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
-        jLabel_TFNameEmployees = new javax.swing.JLabel();
-        jTextField_nameEmployees = new javax.swing.JTextField();
+        jLabel_TFNameClient = new javax.swing.JLabel();
+        jTextField_nameClient = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
-        jLabel_TFLastNameEmployees = new javax.swing.JLabel();
-        jTextField_LastNameEmployees = new javax.swing.JTextField();
+        jLabel_TFLastNameClient = new javax.swing.JLabel();
+        jTextField_LastNameClient = new javax.swing.JTextField();
         jSeparator3 = new javax.swing.JSeparator();
-        jLabel_TFEmailEmployees = new javax.swing.JLabel();
-        jTextField_EmailEmployees = new javax.swing.JTextField();
+        jLabel_TFEmailClient = new javax.swing.JLabel();
+        jTextField_EmailClient = new javax.swing.JTextField();
         jSeparator4 = new javax.swing.JSeparator();
-        jLabel_TFPassEmployees = new javax.swing.JLabel();
-        jTextField_PassEmployees = new javax.swing.JTextField();
+        jLabel_TFPassClient = new javax.swing.JLabel();
+        jTextField_PassClient = new javax.swing.JTextField();
         jSeparator5 = new javax.swing.JSeparator();
-        jLabel_TFAddressEmployees = new javax.swing.JLabel();
-        jTextField_AddressEmployees = new javax.swing.JTextField();
+        jLabel_TFAddressClient = new javax.swing.JLabel();
+        jTextField_AddressClient = new javax.swing.JTextField();
         jSeparator6 = new javax.swing.JSeparator();
-        jLabel_TFPhoneEmployees = new javax.swing.JLabel();
-        jTextField_PhoneEmployees = new javax.swing.JTextField();
+        jLabel_TFPhoneClient = new javax.swing.JLabel();
+        jTextField_PhoneClient = new javax.swing.JTextField();
         jSeparator7 = new javax.swing.JSeparator();
-        jLabel_TFSAEmployees1 = new javax.swing.JLabel();
-        jComboBox_GenderEmployees = new javax.swing.JComboBox<>();
+        jLabel_TFSGenderClient = new javax.swing.JLabel();
+        jComboBox_GenderClient = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
-        jLabel_PerfilEmployees = new javax.swing.JLabel();
-        jLabel_ButtonSelectImageEmployees = new javax.swing.JLabel();
-        jLabel_imageLoadEmployees = new javax.swing.JLabel();
-        jLabel_ButtonSaveDataEmployees = new javax.swing.JLabel();
+        jLabel_PerfilClient = new javax.swing.JLabel();
+        jLabel_ButtonSelectImageClient = new javax.swing.JLabel();
+        jLabel_imageLoadClient = new javax.swing.JLabel();
+        jLabel_ButtonSaveDataClient = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Registro");
@@ -131,13 +132,13 @@ public class UpdateUser_form extends javax.swing.JFrame {
         jLabel_TitlePanelRE.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         jLabel_TitlePanelRE.setForeground(new java.awt.Color(51, 51, 51));
         jLabel_TitlePanelRE.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel_TitlePanelRE.setText("Actualizacion Empleados");
+        jLabel_TitlePanelRE.setText("Registro Cliente");
 
         jPanel_TextFieldsForm.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel_TFIdEmployees.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
-        jLabel_TFIdEmployees.setForeground(new java.awt.Color(36, 36, 36));
-        jLabel_TFIdEmployees.setText("Id");
+        jLabel_TFIdClient.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
+        jLabel_TFIdClient.setForeground(new java.awt.Color(36, 36, 36));
+        jLabel_TFIdClient.setText("Id");
 
         jTextField_IdEmployees.setBackground(new java.awt.Color(255, 255, 255));
         jTextField_IdEmployees.setBorder(null);
@@ -145,71 +146,71 @@ public class UpdateUser_form extends javax.swing.JFrame {
         jSeparator1.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator1.setForeground(new java.awt.Color(102, 102, 102));
 
-        jLabel_TFNameEmployees.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
-        jLabel_TFNameEmployees.setForeground(new java.awt.Color(36, 36, 36));
-        jLabel_TFNameEmployees.setText("Nombre");
+        jLabel_TFNameClient.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
+        jLabel_TFNameClient.setForeground(new java.awt.Color(36, 36, 36));
+        jLabel_TFNameClient.setText("Nombre");
 
-        jTextField_nameEmployees.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField_nameEmployees.setBorder(null);
+        jTextField_nameClient.setBackground(new java.awt.Color(255, 255, 255));
+        jTextField_nameClient.setBorder(null);
 
         jSeparator2.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator2.setForeground(new java.awt.Color(102, 102, 102));
 
-        jLabel_TFLastNameEmployees.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
-        jLabel_TFLastNameEmployees.setForeground(new java.awt.Color(36, 36, 36));
-        jLabel_TFLastNameEmployees.setText("Apellidos");
+        jLabel_TFLastNameClient.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
+        jLabel_TFLastNameClient.setForeground(new java.awt.Color(36, 36, 36));
+        jLabel_TFLastNameClient.setText("Apellidos");
 
-        jTextField_LastNameEmployees.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField_LastNameEmployees.setBorder(null);
+        jTextField_LastNameClient.setBackground(new java.awt.Color(255, 255, 255));
+        jTextField_LastNameClient.setBorder(null);
 
         jSeparator3.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator3.setForeground(new java.awt.Color(102, 102, 102));
 
-        jLabel_TFEmailEmployees.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
-        jLabel_TFEmailEmployees.setForeground(new java.awt.Color(36, 36, 36));
-        jLabel_TFEmailEmployees.setText("Correo");
+        jLabel_TFEmailClient.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
+        jLabel_TFEmailClient.setForeground(new java.awt.Color(36, 36, 36));
+        jLabel_TFEmailClient.setText("Correo");
 
-        jTextField_EmailEmployees.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField_EmailEmployees.setBorder(null);
+        jTextField_EmailClient.setBackground(new java.awt.Color(255, 255, 255));
+        jTextField_EmailClient.setBorder(null);
 
         jSeparator4.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator4.setForeground(new java.awt.Color(102, 102, 102));
 
-        jLabel_TFPassEmployees.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
-        jLabel_TFPassEmployees.setForeground(new java.awt.Color(36, 36, 36));
-        jLabel_TFPassEmployees.setText("Contraseña");
+        jLabel_TFPassClient.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
+        jLabel_TFPassClient.setForeground(new java.awt.Color(36, 36, 36));
+        jLabel_TFPassClient.setText("Contraseña");
 
-        jTextField_PassEmployees.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField_PassEmployees.setBorder(null);
+        jTextField_PassClient.setBackground(new java.awt.Color(255, 255, 255));
+        jTextField_PassClient.setBorder(null);
 
         jSeparator5.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator5.setForeground(new java.awt.Color(102, 102, 102));
 
-        jLabel_TFAddressEmployees.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
-        jLabel_TFAddressEmployees.setForeground(new java.awt.Color(36, 36, 36));
-        jLabel_TFAddressEmployees.setText("Direccion");
+        jLabel_TFAddressClient.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
+        jLabel_TFAddressClient.setForeground(new java.awt.Color(36, 36, 36));
+        jLabel_TFAddressClient.setText("Direccion");
 
-        jTextField_AddressEmployees.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField_AddressEmployees.setBorder(null);
+        jTextField_AddressClient.setBackground(new java.awt.Color(255, 255, 255));
+        jTextField_AddressClient.setBorder(null);
 
         jSeparator6.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator6.setForeground(new java.awt.Color(102, 102, 102));
 
-        jLabel_TFPhoneEmployees.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
-        jLabel_TFPhoneEmployees.setForeground(new java.awt.Color(36, 36, 36));
-        jLabel_TFPhoneEmployees.setText("Telefono");
+        jLabel_TFPhoneClient.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
+        jLabel_TFPhoneClient.setForeground(new java.awt.Color(36, 36, 36));
+        jLabel_TFPhoneClient.setText("Telefono");
 
-        jTextField_PhoneEmployees.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField_PhoneEmployees.setBorder(null);
+        jTextField_PhoneClient.setBackground(new java.awt.Color(255, 255, 255));
+        jTextField_PhoneClient.setBorder(null);
 
         jSeparator7.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator7.setForeground(new java.awt.Color(102, 102, 102));
 
-        jLabel_TFSAEmployees1.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
-        jLabel_TFSAEmployees1.setForeground(new java.awt.Color(36, 36, 36));
-        jLabel_TFSAEmployees1.setText("Genero");
+        jLabel_TFSGenderClient.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
+        jLabel_TFSGenderClient.setForeground(new java.awt.Color(36, 36, 36));
+        jLabel_TFSGenderClient.setText("Genero");
 
-        jComboBox_GenderEmployees.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox_GenderClient.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel_TextFieldsFormLayout = new javax.swing.GroupLayout(jPanel_TextFieldsForm);
         jPanel_TextFieldsForm.setLayout(jPanel_TextFieldsFormLayout);
@@ -223,33 +224,33 @@ public class UpdateUser_form extends javax.swing.JFrame {
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_TextFieldsFormLayout.createSequentialGroup()
                             .addGroup(jPanel_TextFieldsFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel_TextFieldsFormLayout.createSequentialGroup()
-                                    .addComponent(jLabel_TFEmailEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel_TFEmailClient, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jTextField_EmailEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jTextField_EmailClient, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(jPanel_TextFieldsFormLayout.createSequentialGroup()
                                     .addGroup(jPanel_TextFieldsFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel_TFNameEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel_TFIdEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jLabel_TFNameClient, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel_TFIdClient, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(jPanel_TextFieldsFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jTextField_IdEmployees, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jTextField_nameEmployees, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(jTextField_nameClient, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGroup(jPanel_TextFieldsFormLayout.createSequentialGroup()
-                                    .addComponent(jLabel_TFPassEmployees)
+                                    .addComponent(jLabel_TFPassClient)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jTextField_PassEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jTextField_PassClient, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel_TextFieldsFormLayout.createSequentialGroup()
-                                    .addComponent(jLabel_TFPhoneEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel_TFPhoneClient, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jTextField_PhoneEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jTextField_PhoneClient, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel_TextFieldsFormLayout.createSequentialGroup()
-                                    .addComponent(jLabel_TFAddressEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel_TFAddressClient, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jTextField_AddressEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jTextField_AddressClient, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel_TextFieldsFormLayout.createSequentialGroup()
-                                    .addComponent(jLabel_TFLastNameEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel_TFLastNameClient, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jTextField_LastNameEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jTextField_LastNameClient, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(jSeparator1)
                                 .addComponent(jSeparator2)
                                 .addComponent(jSeparator3)
@@ -258,9 +259,9 @@ public class UpdateUser_form extends javax.swing.JFrame {
                                 .addComponent(jSeparator7, javax.swing.GroupLayout.Alignment.LEADING))
                             .addGap(1, 1, 1)))
                     .addGroup(jPanel_TextFieldsFormLayout.createSequentialGroup()
-                        .addComponent(jLabel_TFSAEmployees1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel_TFSGenderClient, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox_GenderEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jComboBox_GenderClient, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel_TextFieldsFormLayout.setVerticalGroup(
@@ -269,74 +270,74 @@ public class UpdateUser_form extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel_TextFieldsFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField_IdEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel_TFIdEmployees))
+                    .addComponent(jLabel_TFIdClient))
                 .addGap(1, 1, 1)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
                 .addGroup(jPanel_TextFieldsFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField_nameEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel_TFNameEmployees))
+                    .addComponent(jTextField_nameClient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_TFNameClient))
                 .addGap(2, 2, 2)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
                 .addGroup(jPanel_TextFieldsFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField_LastNameEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel_TFLastNameEmployees))
+                    .addComponent(jTextField_LastNameClient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_TFLastNameClient))
                 .addGap(1, 1, 1)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
                 .addGroup(jPanel_TextFieldsFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField_EmailEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel_TFEmailEmployees))
+                    .addComponent(jTextField_EmailClient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_TFEmailClient))
                 .addGap(1, 1, 1)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
                 .addGroup(jPanel_TextFieldsFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField_PassEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel_TFPassEmployees))
+                    .addComponent(jTextField_PassClient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_TFPassClient))
                 .addGap(1, 1, 1)
                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
                 .addGroup(jPanel_TextFieldsFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField_AddressEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel_TFAddressEmployees))
+                    .addComponent(jTextField_AddressClient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_TFAddressClient))
                 .addGap(1, 1, 1)
                 .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
                 .addGroup(jPanel_TextFieldsFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField_PhoneEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel_TFPhoneEmployees))
+                    .addComponent(jTextField_PhoneClient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_TFPhoneClient))
                 .addGap(1, 1, 1)
                 .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel_TextFieldsFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel_TFSAEmployees1)
-                    .addComponent(jComboBox_GenderEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38))
+                    .addComponent(jLabel_TFSGenderClient)
+                    .addComponent(jComboBox_GenderClient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33))
         );
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel_PerfilEmployees.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
-        jLabel_PerfilEmployees.setForeground(new java.awt.Color(36, 36, 36));
-        jLabel_PerfilEmployees.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel_PerfilEmployees.setText("Perfil");
+        jLabel_PerfilClient.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
+        jLabel_PerfilClient.setForeground(new java.awt.Color(36, 36, 36));
+        jLabel_PerfilClient.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel_PerfilClient.setText("Perfil");
 
-        jLabel_ButtonSelectImageEmployees.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
-        jLabel_ButtonSelectImageEmployees.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel_ButtonSelectImageEmployees.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel_ButtonSelectImageEmployees.setText("seleccionar");
-        jLabel_ButtonSelectImageEmployees.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        jLabel_ButtonSelectImageEmployees.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel_ButtonSelectImageEmployees.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabel_ButtonSelectImageClient.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
+        jLabel_ButtonSelectImageClient.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel_ButtonSelectImageClient.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel_ButtonSelectImageClient.setText("seleccionar");
+        jLabel_ButtonSelectImageClient.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        jLabel_ButtonSelectImageClient.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel_ButtonSelectImageClient.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel_ButtonSelectImageEmployeesMouseClicked(evt);
+                jLabel_ButtonSelectImageClientMouseClicked(evt);
             }
         });
 
-        jLabel_imageLoadEmployees.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel_imageLoadEmployees.setText("No Image");
-        jLabel_imageLoadEmployees.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        jLabel_imageLoadClient.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel_imageLoadClient.setText("No Image");
+        jLabel_imageLoadClient.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -347,34 +348,34 @@ public class UpdateUser_form extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel_imageLoadEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel_PerfilEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel_imageLoadClient, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel_PerfilClient, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(28, 28, 28)
-                        .addComponent(jLabel_ButtonSelectImageEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel_ButtonSelectImageClient, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel_PerfilEmployees)
+                .addComponent(jLabel_PerfilClient)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel_ButtonSelectImageEmployees)
+                .addComponent(jLabel_ButtonSelectImageClient)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel_imageLoadEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel_imageLoadClient, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41))
         );
 
-        jLabel_ButtonSaveDataEmployees.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
-        jLabel_ButtonSaveDataEmployees.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel_ButtonSaveDataEmployees.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel_ButtonSaveDataEmployees.setText("Registrar");
-        jLabel_ButtonSaveDataEmployees.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        jLabel_ButtonSaveDataEmployees.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel_ButtonSaveDataEmployees.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabel_ButtonSaveDataClient.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
+        jLabel_ButtonSaveDataClient.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel_ButtonSaveDataClient.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel_ButtonSaveDataClient.setText("Registrar");
+        jLabel_ButtonSaveDataClient.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        jLabel_ButtonSaveDataClient.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel_ButtonSaveDataClient.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel_ButtonSaveDataEmployeesMouseClicked(evt);
+                jLabel_ButtonSaveDataClientMouseClicked(evt);
             }
         });
 
@@ -394,7 +395,7 @@ public class UpdateUser_form extends javax.swing.JFrame {
                 .addGroup(jPanel_registerEmployeesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel_registerEmployeesLayout.createSequentialGroup()
                         .addGap(42, 42, 42)
-                        .addComponent(jLabel_ButtonSaveDataEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel_ButtonSaveDataClient, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel_registerEmployeesLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -411,15 +412,13 @@ public class UpdateUser_form extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jLabel_Exit)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel_registerEmployeesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel_registerEmployeesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel_TextFieldsForm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_registerEmployeesLayout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel_ButtonSaveDataEmployees)
-                        .addGap(23, 23, 23))
-                    .addGroup(jPanel_registerEmployeesLayout.createSequentialGroup()
-                        .addComponent(jPanel_TextFieldsForm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(17, 17, 17))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel_ButtonSaveDataClient)))
+                .addGap(17, 17, 17))
         );
 
         javax.swing.GroupLayout PrimaryPanel_FormRegisterUserLayout = new javax.swing.GroupLayout(PrimaryPanel_FormRegisterUser);
@@ -450,22 +449,22 @@ public class UpdateUser_form extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     //<editor-fold defaultstate="colapsed" desc="Event">
-    private void jLabel_ButtonSelectImageEmployeesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ButtonSelectImageEmployeesMouseClicked
+    private void jLabel_ButtonSelectImageClientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ButtonSelectImageClientMouseClicked
         JFileChooser fileChooser = new JFileChooser();
         FileNameExtensionFilter extensionFilter = new FileNameExtensionFilter("jpg, png & gif", "jpg", "jpeg", "png", "gif");
         fileChooser.setFileFilter(extensionFilter);
         if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             ruta = fileChooser.getSelectedFile().getAbsolutePath();
             Image fcImages = new ImageIcon(ruta).getImage();
-            ImageIcon iIcFCImage = new ImageIcon(fcImages.getScaledInstance(jLabel_imageLoadEmployees.getWidth(), jLabel_imageLoadEmployees.getHeight(), 0));
-            jLabel_imageLoadEmployees.setIcon(iIcFCImage);
-            jLabel_imageLoadEmployees.setText("");
+            ImageIcon iIcFCImage = new ImageIcon(fcImages.getScaledInstance(jLabel_imageLoadClient.getWidth(), jLabel_imageLoadClient.getHeight(), 0));
+            jLabel_imageLoadClient.setIcon(iIcFCImage);
+            jLabel_imageLoadClient.setText("");
         }
-    }//GEN-LAST:event_jLabel_ButtonSelectImageEmployeesMouseClicked
+    }//GEN-LAST:event_jLabel_ButtonSelectImageClientMouseClicked
 
-    private void jLabel_ButtonSaveDataEmployeesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ButtonSaveDataEmployeesMouseClicked
-        String Id = jTextField_IdEmployees.getText(), Name = jTextField_nameEmployees.getText(), LastName = jTextField_LastNameEmployees.getText(), Email = jTextField_EmailEmployees.getText(), Password = jTextField_PassEmployees.getText(), Phone = jTextField_PhoneEmployees.getText(), Address = jTextField_AddressEmployees.getText();
-        
+    private void jLabel_ButtonSaveDataClientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ButtonSaveDataClientMouseClicked
+        String Id = jTextField_IdEmployees.getText(), Name = jTextField_nameClient.getText(), LastName = jTextField_LastNameClient.getText(), Email = jTextField_EmailClient.getText(), Password = jTextField_PassClient.getText(), Phone = jTextField_PhoneClient.getText(), Address = jTextField_AddressClient.getText();
+
         String sha1 = "";
         
 	try {
@@ -478,23 +477,20 @@ public class UpdateUser_form extends javax.swing.JFrame {
 	}
         
         Password = sha1;
-        
-        byte[] image = convertImage();
-        
-        Object Gender = (String) jComboBox_GenderEmployees.getSelectedItem();
-        
-        newStatement.GenerateStatement_UpdateEmployees(image, Name, LastName, Email, Password, Address, Phone, Gender, Integer.parseInt(Id));
-        JOptionPane.showMessageDialog(null, "Usuario Actualiazdo");
+        Object StatusAdmin = null, Gender = (String) jComboBox_GenderClient.getSelectedItem();
+        StatusAdmin = "CL";
+
+        newStatement.GenerateStatement_SetClient(Integer.parseInt(Id), convertImage(), Name, LastName, Email, Address, Password, Phone, StatusAdmin, Gender);
+        JOptionPane.showMessageDialog(null, "Cliente Registrado");
         setVisible(false);
-    }//GEN-LAST:event_jLabel_ButtonSaveDataEmployeesMouseClicked
+    }//GEN-LAST:event_jLabel_ButtonSaveDataClientMouseClicked
 
     private void jLabel_ExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ExitMouseClicked
         // TODO add your handling code here:
         setVisible(false);
     }//GEN-LAST:event_jLabel_ExitMouseClicked
-
     //</editor-fold>
-    
+
     /**
      * @param args the command line arguments
      */
@@ -512,40 +508,44 @@ public class UpdateUser_form extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UpdateUser_form.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegisterClient_form.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UpdateUser_form.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegisterClient_form.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UpdateUser_form.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegisterClient_form.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(UpdateUser_form.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegisterClient_form.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new UpdateUser_form().setVisible(true);
+                new RegisterClient_form().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PrimaryPanel_FormRegisterUser;
-    private javax.swing.JComboBox<String> jComboBox_GenderEmployees;
-    private javax.swing.JLabel jLabel_ButtonSaveDataEmployees;
-    private javax.swing.JLabel jLabel_ButtonSelectImageEmployees;
+    private javax.swing.JComboBox<String> jComboBox_GenderClient;
+    private javax.swing.JLabel jLabel_ButtonSaveDataClient;
+    private javax.swing.JLabel jLabel_ButtonSelectImageClient;
     private javax.swing.JLabel jLabel_Exit;
-    private javax.swing.JLabel jLabel_PerfilEmployees;
-    private javax.swing.JLabel jLabel_TFAddressEmployees;
-    private javax.swing.JLabel jLabel_TFEmailEmployees;
-    private javax.swing.JLabel jLabel_TFIdEmployees;
-    private javax.swing.JLabel jLabel_TFLastNameEmployees;
-    private javax.swing.JLabel jLabel_TFNameEmployees;
-    private javax.swing.JLabel jLabel_TFPassEmployees;
-    private javax.swing.JLabel jLabel_TFPhoneEmployees;
-    private javax.swing.JLabel jLabel_TFSAEmployees1;
+    private javax.swing.JLabel jLabel_PerfilClient;
+    private javax.swing.JLabel jLabel_TFAddressClient;
+    private javax.swing.JLabel jLabel_TFEmailClient;
+    private javax.swing.JLabel jLabel_TFIdClient;
+    private javax.swing.JLabel jLabel_TFLastNameClient;
+    private javax.swing.JLabel jLabel_TFNameClient;
+    private javax.swing.JLabel jLabel_TFPassClient;
+    private javax.swing.JLabel jLabel_TFPhoneClient;
+    private javax.swing.JLabel jLabel_TFSGenderClient;
     private javax.swing.JLabel jLabel_TitlePanelRE;
-    private javax.swing.JLabel jLabel_imageLoadEmployees;
+    private javax.swing.JLabel jLabel_imageLoadClient;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel_TextFieldsForm;
     private javax.swing.JPanel jPanel_registerEmployees;
@@ -556,12 +556,12 @@ public class UpdateUser_form extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
-    private javax.swing.JTextField jTextField_AddressEmployees;
-    private javax.swing.JTextField jTextField_EmailEmployees;
+    private javax.swing.JTextField jTextField_AddressClient;
+    private javax.swing.JTextField jTextField_EmailClient;
     private javax.swing.JTextField jTextField_IdEmployees;
-    private javax.swing.JTextField jTextField_LastNameEmployees;
-    private javax.swing.JTextField jTextField_PassEmployees;
-    private javax.swing.JTextField jTextField_PhoneEmployees;
-    private javax.swing.JTextField jTextField_nameEmployees;
+    private javax.swing.JTextField jTextField_LastNameClient;
+    private javax.swing.JTextField jTextField_PassClient;
+    private javax.swing.JTextField jTextField_PhoneClient;
+    private javax.swing.JTextField jTextField_nameClient;
     // End of variables declaration//GEN-END:variables
 }

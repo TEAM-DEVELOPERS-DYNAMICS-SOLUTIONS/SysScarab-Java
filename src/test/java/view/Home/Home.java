@@ -19,7 +19,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
 import model.reports.GenerateReport;
+import view.Home.Forms.RegisterClient_form;
 import view.Home.Forms.RegisterUser_form;
+import view.Home.Forms.UpdateClient_form;
 import view.Home.Forms.UpdateUser_form;
 import view.Login.Login;
 import view.RenderImageTable;
@@ -38,7 +40,7 @@ public final class Home extends javax.swing.JFrame {
     protected StatementDbSQL stDb = new StatementDbSQL();
     protected boolean AuthVerify = stDb.getAuthVerify();
 
-    private Object ValuePointSelectedDeleteTable;
+    private Map ValuePointSelectedDeleteTable = new HashMap<String, String>();
     //</editor-fold>    
 
     //<editor-fold defaultstate="colapsed" desc="** Getters & Setters / Constructors">
@@ -134,7 +136,11 @@ public final class Home extends javax.swing.JFrame {
         jLabel_ButtonGetEmployees = new javax.swing.JLabel();
         jLabel_ButtonSetEmployees = new javax.swing.JLabel();
         jLabel_ButtonUpdateUser = new javax.swing.JLabel();
-        jLabel_ButtonGenerateReport = new javax.swing.JLabel();
+        jLabel_ButtonGenerateReport_user = new javax.swing.JLabel();
+        jLabel_ButtonGetClient = new javax.swing.JLabel();
+        jLabel_ButtonGenerateReport_Client = new javax.swing.JLabel();
+        jLabel_ButtonUpdateClient = new javax.swing.JLabel();
+        jLabel_ButtonSetClient = new javax.swing.JLabel();
         jPanel_SpaceAdmin = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable_TableAdminSQL = new javax.swing.JTable();
@@ -223,6 +229,7 @@ public final class Home extends javax.swing.JFrame {
         jLabel_ExitButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel_ExitButton.setForeground(new java.awt.Color(255, 255, 255));
         jLabel_ExitButton.setText("X");
+        jLabel_ExitButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel_ExitButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel_ExitButtonMouseClicked(evt);
@@ -232,6 +239,7 @@ public final class Home extends javax.swing.JFrame {
         jLabel_MaxRestore.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel_MaxRestore.setForeground(new java.awt.Color(255, 255, 255));
         jLabel_MaxRestore.setText("❐");
+        jLabel_MaxRestore.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel_MaxRestore.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel_MaxRestoreMouseClicked(evt);
@@ -241,6 +249,7 @@ public final class Home extends javax.swing.JFrame {
         jLabel_Minimize.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel_Minimize.setForeground(new java.awt.Color(255, 255, 255));
         jLabel_Minimize.setText("-");
+        jLabel_Minimize.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel_Minimize.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel_MinimizeMouseClicked(evt);
@@ -317,16 +326,19 @@ public final class Home extends javax.swing.JFrame {
         jLabel_AccountingMod.setForeground(new java.awt.Color(255, 255, 255));
         jLabel_AccountingMod.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel_AccountingMod.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Icons/1x/IconAccounting.png"))); // NOI18N
+        jLabel_AccountingMod.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jLabel_InventoryMod.setBackground(new java.awt.Color(51, 51, 51));
         jLabel_InventoryMod.setForeground(new java.awt.Color(255, 255, 255));
         jLabel_InventoryMod.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel_InventoryMod.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Icons/1x/IconInventoy.png"))); // NOI18N
+        jLabel_InventoryMod.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jLabel_AdminMod.setBackground(new java.awt.Color(51, 51, 51));
         jLabel_AdminMod.setForeground(new java.awt.Color(255, 255, 255));
         jLabel_AdminMod.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel_AdminMod.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Icons/1x/IconManagement.png"))); // NOI18N
+        jLabel_AdminMod.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel_AdminMod.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel_AdminModMouseClicked(evt);
@@ -356,6 +368,7 @@ public final class Home extends javax.swing.JFrame {
         jLabel_ButtonLogOut.setText("Cerrar Sesión");
         jLabel_ButtonLogOut.setToolTipText("");
         jLabel_ButtonLogOut.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel_ButtonLogOut.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel_ButtonLogOut.setOpaque(true);
         jLabel_ButtonLogOut.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -430,6 +443,7 @@ public final class Home extends javax.swing.JFrame {
         jLabel_ButtonGetEmployees.setText(" Consultar Usuarios ");
         jLabel_ButtonGetEmployees.setToolTipText("");
         jLabel_ButtonGetEmployees.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel_ButtonGetEmployees.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel_ButtonGetEmployees.setOpaque(true);
         jLabel_ButtonGetEmployees.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -444,6 +458,7 @@ public final class Home extends javax.swing.JFrame {
         jLabel_ButtonSetEmployees.setText(" Agregar Usuarios ");
         jLabel_ButtonSetEmployees.setToolTipText("");
         jLabel_ButtonSetEmployees.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel_ButtonSetEmployees.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel_ButtonSetEmployees.setOpaque(true);
         jLabel_ButtonSetEmployees.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -458,6 +473,7 @@ public final class Home extends javax.swing.JFrame {
         jLabel_ButtonUpdateUser.setText("Actualizar Usuarios");
         jLabel_ButtonUpdateUser.setToolTipText("");
         jLabel_ButtonUpdateUser.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel_ButtonUpdateUser.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel_ButtonUpdateUser.setOpaque(true);
         jLabel_ButtonUpdateUser.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -465,17 +481,78 @@ public final class Home extends javax.swing.JFrame {
             }
         });
 
-        jLabel_ButtonGenerateReport.setBackground(new java.awt.Color(51, 51, 51));
-        jLabel_ButtonGenerateReport.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
-        jLabel_ButtonGenerateReport.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel_ButtonGenerateReport.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel_ButtonGenerateReport.setText("Reporte Usuarios-Log");
-        jLabel_ButtonGenerateReport.setToolTipText("");
-        jLabel_ButtonGenerateReport.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jLabel_ButtonGenerateReport.setOpaque(true);
-        jLabel_ButtonGenerateReport.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabel_ButtonGenerateReport_user.setBackground(new java.awt.Color(51, 51, 51));
+        jLabel_ButtonGenerateReport_user.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        jLabel_ButtonGenerateReport_user.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel_ButtonGenerateReport_user.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel_ButtonGenerateReport_user.setText("Reporte Usuarios-Log");
+        jLabel_ButtonGenerateReport_user.setToolTipText("");
+        jLabel_ButtonGenerateReport_user.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel_ButtonGenerateReport_user.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel_ButtonGenerateReport_user.setOpaque(true);
+        jLabel_ButtonGenerateReport_user.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel_ButtonGenerateReportMouseClicked(evt);
+                jLabel_ButtonGenerateReport_userMouseClicked(evt);
+            }
+        });
+
+        jLabel_ButtonGetClient.setBackground(new java.awt.Color(51, 51, 51));
+        jLabel_ButtonGetClient.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        jLabel_ButtonGetClient.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel_ButtonGetClient.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel_ButtonGetClient.setText(" Consultar Cliente");
+        jLabel_ButtonGetClient.setToolTipText("");
+        jLabel_ButtonGetClient.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel_ButtonGetClient.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel_ButtonGetClient.setOpaque(true);
+        jLabel_ButtonGetClient.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_ButtonGetClientMouseClicked(evt);
+            }
+        });
+
+        jLabel_ButtonGenerateReport_Client.setBackground(new java.awt.Color(51, 51, 51));
+        jLabel_ButtonGenerateReport_Client.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        jLabel_ButtonGenerateReport_Client.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel_ButtonGenerateReport_Client.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel_ButtonGenerateReport_Client.setText("Reporte Cliente-Log");
+        jLabel_ButtonGenerateReport_Client.setToolTipText("");
+        jLabel_ButtonGenerateReport_Client.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel_ButtonGenerateReport_Client.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel_ButtonGenerateReport_Client.setOpaque(true);
+        jLabel_ButtonGenerateReport_Client.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_ButtonGenerateReport_ClientMouseClicked(evt);
+            }
+        });
+
+        jLabel_ButtonUpdateClient.setBackground(new java.awt.Color(51, 51, 51));
+        jLabel_ButtonUpdateClient.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        jLabel_ButtonUpdateClient.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel_ButtonUpdateClient.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel_ButtonUpdateClient.setText("Actualizar Cliente");
+        jLabel_ButtonUpdateClient.setToolTipText("");
+        jLabel_ButtonUpdateClient.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel_ButtonUpdateClient.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel_ButtonUpdateClient.setOpaque(true);
+        jLabel_ButtonUpdateClient.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_ButtonUpdateClientMouseClicked(evt);
+            }
+        });
+
+        jLabel_ButtonSetClient.setBackground(new java.awt.Color(51, 51, 51));
+        jLabel_ButtonSetClient.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        jLabel_ButtonSetClient.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel_ButtonSetClient.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel_ButtonSetClient.setText(" Agregar Cliente");
+        jLabel_ButtonSetClient.setToolTipText("");
+        jLabel_ButtonSetClient.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel_ButtonSetClient.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel_ButtonSetClient.setOpaque(true);
+        jLabel_ButtonSetClient.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_ButtonSetClientMouseClicked(evt);
             }
         });
 
@@ -489,20 +566,36 @@ public final class Home extends javax.swing.JFrame {
                     .addComponent(jLabel_ButtonGetEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel_ButtonSetEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel_ButtonUpdateUser, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel_ButtonGenerateReport, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel_ButtonGenerateReport_user, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel_BarToolAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel_ButtonGetClient, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_ButtonSetClient, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_ButtonUpdateClient, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_ButtonGenerateReport_Client, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel_BarToolAdminLayout.setVerticalGroup(
             jPanel_BarToolAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_BarToolAdminLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel_ButtonGetEmployees)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel_ButtonSetEmployees)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel_ButtonUpdateUser)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel_ButtonGenerateReport)
+                .addGroup(jPanel_BarToolAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel_BarToolAdminLayout.createSequentialGroup()
+                        .addComponent(jLabel_ButtonGetClient)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel_ButtonSetClient)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel_ButtonUpdateClient)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel_ButtonGenerateReport_Client))
+                    .addGroup(jPanel_BarToolAdminLayout.createSequentialGroup()
+                        .addComponent(jLabel_ButtonGetEmployees)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel_ButtonSetEmployees)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel_ButtonUpdateUser)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel_ButtonGenerateReport_user)))
                 .addContainerGap())
         );
 
@@ -742,18 +835,43 @@ public final class Home extends javax.swing.JFrame {
 
     private void jTable_TableAdminSQLMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_TableAdminSQLMouseClicked
         // TODO add your handling code here:
-        int Row = jTable_TableAdminSQL.getSelectedRow();
+        int Row = jTable_TableAdminSQL.getSelectedRow();  
         TableModel tableModel = jTable_TableAdminSQL.getModel();
-        ValuePointSelectedDeleteTable = tableModel.getValueAt(Row, 0);
+        
+        ValuePointSelectedDeleteTable.put("ID",tableModel.getValueAt(Row, 0));
+        ValuePointSelectedDeleteTable.put("SA",tableModel.getValueAt(Row, 7));
     }//GEN-LAST:event_jTable_TableAdminSQLMouseClicked
 
     private void jLabel_ButtonDeleteEntitiesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ButtonDeleteEntitiesMouseClicked
         // TODO add your handling code here:
-        int input = JOptionPane.showConfirmDialog(null, "Desea eliminar al Empleado/Usuario con ID: " + ValuePointSelectedDeleteTable + "?", "Eliminacion", JOptionPane.OK_CANCEL_OPTION, JOptionPane.DEFAULT_OPTION);
-        if (input == 0) {
-            stDb.GenerateStatement_DeleteEmployees(ValuePointSelectedDeleteTable);
-            JOptionPane.showMessageDialog(null, "eliminacion Satisfactoria");
-        }
+        int input;
+        switch ((String) ValuePointSelectedDeleteTable.get("SA")){
+            case "AD" :
+                JOptionPane.showMessageDialog(null, "Error al eliminar Entidad: Perfil Administrativo, Actividad no permitida desde el aplicativo");
+                break;
+            
+            case "CL":
+                input = JOptionPane.showConfirmDialog(null, "Desea eliminar al Cliente con ID: " + ValuePointSelectedDeleteTable.get("ID") + "?", "Eliminacion", JOptionPane.OK_CANCEL_OPTION, JOptionPane.DEFAULT_OPTION);
+                if (input == 0) {
+                    stDb.GenerateStatement_DeleteClient(ValuePointSelectedDeleteTable.get("ID"));
+                    JOptionPane.showMessageDialog(null, "eliminacion Satisfactoria");
+                    break;
+                }
+            ;
+            
+            case "EP" :
+                input = JOptionPane.showConfirmDialog(null, "Desea eliminar al Empleado con ID: " + ValuePointSelectedDeleteTable.get("ID") + "?", "Eliminacion", JOptionPane.OK_CANCEL_OPTION, JOptionPane.DEFAULT_OPTION);
+                if (input == 0) {
+                    stDb.GenerateStatement_DeleteEmployees(ValuePointSelectedDeleteTable.get("ID"));
+                    JOptionPane.showMessageDialog(null, "eliminacion Satisfactoria");
+                    break;
+                }
+            ;
+            
+            case "NA" :
+                JOptionPane.showMessageDialog(null, "Error al eliminar Entidad: Perfil No Asignado, Actividad no permitida desde el aplicativo");
+                break;
+        } 
     }//GEN-LAST:event_jLabel_ButtonDeleteEntitiesMouseClicked
 
     private void jLabel_ButtonUpdateUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ButtonUpdateUserMouseClicked
@@ -777,11 +895,76 @@ public final class Home extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jLabel_ButtonLogOutMouseClicked
 
-    private void jLabel_ButtonGenerateReportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ButtonGenerateReportMouseClicked
+    private void jLabel_ButtonGenerateReport_userMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ButtonGenerateReport_userMouseClicked
         // TODO add your handling code here:
         GenerateReport GR = new GenerateReport();
-        GR.GenerateReport();
-    }//GEN-LAST:event_jLabel_ButtonGenerateReportMouseClicked
+        GR.GenerateReport_EmployeesLogs();
+    }//GEN-LAST:event_jLabel_ButtonGenerateReport_userMouseClicked
+
+    private void jLabel_ButtonGetClientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ButtonGetClientMouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel modelTable = CreateModelTableEmployees();
+        ResultSet RtSet = stDb.GenerateStatement_GetClient();
+        jTable_TableAdminSQL.setDefaultRenderer(Object.class, new RenderImageTable());
+
+        if (AuthVerify) {
+            Object ClientData[] = new Object[11];
+            try {
+                while (RtSet.next()) {
+                    ClientData[0] = String.valueOf(RtSet.getString("IdClient"));
+                    ClientData[2] = String.valueOf(RtSet.getString("NameClient"));
+                    ClientData[3] = String.valueOf(RtSet.getString("LastNameClient"));
+                    ClientData[4] = String.valueOf(RtSet.getString("EmailClient"));
+                    ClientData[5] = String.valueOf(RtSet.getString("PasswordClient"));
+                    ClientData[6] = String.valueOf(RtSet.getString("PhoneClient"));
+                    ClientData[7] = String.valueOf(RtSet.getString("StatusAdminClient"));
+                    ClientData[8] = String.valueOf(RtSet.getString("StatusConnectionClient"));
+                    ClientData[9] = String.valueOf(RtSet.getString("GenderClient"));
+                    try {
+                        byte[] images = RtSet.getBytes("ImageClient");
+                        BufferedImage bfImages = null;
+                        InputStream iStImage = new ByteArrayInputStream(images);
+                        bfImages = ImageIO.read(iStImage);
+                        ImageIcon iIcImages = new ImageIcon(bfImages.getScaledInstance(60, 60, 0));
+                        ClientData[1] = new JLabel(iIcImages);
+                    } catch (Exception e) {
+                        ClientData[1] = "Sin Imagen";
+                    }
+                    modelTable.addRow(ClientData);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            jTable_TableAdminSQL.setModel(modelTable);
+        } else {
+            System.out.println("Flag Home: Action don't Allow - User Don't Logged");
+        }
+    }//GEN-LAST:event_jLabel_ButtonGetClientMouseClicked
+
+    private void jLabel_ButtonGenerateReport_ClientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ButtonGenerateReport_ClientMouseClicked
+        GenerateReport GR = new GenerateReport();
+        GR.GenerateReport_ClientLogs();
+    }//GEN-LAST:event_jLabel_ButtonGenerateReport_ClientMouseClicked
+
+    private void jLabel_ButtonUpdateClientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ButtonUpdateClientMouseClicked
+        // TODO add your handling code here:
+        if (AuthVerify) {
+            UpdateClient_form UpdateUser = new UpdateClient_form();
+            UpdateUser.setVisible(true);
+        } else {
+            System.out.println("Flag Home: Action don't Allow - User Don't Logged");
+        }
+    }//GEN-LAST:event_jLabel_ButtonUpdateClientMouseClicked
+
+    private void jLabel_ButtonSetClientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ButtonSetClientMouseClicked
+        // TODO add your handling code here:
+        if (AuthVerify) {
+            RegisterClient_form RegisterUser = new RegisterClient_form();
+            RegisterUser.setVisible(true);
+        } else {
+            System.out.println("Flag Home: Action don't Allow - User Don't Logged");
+        }
+    }//GEN-LAST:event_jLabel_ButtonSetClientMouseClicked
     
     //</editor-fold>
 
@@ -828,10 +1011,14 @@ public final class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel_AdminModLabel;
     private javax.swing.JLabel jLabel_ButtonCleanTable;
     private javax.swing.JLabel jLabel_ButtonDeleteEntities;
-    private javax.swing.JLabel jLabel_ButtonGenerateReport;
+    private javax.swing.JLabel jLabel_ButtonGenerateReport_Client;
+    private javax.swing.JLabel jLabel_ButtonGenerateReport_user;
+    private javax.swing.JLabel jLabel_ButtonGetClient;
     private javax.swing.JLabel jLabel_ButtonGetEmployees;
     private javax.swing.JLabel jLabel_ButtonLogOut;
+    private javax.swing.JLabel jLabel_ButtonSetClient;
     private javax.swing.JLabel jLabel_ButtonSetEmployees;
+    private javax.swing.JLabel jLabel_ButtonUpdateClient;
     private javax.swing.JLabel jLabel_ButtonUpdateUser;
     private javax.swing.JLabel jLabel_DragArea;
     private javax.swing.JLabel jLabel_ExitButton;

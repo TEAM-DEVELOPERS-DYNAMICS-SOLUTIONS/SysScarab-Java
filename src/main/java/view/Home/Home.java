@@ -751,7 +751,7 @@ public final class Home extends javax.swing.JFrame {
         // TODO add your handling code here:
         int input = JOptionPane.showConfirmDialog(null, "Desea eliminar al Empleado/Usuario con ID: " + ValuePointSelectedDeleteTable + "?", "Eliminacion", JOptionPane.OK_CANCEL_OPTION, JOptionPane.DEFAULT_OPTION);
         if (input == 0) {
-            stDb.GenerateStatement_DeleteEmployees(ValuePointSelectedDeleteTable);
+            stDb.GenerateStatement_DeleteEmplCl(ValuePointSelectedDeleteTable);
             JOptionPane.showMessageDialog(null, "eliminacion Satisfactoria");
         }
     }//GEN-LAST:event_jLabel_ButtonDeleteEntitiesMouseClicked
@@ -780,7 +780,7 @@ public final class Home extends javax.swing.JFrame {
     private void jLabel_ButtonGenerateReportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ButtonGenerateReportMouseClicked
         // TODO add your handling code here:
         GenerateReport GR = new GenerateReport();
-        GR.GenerateReport();
+        GR.GenerateReport_EmployeesLogs();
     }//GEN-LAST:event_jLabel_ButtonGenerateReportMouseClicked
     
     //</editor-fold>

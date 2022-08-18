@@ -184,7 +184,7 @@ public class StatementDbSQL {
         System.out.println();
     }
     
-    public void GenerateStatement_DeleteEmployees(Object ConditionWhere){
+    public void GenerateStatement_DeleteEmplCl(Object ConditionWhere){
         System.out.println();
         System.err.println("Start SDS_DE");
         

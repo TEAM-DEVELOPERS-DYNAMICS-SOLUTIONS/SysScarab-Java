@@ -35,7 +35,7 @@ public class StatementDbSQL {
     
     /**
      * el sistema aun no esta optimizado!
-     * Faltan uno cuantos ajustes para mejorar y generalizar mas los metodos.
+     * se debe transformar esta clase en Abstracta para crear clases Extendidas para optimizar el codigo y medularizar el codigo
      */
     
     // <editor-fold defaultstate="collapsed" desc="Generators">  
@@ -86,9 +86,7 @@ public class StatementDbSQL {
         System.out.println();
         return StatementDbSQL.newPreStatement;
     }
-    // </editor-fold> 
     
-    // <editor-fold defaultstate="collapsed" desc="Employees Methods">
     public ResultSet GenerateStatement_Authentication(String Pass, String Email) {
         System.err.println("");
         System.err.println("Start SDS_A");
@@ -109,12 +107,13 @@ public class StatementDbSQL {
         }
 
         System.out.println();
-        //newConnection.GenerateDisconnection();
         System.err.println("Exit SDS_A");
         System.out.println();
         return StatementDbSQL.RtSet;
     }
-
+// </editor-fold> 
+    
+    // <editor-fold defaultstate="collapsed" desc="Employees Methods">
     public ResultSet GenerateStatement_GetEmployees() {
         System.out.println();
         System.err.println("Start SDS_GE");
@@ -199,6 +198,173 @@ public class StatementDbSQL {
         System.err.println("Exit SDS_DE");
         System.out.println();
     }
-    // </editor-fold> 
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Clients Methods">
+    public ResultSet GenerateStatement_GetClient() {
+        System.out.println();
+        System.err.println("Start SDS_GC");
+        GenerateStatement();
+
+        try {
+            newStatement.execute("SELECT * FROM Client;");
+            RtSet = newStatement.getResultSet();
+        } catch (SQLException e) {
+            System.out.println("Flag SDS: err to execute query *getClient*");
+            e.printStackTrace();
+        }
+
+        System.err.println("Exit SDS_GC");
+        System.out.println();
+        return StatementDbSQL.RtSet;
+    }
+
+    public void GenerateStatement_SetClient(int IdClient, byte[] ImageClient, String NameClient, String LastNameClient, String EmailClient, String AddressClient, String PasswordClient, String PhoneClient, Object StatusAdminClient, Object GenderClient) {
+        System.out.println();
+        System.err.println("Start SDS_SC");
+        
+        try {
+            newPreStatement = GeneratePreparedStament("INSERT INTO Client (IdClient, ImageClient, NameClient, LastNameClient, EmailClient, PasswordClient, AddressClient, PhoneClient, StatusAdminClient, GenderClient) VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ?);");
+            newPreStatement.setInt(1, IdClient);
+            newPreStatement.setBytes(2, ImageClient);
+            newPreStatement.setString(3, NameClient);
+            newPreStatement.setString(4, LastNameClient);
+            newPreStatement.setString(5, EmailClient);
+            newPreStatement.setString(6, PasswordClient);
+            newPreStatement.setString(7, AddressClient);
+            newPreStatement.setString(8, PhoneClient);
+            newPreStatement.setObject(9, StatusAdminClient);
+            newPreStatement.setObject(10, GenderClient);
+            newPreStatement.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Flag SDS: err to execute query *setClient*");
+            e.printStackTrace();
+        }
+
+        System.err.println("Exit SDS_SC");
+        System.out.println();
+    }
+
+    public void GenerateStatement_UpdateClient(byte[] ImageClient, String NameClient, String LastNameClient, String EmailClient, String PasswordClient, String AddressClient, String PhoneClient, Object GenderClient, int IdClient) {
+        System.out.println();
+        System.err.println("Start SDS_UC");
+
+        try {
+            newPreStatement = GeneratePreparedStament("UPDATE employees SET ImageClient = ?, NameClient = ?, LastNameClient = ?, EmailClient = ?, PasswordClient = ?, AddressClient = ?, PhoneClient = ?, GenderClient = ?  WHERE IdClient = ?;");
+            newPreStatement.setBytes(1, ImageClient);
+            newPreStatement.setString(2, NameClient);
+            newPreStatement.setString(3, LastNameClient);
+            newPreStatement.setString(4, EmailClient);
+            newPreStatement.setString(5, PasswordClient);
+            newPreStatement.setString(6, AddressClient);
+            newPreStatement.setString(7, PhoneClient);
+            newPreStatement.setString(8,(String) GenderClient);
+            newPreStatement.setInt(9, IdClient);
+            newPreStatement.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Flag SDS: err to execute query *UpdateClient*");
+            e.printStackTrace();
+        }
+
+        System.err.println("Exit SDS_UC");
+        System.out.println();
+    }
+    
+    public void GenerateStatement_DeleteClient(Object ConditionWhere){
+        System.out.println();
+        System.err.println("Start SDS_DC");
+        
+        try {
+            newPreStatement = GeneratePreparedStament("DELETE FROM Client WHERE IdClient = ?;");
+            newPreStatement.setObject(1, ConditionWhere);
+            newPreStatement.executeUpdate();
+        } catch  (Exception e) {
+            e.printStackTrace();
+        }
+        
+        System.err.println("Exit SDS_DC");
+        System.out.println();
+    }
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Products Methods">
+    public ResultSet GenerateStatement_GetProduct() {
+        System.out.println();
+        System.err.println("Start SDS_GP");
+        GenerateStatement();
+
+        try {
+            newStatement.execute("SELECT * FROM Product;");
+            RtSet = newStatement.getResultSet();
+        } catch (SQLException e) {
+            System.out.println("Flag SDS: err to execute query *getProduct*");
+            e.printStackTrace();
+        }
+
+        System.err.println("Exit SDS_GP");
+        System.out.println();
+        return StatementDbSQL.RtSet;
+    }
+
+    public void GenerateStatement_SetProduct(int IdProduct, byte[] ImageProduct, String NameProduct, String DescriptionProduct, double PriceProduct) {
+        System.out.println();
+        System.err.println("Start SDS_SP");
+        
+        try {
+            newPreStatement = GeneratePreparedStament("INSERT INTO Product (IdProduct, ImageProduct, NameProduct, DescritionProduct, PriceProduct) VALUES ( ? , ? , ? , ? , ?);");
+            newPreStatement.setInt(1, IdProduct);
+            newPreStatement.setBytes(2, ImageProduct);
+            newPreStatement.setString(3, NameProduct);
+            newPreStatement.setString(4, DescriptionProduct);
+            newPreStatement.setDouble(5, PriceProduct);
+            newPreStatement.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Flag SDS: err to execute query *setProduct*");
+            e.printStackTrace();
+        }
+
+        System.err.println("Exit SDS_SP");
+        System.out.println();
+    }
+
+    public void GenerateStatement_UpdateProduct(int IdProduct, byte[] ImageProduct, String NameProduct, String DescriptionProduct, double PriceProduct) {
+        System.out.println();
+        System.err.println("Start SDS_UP");
+
+        try {
+            newPreStatement = GeneratePreparedStament("INSERT INTO Product (IdProduct, ImageProduct, NameProduct, DescritionProduct, PriceProduct) VALUES ( ? , ? , ? , ? , ?);");
+            newPreStatement.setInt(1, IdProduct);
+            newPreStatement.setBytes(2, ImageProduct);
+            newPreStatement.setString(3, NameProduct);
+            newPreStatement.setString(4, DescriptionProduct);
+            newPreStatement.setDouble(5, PriceProduct);
+            newPreStatement.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Flag SDS: err to execute query *UpdateProduct*");
+            e.printStackTrace();
+        }
+
+        System.err.println("Exit SDS_UP");
+        System.out.println();
+    }
+    
+    public void GenerateStatement_DeleteProduct(Object ConditionWhere){
+        System.out.println();
+        System.err.println("Start SDS_DP");
+        
+        try {
+            newPreStatement = GeneratePreparedStament("DELETE FROM product WHERE IdClient = ?;");
+            newPreStatement.setObject(1, ConditionWhere);
+            newPreStatement.executeUpdate();
+        } catch  (Exception e) {
+            e.printStackTrace();
+        }
+        
+        System.err.println("Exit SDS_DP");
+        System.out.println();
+    }
+    // </editor-fold>
+    
+    
     // </editor-fold>
 }

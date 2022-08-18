@@ -14,7 +14,7 @@ import net.sf.jasperreports.view.JasperViewer;
  */
 public class GenerateReport {
    
-    public void GenerateReport () {
+    public void GenerateReport_EmployeesLogs () {
         ConnectionDbSQL CDbSQL = new ConnectionDbSQL();
         CDbSQL.GenerateConnection();
         Connection con = CDbSQL.getConnection();
@@ -27,5 +27,20 @@ public class GenerateReport {
             JOptionPane.showMessageDialog(null, "Error al Visualizar el Reporte: " + ex);
         }
         CDbSQL.GenerateDisconnection();
-    };    
+    }; 
+    
+    public void GenerateReport_ClientLogs () {
+        ConnectionDbSQL CDbSQL = new ConnectionDbSQL();
+        CDbSQL.GenerateConnection();
+        Connection con = CDbSQL.getConnection();
+        try {
+            JasperReport JR = JasperCompileManager.compileReport("src/test/java/model/reports/reportsClient/Report_OldClient.jrxml");
+            JasperPrint JP = JasperFillManager.fillReport(JR, null, con);
+            JasperViewer.viewReport(JP, true);
+        } catch (JRException ex) {
+            Logger.getLogger(GenerateReport.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Error al Visualizar el Reporte: " + ex);
+        }
+        CDbSQL.GenerateDisconnection();
+    };
 }

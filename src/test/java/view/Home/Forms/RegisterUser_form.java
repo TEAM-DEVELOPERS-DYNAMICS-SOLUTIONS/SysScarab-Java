@@ -48,9 +48,9 @@ public class RegisterUser_form extends javax.swing.JFrame {
             //Items ComboBoxs
             //StatusAdmin
             jComboBox_SAEmployees.removeAllItems();
-            jComboBox_SAEmployees.addItem("Administrador");
-            jComboBox_SAEmployees.addItem("Empleado");
-            jComboBox_SAEmployees.addItem("No Aplica");
+            jComboBox_SAEmployees.addItem("AD");
+            jComboBox_SAEmployees.addItem("EM");
+            jComboBox_SAEmployees.addItem("NA");
             //Gender
             jComboBox_GenderEmployees.removeAllItems();
             jComboBox_GenderEmployees.addItem("M");
@@ -506,19 +506,8 @@ public class RegisterUser_form extends javax.swing.JFrame {
         
         Password = sha1;
         
-        Object StatusAdmin = null, Gender = (String) jComboBox_GenderEmployees.getSelectedItem();
-
-        switch (jComboBox_SAEmployees.getSelectedIndex()) {
-            case 0:
-                StatusAdmin = "AD";
-
-            case 1:
-                StatusAdmin = "EP";
-
-            case 2:
-                StatusAdmin = "NA";
-        }
-
+        Object StatusAdmin = (String) jComboBox_SAEmployees.getSelectedItem(), Gender = (String) jComboBox_GenderEmployees.getSelectedItem();
+        
         newStatement.GenerateStatement_SetEmployees(Integer.parseInt(Id), convertImage(), Name, LastName, Email, Address, Password, Phone, StatusAdmin, Gender);
         JOptionPane.showMessageDialog(null, "Usuario Registrado");
         setVisible(false);

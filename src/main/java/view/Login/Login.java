@@ -96,7 +96,7 @@ public class Login extends javax.swing.JFrame {
         PrimaryPanel_login.add(jLabel_AlertErrAuth, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 340, -1, -1));
 
         jLabel1.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel1.setText("Prueba");
+        jLabel1.setText("Beta 1.2");
         PrimaryPanel_login.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         jLabel_DragArea.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {

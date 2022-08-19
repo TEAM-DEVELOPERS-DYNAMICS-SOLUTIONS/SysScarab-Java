@@ -19,8 +19,12 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
 import model.reports.GenerateReport;
-import view.Home.Forms.RegisterUser_form;
-import view.Home.Forms.UpdateUser_form;
+import view.Home.Forms.client.RegisterClient_form;
+import view.Home.Forms.employees.RegisterUser_form;
+import view.Home.Forms.client.UpdateClient_form;
+import view.Home.Forms.employees.UpdateUser_form;
+import view.Home.Forms.product.RegisterProduct_form;
+import view.Home.Forms.product.UpdateProduct_form;
 import view.Login.Login;
 import view.RenderImageTable;
 
@@ -30,23 +34,26 @@ import view.RenderImageTable;
  */
 public final class Home extends javax.swing.JFrame {
 
-    //<editor-fold defaultstate="colapsed" desc="* Variables">
+    //<editor-fold desc="* Variables">
     public boolean StatusMaximize = false;
     public Dimension screenSizeMaximize = Toolkit.getDefaultToolkit().getScreenSize(), screenSizeMinimize;
     public Toolkit tK = Toolkit.getDefaultToolkit();
     protected int AxisX, AxisY, AxisXScreen, AxisYScreen;
     protected StatementDbSQL stDb = new StatementDbSQL();
     protected boolean AuthVerify = stDb.getAuthVerify();
+    int SetVisibleAdmin = 0; 
+    int SetVisibleInventary = 0; 
 
-    private Object ValuePointSelectedDeleteTable;
+    private Map ValuePointSelectedDeleteTable = new HashMap<String, String>();
     //</editor-fold>    
 
-    //<editor-fold defaultstate="colapsed" desc="** Getters & Setters / Constructors">
+    //<editor-fold desc="** Getters & Setters / Constructors">
     public Home() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.screenSizeMinimize = PrimaryPanel_Home.getPreferredSize();
         jPanel_WorkSpaceAdmin.setVisible(false);
+        jPanel_WorkSpaceInventory.setVisible(false);
     }
     
     @Override // this method change default icon for Custom Icon
@@ -56,9 +63,9 @@ public final class Home extends javax.swing.JFrame {
     }
     //</editor-fold>
 
-    //<editor-fold defaultstate="colapsed" desc="*** Methods">
+    //<editor-fold desc="*** Methods">
 
-    public DefaultTableModel CreateModelTableEmployees() {
+    public DefaultTableModel CreateModelTableUsers() {
         DefaultTableModel modelTable = new DefaultTableModel();;
         jTable_TableAdminSQL.getModel();
         jTable_TableAdminSQL.setModel(modelTable);
@@ -72,6 +79,18 @@ public final class Home extends javax.swing.JFrame {
         modelTable.addColumn("StA");
         modelTable.addColumn("StC");
         modelTable.addColumn("Genero");
+        return modelTable;
+    }
+    
+    public DefaultTableModel CreateModelTableProducts() {
+        DefaultTableModel modelTable = new DefaultTableModel();;
+        jTable_TableInventorySQL.getModel();
+        jTable_TableInventorySQL.setModel(modelTable);
+        modelTable.addColumn("ID");
+        modelTable.addColumn("imagen");
+        modelTable.addColumn("Nombre");
+        modelTable.addColumn("Descripcion");
+        modelTable.addColumn("precio");
         return modelTable;
     }
 
@@ -108,6 +127,32 @@ public final class Home extends javax.swing.JFrame {
         jLabel_resizeBottom = new javax.swing.JLabel();
         jLabel_resizeRightBottom = new javax.swing.JLabel();
         jLabel_resizeLeftBottom = new javax.swing.JLabel();
+        jPanel_WorkSpaceInventory = new javax.swing.JPanel();
+        jPanel_BarToolInventory = new javax.swing.JPanel();
+        jLabel_ButtonGetProduct = new javax.swing.JLabel();
+        jLabel_ButtonSetProduct = new javax.swing.JLabel();
+        jLabel_ButtonUpdateProduct = new javax.swing.JLabel();
+        jLabel_ButtonGenerateReport_Product = new javax.swing.JLabel();
+        jPanel_SpaceInventory = new javax.swing.JPanel();
+        jScrollPaneInventory = new javax.swing.JScrollPane();
+        jTable_TableInventorySQL = new javax.swing.JTable();
+        jLabel_ButtonCleanTable1 = new javax.swing.JLabel();
+        jLabel_ButtonDeleteEntities1 = new javax.swing.JLabel();
+        jPanel_WorkSpaceAdmin = new javax.swing.JPanel();
+        jPanel_BarToolAdmin = new javax.swing.JPanel();
+        jLabel_ButtonGetEmployees = new javax.swing.JLabel();
+        jLabel_ButtonSetEmployees = new javax.swing.JLabel();
+        jLabel_ButtonUpdateUser = new javax.swing.JLabel();
+        jLabel_ButtonGenerateReport_user = new javax.swing.JLabel();
+        jLabel_ButtonGetClient = new javax.swing.JLabel();
+        jLabel_ButtonGenerateReport_Client = new javax.swing.JLabel();
+        jLabel_ButtonUpdateClient = new javax.swing.JLabel();
+        jLabel_ButtonSetClient = new javax.swing.JLabel();
+        jPanel_SpaceAdmin = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable_TableAdminSQL = new javax.swing.JTable();
+        jLabel_ButtonCleanTable = new javax.swing.JLabel();
+        jLabel_ButtonDeleteEntities = new javax.swing.JLabel();
         jPanel_Welcome = new javax.swing.JPanel();
         jLabel_LogoWelcome = new javax.swing.JLabel();
         jLabel_TitleWelcome = new javax.swing.JLabel();
@@ -129,24 +174,13 @@ public final class Home extends javax.swing.JFrame {
         jLabel_InvetoryModLabel = new javax.swing.JLabel();
         jLabel_AdminModLabel = new javax.swing.JLabel();
         jLabel_ButtonLogOut = new javax.swing.JLabel();
-        jPanel_WorkSpaceAdmin = new javax.swing.JPanel();
-        jPanel_BarToolAdmin = new javax.swing.JPanel();
-        jLabel_ButtonGetEmployees = new javax.swing.JLabel();
-        jLabel_ButtonSetEmployees = new javax.swing.JLabel();
-        jLabel_ButtonUpdateUser = new javax.swing.JLabel();
-        jLabel_ButtonGenerateReport = new javax.swing.JLabel();
-        jPanel_SpaceAdmin = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable_TableAdminSQL = new javax.swing.JTable();
-        jLabel_ButtonCleanTable = new javax.swing.JLabel();
-        jLabel_ButtonDeleteEntities = new javax.swing.JLabel();
+        jLabel_ButtonHome = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Scarab - Home");
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setIconImage(getIconImage());
-        setMaximumSize(new java.awt.Dimension(1980, 1080));
         setMinimumSize(new java.awt.Dimension(800, 600));
         setName("Home"); // NOI18N
         setUndecorated(true);
@@ -174,6 +208,425 @@ public final class Home extends javax.swing.JFrame {
         jLabel_resizeLeftBottom.setBackground(new java.awt.Color(0, 153, 153));
         jLabel_resizeLeftBottom.setCursor(new java.awt.Cursor(java.awt.Cursor.SW_RESIZE_CURSOR));
 
+        jPanel_WorkSpaceInventory.setBackground(new java.awt.Color(51, 51, 51));
+
+        jPanel_BarToolInventory.setBackground(new java.awt.Color(51, 51, 51));
+        jPanel_BarToolInventory.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel_ButtonGetProduct.setBackground(new java.awt.Color(51, 51, 51));
+        jLabel_ButtonGetProduct.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        jLabel_ButtonGetProduct.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel_ButtonGetProduct.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel_ButtonGetProduct.setText(" Consultar Productos");
+        jLabel_ButtonGetProduct.setToolTipText("");
+        jLabel_ButtonGetProduct.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel_ButtonGetProduct.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel_ButtonGetProduct.setOpaque(true);
+        jLabel_ButtonGetProduct.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_ButtonGetProductMouseClicked(evt);
+            }
+        });
+
+        jLabel_ButtonSetProduct.setBackground(new java.awt.Color(51, 51, 51));
+        jLabel_ButtonSetProduct.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        jLabel_ButtonSetProduct.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel_ButtonSetProduct.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel_ButtonSetProduct.setText("Agregar Productos");
+        jLabel_ButtonSetProduct.setToolTipText("");
+        jLabel_ButtonSetProduct.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel_ButtonSetProduct.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel_ButtonSetProduct.setOpaque(true);
+        jLabel_ButtonSetProduct.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_ButtonSetProductMouseClicked(evt);
+            }
+        });
+
+        jLabel_ButtonUpdateProduct.setBackground(new java.awt.Color(51, 51, 51));
+        jLabel_ButtonUpdateProduct.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        jLabel_ButtonUpdateProduct.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel_ButtonUpdateProduct.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel_ButtonUpdateProduct.setText("Actualizar Productos");
+        jLabel_ButtonUpdateProduct.setToolTipText("");
+        jLabel_ButtonUpdateProduct.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel_ButtonUpdateProduct.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel_ButtonUpdateProduct.setOpaque(true);
+        jLabel_ButtonUpdateProduct.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_ButtonUpdateProductMouseClicked(evt);
+            }
+        });
+
+        jLabel_ButtonGenerateReport_Product.setBackground(new java.awt.Color(51, 51, 51));
+        jLabel_ButtonGenerateReport_Product.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        jLabel_ButtonGenerateReport_Product.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel_ButtonGenerateReport_Product.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel_ButtonGenerateReport_Product.setText("Reporte Productos-Log");
+        jLabel_ButtonGenerateReport_Product.setToolTipText("");
+        jLabel_ButtonGenerateReport_Product.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel_ButtonGenerateReport_Product.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel_ButtonGenerateReport_Product.setOpaque(true);
+        jLabel_ButtonGenerateReport_Product.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_ButtonGenerateReport_ProductMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel_BarToolInventoryLayout = new javax.swing.GroupLayout(jPanel_BarToolInventory);
+        jPanel_BarToolInventory.setLayout(jPanel_BarToolInventoryLayout);
+        jPanel_BarToolInventoryLayout.setHorizontalGroup(
+            jPanel_BarToolInventoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_BarToolInventoryLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel_BarToolInventoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel_ButtonGetProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_ButtonSetProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_ButtonUpdateProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_ButtonGenerateReport_Product, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel_BarToolInventoryLayout.setVerticalGroup(
+            jPanel_BarToolInventoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_BarToolInventoryLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel_ButtonGetProduct)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel_ButtonSetProduct)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel_ButtonUpdateProduct)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addComponent(jLabel_ButtonGenerateReport_Product)
+                .addContainerGap())
+        );
+
+        jPanel_SpaceInventory.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel_SpaceInventory.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jTable_TableInventorySQL.setBackground(new java.awt.Color(255, 255, 255));
+        jTable_TableInventorySQL.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        jTable_TableInventorySQL.setFont(new java.awt.Font("Roboto Light", 0, 16)); // NOI18N
+        jTable_TableInventorySQL.setModel(jTable_TableAdminSQL.getModel());
+        jTable_TableInventorySQL.setRowHeight(60);
+        jTable_TableInventorySQL.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable_TableInventorySQLMouseClicked(evt);
+            }
+        });
+        jScrollPaneInventory.setViewportView(jTable_TableInventorySQL);
+
+        jLabel_ButtonCleanTable1.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel_ButtonCleanTable1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel_ButtonCleanTable1.setText("Limpiar");
+        jLabel_ButtonCleanTable1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        jLabel_ButtonCleanTable1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel_ButtonCleanTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_ButtonCleanTable1MouseClicked(evt);
+            }
+        });
+
+        jLabel_ButtonDeleteEntities1.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel_ButtonDeleteEntities1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel_ButtonDeleteEntities1.setText("Eliminar");
+        jLabel_ButtonDeleteEntities1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        jLabel_ButtonDeleteEntities1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel_ButtonDeleteEntities1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_ButtonDeleteEntities1MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel_SpaceInventoryLayout = new javax.swing.GroupLayout(jPanel_SpaceInventory);
+        jPanel_SpaceInventory.setLayout(jPanel_SpaceInventoryLayout);
+        jPanel_SpaceInventoryLayout.setHorizontalGroup(
+            jPanel_SpaceInventoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_SpaceInventoryLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel_SpaceInventoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPaneInventory, javax.swing.GroupLayout.DEFAULT_SIZE, 896, Short.MAX_VALUE)
+                    .addGroup(jPanel_SpaceInventoryLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel_ButtonDeleteEntities1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel_ButtonCleanTable1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jPanel_SpaceInventoryLayout.setVerticalGroup(
+            jPanel_SpaceInventoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_SpaceInventoryLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPaneInventory, javax.swing.GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel_SpaceInventoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel_ButtonCleanTable1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_ButtonDeleteEntities1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout jPanel_WorkSpaceInventoryLayout = new javax.swing.GroupLayout(jPanel_WorkSpaceInventory);
+        jPanel_WorkSpaceInventory.setLayout(jPanel_WorkSpaceInventoryLayout);
+        jPanel_WorkSpaceInventoryLayout.setHorizontalGroup(
+            jPanel_WorkSpaceInventoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel_BarToolInventory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel_SpaceInventory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel_WorkSpaceInventoryLayout.setVerticalGroup(
+            jPanel_WorkSpaceInventoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_WorkSpaceInventoryLayout.createSequentialGroup()
+                .addComponent(jPanel_BarToolInventory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel_SpaceInventory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel_WorkSpaceAdmin.setBackground(new java.awt.Color(51, 51, 51));
+
+        jPanel_BarToolAdmin.setBackground(new java.awt.Color(51, 51, 51));
+        jPanel_BarToolAdmin.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel_ButtonGetEmployees.setBackground(new java.awt.Color(51, 51, 51));
+        jLabel_ButtonGetEmployees.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        jLabel_ButtonGetEmployees.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel_ButtonGetEmployees.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel_ButtonGetEmployees.setText(" Consultar Usuarios ");
+        jLabel_ButtonGetEmployees.setToolTipText("");
+        jLabel_ButtonGetEmployees.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel_ButtonGetEmployees.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel_ButtonGetEmployees.setOpaque(true);
+        jLabel_ButtonGetEmployees.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_ButtonGetEmployeesMouseClicked(evt);
+            }
+        });
+
+        jLabel_ButtonSetEmployees.setBackground(new java.awt.Color(51, 51, 51));
+        jLabel_ButtonSetEmployees.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        jLabel_ButtonSetEmployees.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel_ButtonSetEmployees.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel_ButtonSetEmployees.setText(" Agregar Usuarios ");
+        jLabel_ButtonSetEmployees.setToolTipText("");
+        jLabel_ButtonSetEmployees.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel_ButtonSetEmployees.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel_ButtonSetEmployees.setOpaque(true);
+        jLabel_ButtonSetEmployees.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_ButtonSetEmployeesMouseClicked(evt);
+            }
+        });
+
+        jLabel_ButtonUpdateUser.setBackground(new java.awt.Color(51, 51, 51));
+        jLabel_ButtonUpdateUser.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        jLabel_ButtonUpdateUser.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel_ButtonUpdateUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel_ButtonUpdateUser.setText("Actualizar Usuarios");
+        jLabel_ButtonUpdateUser.setToolTipText("");
+        jLabel_ButtonUpdateUser.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel_ButtonUpdateUser.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel_ButtonUpdateUser.setOpaque(true);
+        jLabel_ButtonUpdateUser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_ButtonUpdateUserMouseClicked(evt);
+            }
+        });
+
+        jLabel_ButtonGenerateReport_user.setBackground(new java.awt.Color(51, 51, 51));
+        jLabel_ButtonGenerateReport_user.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        jLabel_ButtonGenerateReport_user.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel_ButtonGenerateReport_user.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel_ButtonGenerateReport_user.setText("Reporte Usuarios-Log");
+        jLabel_ButtonGenerateReport_user.setToolTipText("");
+        jLabel_ButtonGenerateReport_user.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel_ButtonGenerateReport_user.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel_ButtonGenerateReport_user.setOpaque(true);
+        jLabel_ButtonGenerateReport_user.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_ButtonGenerateReport_userMouseClicked(evt);
+            }
+        });
+
+        jLabel_ButtonGetClient.setBackground(new java.awt.Color(51, 51, 51));
+        jLabel_ButtonGetClient.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        jLabel_ButtonGetClient.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel_ButtonGetClient.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel_ButtonGetClient.setText(" Consultar Cliente");
+        jLabel_ButtonGetClient.setToolTipText("");
+        jLabel_ButtonGetClient.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel_ButtonGetClient.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel_ButtonGetClient.setOpaque(true);
+        jLabel_ButtonGetClient.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_ButtonGetClientMouseClicked(evt);
+            }
+        });
+
+        jLabel_ButtonGenerateReport_Client.setBackground(new java.awt.Color(51, 51, 51));
+        jLabel_ButtonGenerateReport_Client.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        jLabel_ButtonGenerateReport_Client.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel_ButtonGenerateReport_Client.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel_ButtonGenerateReport_Client.setText("Reporte Cliente-Log");
+        jLabel_ButtonGenerateReport_Client.setToolTipText("");
+        jLabel_ButtonGenerateReport_Client.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel_ButtonGenerateReport_Client.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel_ButtonGenerateReport_Client.setOpaque(true);
+        jLabel_ButtonGenerateReport_Client.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_ButtonGenerateReport_ClientMouseClicked(evt);
+            }
+        });
+
+        jLabel_ButtonUpdateClient.setBackground(new java.awt.Color(51, 51, 51));
+        jLabel_ButtonUpdateClient.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        jLabel_ButtonUpdateClient.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel_ButtonUpdateClient.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel_ButtonUpdateClient.setText("Actualizar Cliente");
+        jLabel_ButtonUpdateClient.setToolTipText("");
+        jLabel_ButtonUpdateClient.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel_ButtonUpdateClient.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel_ButtonUpdateClient.setOpaque(true);
+        jLabel_ButtonUpdateClient.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_ButtonUpdateClientMouseClicked(evt);
+            }
+        });
+
+        jLabel_ButtonSetClient.setBackground(new java.awt.Color(51, 51, 51));
+        jLabel_ButtonSetClient.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        jLabel_ButtonSetClient.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel_ButtonSetClient.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel_ButtonSetClient.setText(" Agregar Cliente");
+        jLabel_ButtonSetClient.setToolTipText("");
+        jLabel_ButtonSetClient.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel_ButtonSetClient.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel_ButtonSetClient.setOpaque(true);
+        jLabel_ButtonSetClient.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_ButtonSetClientMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel_BarToolAdminLayout = new javax.swing.GroupLayout(jPanel_BarToolAdmin);
+        jPanel_BarToolAdmin.setLayout(jPanel_BarToolAdminLayout);
+        jPanel_BarToolAdminLayout.setHorizontalGroup(
+            jPanel_BarToolAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_BarToolAdminLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel_BarToolAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel_ButtonGetEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_ButtonSetEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_ButtonUpdateUser, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_ButtonGenerateReport_user, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel_BarToolAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel_ButtonGetClient, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_ButtonSetClient, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_ButtonUpdateClient, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_ButtonGenerateReport_Client, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel_BarToolAdminLayout.setVerticalGroup(
+            jPanel_BarToolAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_BarToolAdminLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel_BarToolAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel_BarToolAdminLayout.createSequentialGroup()
+                        .addComponent(jLabel_ButtonGetClient)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel_ButtonSetClient)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel_ButtonUpdateClient)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel_ButtonGenerateReport_Client))
+                    .addGroup(jPanel_BarToolAdminLayout.createSequentialGroup()
+                        .addComponent(jLabel_ButtonGetEmployees)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel_ButtonSetEmployees)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel_ButtonUpdateUser)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel_ButtonGenerateReport_user)))
+                .addContainerGap())
+        );
+
+        jPanel_SpaceAdmin.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel_SpaceAdmin.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jTable_TableAdminSQL.setBackground(new java.awt.Color(255, 255, 255));
+        jTable_TableAdminSQL.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        jTable_TableAdminSQL.setFont(new java.awt.Font("Roboto Light", 0, 16)); // NOI18N
+        jTable_TableAdminSQL.setModel(jTable_TableAdminSQL.getModel());
+        jTable_TableAdminSQL.setRowHeight(60);
+        jTable_TableAdminSQL.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable_TableAdminSQLMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTable_TableAdminSQL);
+
+        jLabel_ButtonCleanTable.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel_ButtonCleanTable.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel_ButtonCleanTable.setText("Limpiar");
+        jLabel_ButtonCleanTable.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        jLabel_ButtonCleanTable.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel_ButtonCleanTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_ButtonCleanTableMouseClicked(evt);
+            }
+        });
+
+        jLabel_ButtonDeleteEntities.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel_ButtonDeleteEntities.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel_ButtonDeleteEntities.setText("Eliminar");
+        jLabel_ButtonDeleteEntities.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        jLabel_ButtonDeleteEntities.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel_ButtonDeleteEntities.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_ButtonDeleteEntitiesMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel_SpaceAdminLayout = new javax.swing.GroupLayout(jPanel_SpaceAdmin);
+        jPanel_SpaceAdmin.setLayout(jPanel_SpaceAdminLayout);
+        jPanel_SpaceAdminLayout.setHorizontalGroup(
+            jPanel_SpaceAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_SpaceAdminLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel_SpaceAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(jPanel_SpaceAdminLayout.createSequentialGroup()
+                        .addGap(0, 762, Short.MAX_VALUE)
+                        .addComponent(jLabel_ButtonDeleteEntities, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel_ButtonCleanTable, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jPanel_SpaceAdminLayout.setVerticalGroup(
+            jPanel_SpaceAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_SpaceAdminLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel_SpaceAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel_ButtonCleanTable, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_ButtonDeleteEntities, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout jPanel_WorkSpaceAdminLayout = new javax.swing.GroupLayout(jPanel_WorkSpaceAdmin);
+        jPanel_WorkSpaceAdmin.setLayout(jPanel_WorkSpaceAdminLayout);
+        jPanel_WorkSpaceAdminLayout.setHorizontalGroup(
+            jPanel_WorkSpaceAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel_BarToolAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel_SpaceAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel_WorkSpaceAdminLayout.setVerticalGroup(
+            jPanel_WorkSpaceAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_WorkSpaceAdminLayout.createSequentialGroup()
+                .addComponent(jPanel_BarToolAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel_SpaceAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
         jPanel_Welcome.setBackground(new java.awt.Color(51, 51, 51));
 
         jLabel_LogoWelcome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IconBase-Default.png"))); // NOI18N
@@ -195,25 +648,25 @@ public final class Home extends javax.swing.JFrame {
         jPanel_WelcomeLayout.setHorizontalGroup(
             jPanel_WelcomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_WelcomeLayout.createSequentialGroup()
-                .addContainerGap(147, Short.MAX_VALUE)
+                .addContainerGap(145, Short.MAX_VALUE)
                 .addComponent(jLabel_LogoWelcome)
                 .addGap(1, 1, 1)
                 .addGroup(jPanel_WelcomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel_TitleWelcome, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
                     .addComponent(jLabel_SubtitleWelcome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(147, Short.MAX_VALUE))
+                .addContainerGap(144, Short.MAX_VALUE))
         );
         jPanel_WelcomeLayout.setVerticalGroup(
             jPanel_WelcomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_WelcomeLayout.createSequentialGroup()
-                .addContainerGap(176, Short.MAX_VALUE)
+                .addContainerGap(178, Short.MAX_VALUE)
                 .addGroup(jPanel_WelcomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel_WelcomeLayout.createSequentialGroup()
                         .addComponent(jLabel_TitleWelcome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel_SubtitleWelcome, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel_LogoWelcome))
-                .addContainerGap(176, Short.MAX_VALUE))
+                .addContainerGap(178, Short.MAX_VALUE))
         );
 
         jPanel_BarTop.setBackground(new java.awt.Color(38, 38, 38));
@@ -223,6 +676,7 @@ public final class Home extends javax.swing.JFrame {
         jLabel_ExitButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel_ExitButton.setForeground(new java.awt.Color(255, 255, 255));
         jLabel_ExitButton.setText("X");
+        jLabel_ExitButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel_ExitButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel_ExitButtonMouseClicked(evt);
@@ -232,6 +686,7 @@ public final class Home extends javax.swing.JFrame {
         jLabel_MaxRestore.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel_MaxRestore.setForeground(new java.awt.Color(255, 255, 255));
         jLabel_MaxRestore.setText("❐");
+        jLabel_MaxRestore.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel_MaxRestore.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel_MaxRestoreMouseClicked(evt);
@@ -241,6 +696,7 @@ public final class Home extends javax.swing.JFrame {
         jLabel_Minimize.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel_Minimize.setForeground(new java.awt.Color(255, 255, 255));
         jLabel_Minimize.setText("-");
+        jLabel_Minimize.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel_Minimize.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel_MinimizeMouseClicked(evt);
@@ -317,16 +773,29 @@ public final class Home extends javax.swing.JFrame {
         jLabel_AccountingMod.setForeground(new java.awt.Color(255, 255, 255));
         jLabel_AccountingMod.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel_AccountingMod.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Icons/1x/IconAccounting.png"))); // NOI18N
+        jLabel_AccountingMod.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel_AccountingMod.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_AccountingModMouseClicked(evt);
+            }
+        });
 
         jLabel_InventoryMod.setBackground(new java.awt.Color(51, 51, 51));
         jLabel_InventoryMod.setForeground(new java.awt.Color(255, 255, 255));
         jLabel_InventoryMod.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel_InventoryMod.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Icons/1x/IconInventoy.png"))); // NOI18N
+        jLabel_InventoryMod.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel_InventoryMod.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_InventoryModMouseClicked(evt);
+            }
+        });
 
         jLabel_AdminMod.setBackground(new java.awt.Color(51, 51, 51));
         jLabel_AdminMod.setForeground(new java.awt.Color(255, 255, 255));
         jLabel_AdminMod.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel_AdminMod.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Icons/1x/IconManagement.png"))); // NOI18N
+        jLabel_AdminMod.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel_AdminMod.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel_AdminModMouseClicked(evt);
@@ -356,10 +825,26 @@ public final class Home extends javax.swing.JFrame {
         jLabel_ButtonLogOut.setText("Cerrar Sesión");
         jLabel_ButtonLogOut.setToolTipText("");
         jLabel_ButtonLogOut.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel_ButtonLogOut.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel_ButtonLogOut.setOpaque(true);
         jLabel_ButtonLogOut.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel_ButtonLogOutMouseClicked(evt);
+            }
+        });
+
+        jLabel_ButtonHome.setBackground(new java.awt.Color(51, 51, 51));
+        jLabel_ButtonHome.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        jLabel_ButtonHome.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel_ButtonHome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel_ButtonHome.setText("Inicio");
+        jLabel_ButtonHome.setToolTipText("");
+        jLabel_ButtonHome.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel_ButtonHome.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel_ButtonHome.setOpaque(true);
+        jLabel_ButtonHome.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_ButtonHomeMouseClicked(evt);
             }
         });
 
@@ -387,9 +872,11 @@ public final class Home extends javax.swing.JFrame {
                     .addComponent(jSeparator_UserLeverRootDiv)
                     .addComponent(jLabel_LevelAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(12, 12, 12))
-            .addGroup(jPanel_LeftBarLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_LeftBarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel_ButtonLogOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel_ButtonHome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel_ButtonLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel_LeftBarLayout.setVerticalGroup(
@@ -413,176 +900,11 @@ public final class Home extends javax.swing.JFrame {
                 .addComponent(jLabel_AdminMod, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel_AdminModLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel_ButtonLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
+                .addGroup(jPanel_LeftBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel_ButtonLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_ButtonHome, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
-        );
-
-        jPanel_WorkSpaceAdmin.setBackground(new java.awt.Color(51, 51, 51));
-
-        jPanel_BarToolAdmin.setBackground(new java.awt.Color(51, 51, 51));
-        jPanel_BarToolAdmin.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jLabel_ButtonGetEmployees.setBackground(new java.awt.Color(51, 51, 51));
-        jLabel_ButtonGetEmployees.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
-        jLabel_ButtonGetEmployees.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel_ButtonGetEmployees.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel_ButtonGetEmployees.setText(" Consultar Usuarios ");
-        jLabel_ButtonGetEmployees.setToolTipText("");
-        jLabel_ButtonGetEmployees.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jLabel_ButtonGetEmployees.setOpaque(true);
-        jLabel_ButtonGetEmployees.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel_ButtonGetEmployeesMouseClicked(evt);
-            }
-        });
-
-        jLabel_ButtonSetEmployees.setBackground(new java.awt.Color(51, 51, 51));
-        jLabel_ButtonSetEmployees.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
-        jLabel_ButtonSetEmployees.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel_ButtonSetEmployees.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel_ButtonSetEmployees.setText(" Agregar Usuarios ");
-        jLabel_ButtonSetEmployees.setToolTipText("");
-        jLabel_ButtonSetEmployees.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jLabel_ButtonSetEmployees.setOpaque(true);
-        jLabel_ButtonSetEmployees.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel_ButtonSetEmployeesMouseClicked(evt);
-            }
-        });
-
-        jLabel_ButtonUpdateUser.setBackground(new java.awt.Color(51, 51, 51));
-        jLabel_ButtonUpdateUser.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
-        jLabel_ButtonUpdateUser.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel_ButtonUpdateUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel_ButtonUpdateUser.setText("Actualizar Usuarios");
-        jLabel_ButtonUpdateUser.setToolTipText("");
-        jLabel_ButtonUpdateUser.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jLabel_ButtonUpdateUser.setOpaque(true);
-        jLabel_ButtonUpdateUser.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel_ButtonUpdateUserMouseClicked(evt);
-            }
-        });
-
-        jLabel_ButtonGenerateReport.setBackground(new java.awt.Color(51, 51, 51));
-        jLabel_ButtonGenerateReport.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
-        jLabel_ButtonGenerateReport.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel_ButtonGenerateReport.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel_ButtonGenerateReport.setText("Reporte Usuarios-Log");
-        jLabel_ButtonGenerateReport.setToolTipText("");
-        jLabel_ButtonGenerateReport.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jLabel_ButtonGenerateReport.setOpaque(true);
-        jLabel_ButtonGenerateReport.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel_ButtonGenerateReportMouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel_BarToolAdminLayout = new javax.swing.GroupLayout(jPanel_BarToolAdmin);
-        jPanel_BarToolAdmin.setLayout(jPanel_BarToolAdminLayout);
-        jPanel_BarToolAdminLayout.setHorizontalGroup(
-            jPanel_BarToolAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel_BarToolAdminLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel_BarToolAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel_ButtonGetEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel_ButtonSetEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel_ButtonUpdateUser, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel_ButtonGenerateReport, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel_BarToolAdminLayout.setVerticalGroup(
-            jPanel_BarToolAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel_BarToolAdminLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel_ButtonGetEmployees)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel_ButtonSetEmployees)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel_ButtonUpdateUser)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel_ButtonGenerateReport)
-                .addContainerGap())
-        );
-
-        jPanel_SpaceAdmin.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel_SpaceAdmin.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jTable_TableAdminSQL.setBackground(new java.awt.Color(255, 255, 255));
-        jTable_TableAdminSQL.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        jTable_TableAdminSQL.setFont(new java.awt.Font("Roboto Light", 0, 16)); // NOI18N
-        jTable_TableAdminSQL.setModel(jTable_TableAdminSQL.getModel());
-        jTable_TableAdminSQL.setRowHeight(60);
-        jTable_TableAdminSQL.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable_TableAdminSQLMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(jTable_TableAdminSQL);
-
-        jLabel_ButtonCleanTable.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel_ButtonCleanTable.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel_ButtonCleanTable.setText("Limpiar");
-        jLabel_ButtonCleanTable.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        jLabel_ButtonCleanTable.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel_ButtonCleanTable.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel_ButtonCleanTableMouseClicked(evt);
-            }
-        });
-
-        jLabel_ButtonDeleteEntities.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel_ButtonDeleteEntities.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel_ButtonDeleteEntities.setText("Eliminar");
-        jLabel_ButtonDeleteEntities.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        jLabel_ButtonDeleteEntities.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel_ButtonDeleteEntities.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel_ButtonDeleteEntitiesMouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel_SpaceAdminLayout = new javax.swing.GroupLayout(jPanel_SpaceAdmin);
-        jPanel_SpaceAdmin.setLayout(jPanel_SpaceAdminLayout);
-        jPanel_SpaceAdminLayout.setHorizontalGroup(
-            jPanel_SpaceAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_SpaceAdminLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel_SpaceAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1)
-                    .addGroup(jPanel_SpaceAdminLayout.createSequentialGroup()
-                        .addGap(0, 762, Short.MAX_VALUE)
-                        .addComponent(jLabel_ButtonDeleteEntities, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel_ButtonCleanTable, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
-        jPanel_SpaceAdminLayout.setVerticalGroup(
-            jPanel_SpaceAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_SpaceAdminLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel_SpaceAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel_ButtonCleanTable, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel_ButtonDeleteEntities, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
-
-        javax.swing.GroupLayout jPanel_WorkSpaceAdminLayout = new javax.swing.GroupLayout(jPanel_WorkSpaceAdmin);
-        jPanel_WorkSpaceAdmin.setLayout(jPanel_WorkSpaceAdminLayout);
-        jPanel_WorkSpaceAdminLayout.setHorizontalGroup(
-            jPanel_WorkSpaceAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel_BarToolAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel_SpaceAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        jPanel_WorkSpaceAdminLayout.setVerticalGroup(
-            jPanel_WorkSpaceAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_WorkSpaceAdminLayout.createSequentialGroup()
-                .addComponent(jPanel_BarToolAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel_SpaceAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout PrimaryPanel_HomeLayout = new javax.swing.GroupLayout(PrimaryPanel_Home);
@@ -609,9 +931,14 @@ public final class Home extends javax.swing.JFrame {
             .addComponent(jPanel_BarTop, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(PrimaryPanel_HomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(PrimaryPanel_HomeLayout.createSequentialGroup()
-                    .addGap(166, 166, 166)
-                    .addComponent(jPanel_Welcome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGap(15, 15, 15)))
+                    .addGap(171, 171, 171)
+                    .addComponent(jPanel_Welcome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(15, Short.MAX_VALUE)))
+            .addGroup(PrimaryPanel_HomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PrimaryPanel_HomeLayout.createSequentialGroup()
+                    .addGap(172, 172, 172)
+                    .addComponent(jPanel_WorkSpaceInventory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(16, 16, 16)))
         );
         PrimaryPanel_HomeLayout.setVerticalGroup(
             PrimaryPanel_HomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -632,7 +959,12 @@ public final class Home extends javax.swing.JFrame {
                 .addGroup(PrimaryPanel_HomeLayout.createSequentialGroup()
                     .addGap(39, 39, 39)
                     .addComponent(jPanel_Welcome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(21, Short.MAX_VALUE)))
+                    .addContainerGap(17, Short.MAX_VALUE)))
+            .addGroup(PrimaryPanel_HomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PrimaryPanel_HomeLayout.createSequentialGroup()
+                    .addGap(41, 41, 41)
+                    .addComponent(jPanel_WorkSpaceInventory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(17, 17, 17)))
         );
 
         getContentPane().add(PrimaryPanel_Home, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -640,7 +972,9 @@ public final class Home extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    //<editor-fold defaultstate="colapsed" desc="Events">
+    //<editor-fold desc="Events">
+    
+    //<editor-fold desc="windowDefault">
     private void jLabel_DragAreaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_DragAreaMousePressed
         // TODO add your handling code here:
         AxisY = evt.getY();
@@ -677,13 +1011,22 @@ public final class Home extends javax.swing.JFrame {
     private void jLabel_ExitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ExitButtonMouseClicked
         System.exit(0);
     }//GEN-LAST:event_jLabel_ExitButtonMouseClicked
-
+    //</editor-fold>
+    
+    //<editor-fold desc="ModAdmin">
     private void jLabel_AdminModMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_AdminModMouseClicked
-        jPanel_WorkSpaceAdmin.setVisible(true);
+        
+        if (SetVisibleAdmin == 0) {
+            jPanel_WorkSpaceAdmin.setVisible(true);
+            SetVisibleAdmin = 1;
+        } else {
+            jPanel_WorkSpaceAdmin.setVisible(false);
+            SetVisibleAdmin = 0;
+        }
     }//GEN-LAST:event_jLabel_AdminModMouseClicked
 
     private void jLabel_ButtonGetEmployeesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ButtonGetEmployeesMouseClicked
-        DefaultTableModel modelTable = CreateModelTableEmployees();
+        DefaultTableModel modelTable = CreateModelTableUsers();
         ResultSet RtSet = stDb.GenerateStatement_GetEmployees();
         jTable_TableAdminSQL.setDefaultRenderer(Object.class, new RenderImageTable());
 
@@ -722,7 +1065,7 @@ public final class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel_ButtonGetEmployeesMouseClicked
 
     private void jLabel_ButtonCleanTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ButtonCleanTableMouseClicked
-        DefaultTableModel modelTable = CreateModelTableEmployees();
+        DefaultTableModel modelTable = CreateModelTableUsers();
         for (int i = 0; i < jTable_TableAdminSQL.getRowCount(); i++) {
             modelTable.removeRow(i);
             i -= 1;
@@ -742,18 +1085,43 @@ public final class Home extends javax.swing.JFrame {
 
     private void jTable_TableAdminSQLMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_TableAdminSQLMouseClicked
         // TODO add your handling code here:
-        int Row = jTable_TableAdminSQL.getSelectedRow();
+        int Row = jTable_TableAdminSQL.getSelectedRow();  
         TableModel tableModel = jTable_TableAdminSQL.getModel();
-        ValuePointSelectedDeleteTable = tableModel.getValueAt(Row, 0);
+        
+        ValuePointSelectedDeleteTable.put("ID",tableModel.getValueAt(Row, 0));
+        ValuePointSelectedDeleteTable.put("SA",tableModel.getValueAt(Row, 7));
     }//GEN-LAST:event_jTable_TableAdminSQLMouseClicked
 
     private void jLabel_ButtonDeleteEntitiesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ButtonDeleteEntitiesMouseClicked
         // TODO add your handling code here:
-        int input = JOptionPane.showConfirmDialog(null, "Desea eliminar al Empleado/Usuario con ID: " + ValuePointSelectedDeleteTable + "?", "Eliminacion", JOptionPane.OK_CANCEL_OPTION, JOptionPane.DEFAULT_OPTION);
-        if (input == 0) {
-            stDb.GenerateStatement_DeleteEmplCl(ValuePointSelectedDeleteTable);
-            JOptionPane.showMessageDialog(null, "eliminacion Satisfactoria");
-        }
+        int input;
+        switch ((String) ValuePointSelectedDeleteTable.get("SA")){
+            case "AD" :
+                JOptionPane.showMessageDialog(null, "Error al eliminar Entidad: Perfil Administrativo, Actividad no permitida desde el aplicativo");
+                break;
+            
+            case "CL":
+                input = JOptionPane.showConfirmDialog(null, "Desea eliminar al Cliente con ID: " + ValuePointSelectedDeleteTable.get("ID") + "?", "Eliminacion", JOptionPane.OK_CANCEL_OPTION, JOptionPane.DEFAULT_OPTION);
+                if (input == 0) {
+                    stDb.GenerateStatement_DeleteClient(ValuePointSelectedDeleteTable.get("ID"));
+                    JOptionPane.showMessageDialog(null, "eliminacion Satisfactoria");
+                    break;
+                }
+            ;
+            
+            case "EP" :
+                input = JOptionPane.showConfirmDialog(null, "Desea eliminar al Empleado con ID: " + ValuePointSelectedDeleteTable.get("ID") + "?", "Eliminacion", JOptionPane.OK_CANCEL_OPTION, JOptionPane.DEFAULT_OPTION);
+                if (input == 0) {
+                    stDb.GenerateStatement_DeleteEmployees(ValuePointSelectedDeleteTable.get("ID"));
+                    JOptionPane.showMessageDialog(null, "eliminacion Satisfactoria");
+                    break;
+                }
+            ;
+            
+            case "NA" :
+                JOptionPane.showMessageDialog(null, "Error al eliminar Entidad: Perfil No Asignado, Actividad no permitida desde el aplicativo");
+                break;
+        } 
     }//GEN-LAST:event_jLabel_ButtonDeleteEntitiesMouseClicked
 
     private void jLabel_ButtonUpdateUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ButtonUpdateUserMouseClicked
@@ -777,14 +1145,190 @@ public final class Home extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jLabel_ButtonLogOutMouseClicked
 
-    private void jLabel_ButtonGenerateReportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ButtonGenerateReportMouseClicked
+    private void jLabel_ButtonGenerateReport_userMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ButtonGenerateReport_userMouseClicked
         // TODO add your handling code here:
         GenerateReport GR = new GenerateReport();
         GR.GenerateReport_EmployeesLogs();
-    }//GEN-LAST:event_jLabel_ButtonGenerateReportMouseClicked
+    }//GEN-LAST:event_jLabel_ButtonGenerateReport_userMouseClicked
+
+    private void jLabel_ButtonGetClientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ButtonGetClientMouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel modelTable = CreateModelTableUsers();
+        ResultSet RtSet = stDb.GenerateStatement_GetClient();
+        jTable_TableAdminSQL.setDefaultRenderer(Object.class, new RenderImageTable());
+
+        if (AuthVerify) {
+            Object ClientData[] = new Object[11];
+            try {
+                while (RtSet.next()) {
+                    ClientData[0] = String.valueOf(RtSet.getString("IdClient"));
+                    ClientData[2] = String.valueOf(RtSet.getString("NameClient"));
+                    ClientData[3] = String.valueOf(RtSet.getString("LastNameClient"));
+                    ClientData[4] = String.valueOf(RtSet.getString("EmailClient"));
+                    ClientData[5] = String.valueOf(RtSet.getString("PasswordClient"));
+                    ClientData[6] = String.valueOf(RtSet.getString("PhoneClient"));
+                    ClientData[7] = String.valueOf(RtSet.getString("StatusAdminClient"));
+                    ClientData[8] = String.valueOf(RtSet.getString("StatusConnectionClient"));
+                    ClientData[9] = String.valueOf(RtSet.getString("GenderClient"));
+                    try {
+                        byte[] images = RtSet.getBytes("ImageClient");
+                        BufferedImage bfImages = null;
+                        InputStream iStImage = new ByteArrayInputStream(images);
+                        bfImages = ImageIO.read(iStImage);
+                        ImageIcon iIcImages = new ImageIcon(bfImages.getScaledInstance(60, 60, 0));
+                        ClientData[1] = new JLabel(iIcImages);
+                    } catch (Exception e) {
+                        ClientData[1] = "Sin Imagen";
+                    }
+                    modelTable.addRow(ClientData);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            jTable_TableAdminSQL.setModel(modelTable);
+        } else {
+            System.out.println("Flag Home: Action don't Allow - User Don't Logged");
+        }
+    }//GEN-LAST:event_jLabel_ButtonGetClientMouseClicked
+
+    private void jLabel_ButtonGenerateReport_ClientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ButtonGenerateReport_ClientMouseClicked
+        GenerateReport GR = new GenerateReport();
+        GR.GenerateReport_ClientLogs();
+    }//GEN-LAST:event_jLabel_ButtonGenerateReport_ClientMouseClicked
+
+    private void jLabel_ButtonUpdateClientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ButtonUpdateClientMouseClicked
+        // TODO add your handling code here:
+        if (AuthVerify) {
+            UpdateClient_form UpdateUser = new UpdateClient_form();
+            UpdateUser.setVisible(true);
+        } else {
+            System.out.println("Flag Home: Action don't Allow - User Don't Logged");
+        }
+    }//GEN-LAST:event_jLabel_ButtonUpdateClientMouseClicked
+
+    private void jLabel_ButtonSetClientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ButtonSetClientMouseClicked
+        // TODO add your handling code here:
+        if (AuthVerify) {
+            RegisterClient_form RegisterUser = new RegisterClient_form();
+            RegisterUser.setVisible(true);
+        } else {
+            System.out.println("Flag Home: Action don't Allow - User Don't Logged");
+        }
+    }//GEN-LAST:event_jLabel_ButtonSetClientMouseClicked
+    //</editor-fold>
+    
+    //<editor-fold desc="ModInventary">
+    private void jTable_TableInventorySQLMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_TableInventorySQLMouseClicked
+        // TODO add your handling code here:
+        int Row = jTable_TableInventorySQL.getSelectedRow();  
+        TableModel tableModel = jTable_TableAdminSQL.getModel();
+        ValuePointSelectedDeleteTable.put("ID",tableModel.getValueAt(Row, 0));
+    }//GEN-LAST:event_jTable_TableInventorySQLMouseClicked
+
+    private void jLabel_ButtonCleanTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ButtonCleanTable1MouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel modelTable = CreateModelTableProducts();
+        for (int i = 0; i < jTable_TableAdminSQL.getRowCount(); i++) {
+            modelTable.removeRow(i);
+            i -= 1;
+        }
+        jTable_TableInventorySQL.setModel(modelTable);
+    }//GEN-LAST:event_jLabel_ButtonCleanTable1MouseClicked
+
+    private void jLabel_ButtonDeleteEntities1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ButtonDeleteEntities1MouseClicked
+        // TODO add your handling code here:
+        int input;
+        stDb.GenerateStatement_DeleteProduct(ValuePointSelectedDeleteTable.get("ID"));
+        JOptionPane.showMessageDialog(null, "eliminacion Satisfactoria");
+    }//GEN-LAST:event_jLabel_ButtonDeleteEntities1MouseClicked
+
+    private void jLabel_ButtonGenerateReport_ProductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ButtonGenerateReport_ProductMouseClicked
+        // TODO add your handling code here:
+        GenerateReport GR = new GenerateReport();
+        GR.GenerateReport_ProductLogs();
+    }//GEN-LAST:event_jLabel_ButtonGenerateReport_ProductMouseClicked
+
+    private void jLabel_ButtonUpdateProductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ButtonUpdateProductMouseClicked
+        // TODO add your handling code here:
+        if (AuthVerify) {
+            UpdateProduct_form UpdateProduct = new UpdateProduct_form();
+            UpdateProduct.setVisible(true);
+        } else {
+            System.out.println("Flag Home: Action don't Allow - User Don't Logged");
+        }
+    }//GEN-LAST:event_jLabel_ButtonUpdateProductMouseClicked
+
+    private void jLabel_ButtonSetProductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ButtonSetProductMouseClicked
+        // TODO add your handling code here:
+        if (AuthVerify) {
+            RegisterProduct_form RegisterProduct = new RegisterProduct_form();
+            RegisterProduct.setVisible(true);
+        } else {
+            System.out.println("Flag Home: Action don't Allow - User Don't Logged");
+        }
+    }//GEN-LAST:event_jLabel_ButtonSetProductMouseClicked
+
+    private void jLabel_ButtonGetProductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ButtonGetProductMouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel modelTable = CreateModelTableProducts();
+        ResultSet RtSet = stDb.GenerateStatement_GetProduct();
+        jTable_TableInventorySQL.setDefaultRenderer(Object.class, new RenderImageTable());
+
+        if (AuthVerify) {
+            Object ProductData[] = new Object[5];
+            try {
+                while (RtSet.next()) {
+                    ProductData[0] = String.valueOf(RtSet.getString("IdProduct"));
+                    ProductData[2] = String.valueOf(RtSet.getString("NameProduct"));
+                    ProductData[3] = String.valueOf(RtSet.getString("DescriptionProduct"));
+                    ProductData[4] = String.valueOf(RtSet.getString("PriceProduct"));
+                    try {
+                        byte[] images = RtSet.getBytes("ImageProduct");
+                        BufferedImage bfImages = null;
+                        InputStream iStImage = new ByteArrayInputStream(images);
+                        bfImages = ImageIO.read(iStImage);
+                        ImageIcon iIcImages = new ImageIcon(bfImages.getScaledInstance(60, 60, 0));
+                        ProductData[1] = new JLabel(iIcImages);
+                    } catch (Exception e) {
+                        ProductData[1] = "Sin Imagen";
+                    }
+                    modelTable.addRow(ProductData);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            jTable_TableInventorySQL.setModel(modelTable);
+        } else {
+            System.out.println("Flag Home: Action don't Allow - User Don't Logged");
+        }
+    }//GEN-LAST:event_jLabel_ButtonGetProductMouseClicked
+
+    private void jLabel_InventoryModMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_InventoryModMouseClicked
+        // TODO add your handling code here:
+        if (SetVisibleInventary == 0) {
+            jPanel_WorkSpaceInventory.setVisible(true);
+            SetVisibleInventary = 1;
+        } else {
+            jPanel_WorkSpaceInventory.setVisible(false);
+            SetVisibleInventary = 0;
+        }  
+    }//GEN-LAST:event_jLabel_InventoryModMouseClicked
+
+    private void jLabel_ButtonHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ButtonHomeMouseClicked
+        // TODO add your handling code here:
+        jPanel_WorkSpaceAdmin.setVisible(false);
+        jPanel_WorkSpaceInventory.setVisible(false);
+    }//GEN-LAST:event_jLabel_ButtonHomeMouseClicked
+
+    private void jLabel_AccountingModMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_AccountingModMouseClicked
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null, "En Desarrollo: proximamente");
+    }//GEN-LAST:event_jLabel_AccountingModMouseClicked
     
     //</editor-fold>
 
+    //</editor-fold>
+    
     /**
      * @param args the command line arguments
      */
@@ -827,11 +1371,22 @@ public final class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel_AdminMod;
     private javax.swing.JLabel jLabel_AdminModLabel;
     private javax.swing.JLabel jLabel_ButtonCleanTable;
+    private javax.swing.JLabel jLabel_ButtonCleanTable1;
     private javax.swing.JLabel jLabel_ButtonDeleteEntities;
-    private javax.swing.JLabel jLabel_ButtonGenerateReport;
+    private javax.swing.JLabel jLabel_ButtonDeleteEntities1;
+    private javax.swing.JLabel jLabel_ButtonGenerateReport_Client;
+    private javax.swing.JLabel jLabel_ButtonGenerateReport_Product;
+    private javax.swing.JLabel jLabel_ButtonGenerateReport_user;
+    private javax.swing.JLabel jLabel_ButtonGetClient;
     private javax.swing.JLabel jLabel_ButtonGetEmployees;
+    private javax.swing.JLabel jLabel_ButtonGetProduct;
+    private javax.swing.JLabel jLabel_ButtonHome;
     private javax.swing.JLabel jLabel_ButtonLogOut;
+    private javax.swing.JLabel jLabel_ButtonSetClient;
     private javax.swing.JLabel jLabel_ButtonSetEmployees;
+    private javax.swing.JLabel jLabel_ButtonSetProduct;
+    private javax.swing.JLabel jLabel_ButtonUpdateClient;
+    private javax.swing.JLabel jLabel_ButtonUpdateProduct;
     private javax.swing.JLabel jLabel_ButtonUpdateUser;
     private javax.swing.JLabel jLabel_DragArea;
     private javax.swing.JLabel jLabel_ExitButton;
@@ -851,13 +1406,18 @@ public final class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel_resizeRight;
     private javax.swing.JLabel jLabel_resizeRightBottom;
     private javax.swing.JPanel jPanel_BarToolAdmin;
+    private javax.swing.JPanel jPanel_BarToolInventory;
     private javax.swing.JPanel jPanel_BarTop;
     private javax.swing.JPanel jPanel_LeftBar;
     private javax.swing.JPanel jPanel_SpaceAdmin;
+    private javax.swing.JPanel jPanel_SpaceInventory;
     private javax.swing.JPanel jPanel_Welcome;
     private javax.swing.JPanel jPanel_WorkSpaceAdmin;
+    private javax.swing.JPanel jPanel_WorkSpaceInventory;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPaneInventory;
     private javax.swing.JSeparator jSeparator_UserLeverRootDiv;
     private javax.swing.JTable jTable_TableAdminSQL;
+    private javax.swing.JTable jTable_TableInventorySQL;
     // End of variables declaration//GEN-END:variables
 }

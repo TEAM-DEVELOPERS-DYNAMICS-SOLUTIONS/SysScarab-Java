@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report_EmployeesOld" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7c8baf17-7957-4305-b68a-aed4d1f10b1d">
+	<property name="ireport.zoom" value="2.923075650000005"/>
+	<property name="ireport.x" value="440"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.report.description" value="Logs Altered Employees"/>
+	<style name="table">
+		<box>
+			<topPen lineWidth="1.0" lineColor="#FFFFFF"/>
+			<bottomPen lineWidth="1.0" lineColor="#FFFFFF"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
+			<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#FFBFBF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
+			<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
+			<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#FFEFEF"/>
+		</conditionalStyle>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#333333"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#B4C2C8">
+		<box>
+			<pen lineWidth="0.5" lineColor="#333333"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#E6F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#333333"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#333333"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#F8FDFF"/>
+		</conditionalStyle>
+	</style>
+	<queryString>
+		<![CDATA[select IdLogClient, DateLogClient, UserCreatorLog, IdClient, NameClient, LastNameClient,EmailClient, AddressClient,PhoneClient, StatusAdminClient, GenderClient from Client_Old;]]>
+	</queryString>
+	<field name="IdLogClient" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DateLogClient" class="java.time.LocalDateTime">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="UserCreatorLog" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IdClient" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NameClient" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="LastNameClient" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="EmailClient" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="AddressClient" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PhoneClient" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="StatusAdminClient" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="GenderClient" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="104" splitType="Stretch">
+			<image>
+				<reportElement x="13" y="12" width="67" height="79" uuid="be849523-42bb-4dc3-8416-431ac8e957dc"/>
+				<imageExpression><![CDATA["D:\\Proyectos\\JavaProjets\\SysScarab\\src\\test\\resources\\images\\Icons\\1x\\IsoT\\IconBase-Default.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="93" y="24" width="100" height="40" uuid="91879539-7118-46d2-93bb-ec09cab5bdde"/>
+				<textElement>
+					<font fontName="Bebas Neue" size="40"/>
+				</textElement>
+				<text><![CDATA[SCARAB]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="93" y="64" width="132" height="27" uuid="ec9d383d-0b7c-49c9-bb79-a8bd193e2c36"/>
+				<textElement>
+					<font fontName="Bebas Neue Light" size="20"/>
+				</textElement>
+				<text><![CDATA[System management]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="736" y="0" width="16" height="20" uuid="5db90691-4fcc-44bc-acc9-1a05b9b4331e"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="652" y="20" width="100" height="20" uuid="8b1d746c-e7d2-4eb4-a650-1419d9f12b6d"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="58" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="-20" y="0" width="793" height="23" backcolor="#CCCCCC" uuid="8282f653-0208-4dd0-9590-6931c19b249c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[REPORTE CLIENTES: LOGS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="23" width="739" height="20" uuid="e8381948-bce8-4f07-803e-7e99be96c2ad"/>
+				<text><![CDATA[Reporte generado para control de trafico de cambios realizados en base de datos del sistema de infomacion a la fecha.]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement x="13" y="0" width="13" height="20" uuid="39c5e92c-9e64-4e00-acf1-3c2ddaf649cb"/>
+				<text><![CDATA[IdLogClient]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="64" y="1" width="40" height="20" uuid="9aa0aed1-2020-4fbf-bf46-1eb67b2014fd"/>
+				<text><![CDATA[DateLogClient]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="136" y="0" width="23" height="20" uuid="b9a5781a-6620-428f-85d2-ecd762e3fda4"/>
+				<text><![CDATA[UserCreatorLog]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="171" y="1" width="22" height="20" uuid="38e2b631-6956-4bda-93b0-34ffe8306d57"/>
+				<text><![CDATA[IdClient]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="235" y="0" width="29" height="20" uuid="afd4843d-a09c-4e6f-a2ee-7ac974a3ae71"/>
+				<text><![CDATA[NameClient]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="288" y="1" width="50" height="20" uuid="44e390d6-03bf-4fb4-bc59-1396e557ad7f"/>
+				<text><![CDATA[LastNameClient]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="404" y="0" width="29" height="20" uuid="a46145eb-af9d-4c75-9274-e4e078e21d93"/>
+				<text><![CDATA[EmailClient]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="500" y="0" width="39" height="20" uuid="7feadcad-18c1-474c-a3c0-2054986cb290"/>
+				<text><![CDATA[AddressClient]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="600" y="1" width="33" height="20" uuid="41098711-0b4b-44f8-8b79-b2ee1396f851"/>
+				<text><![CDATA[PhoneClient]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="652" y="0" width="58" height="20" uuid="d1a4a8b7-3027-40cf-8468-54407d051e37"/>
+				<text><![CDATA[StatusAdminClient]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="716" y="0" width="36" height="20" uuid="441f2cb7-a9f6-46c5-aa46-1f6152dac51c"/>
+				<text><![CDATA[GenderClient]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="136" y="0" width="23" height="20" uuid="f52e09e4-5f1d-4d84-8777-e75284ca4236"/>
+				<textFieldExpression><![CDATA[$F{UserCreatorLog}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="159" y="1" width="52" height="20" uuid="4e5a5526-27ad-4fe0-9daf-0b86b1117fde"/>
+				<textFieldExpression><![CDATA[$F{IdClient}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="211" y="1" width="68" height="20" uuid="6733afae-da33-4744-8ed1-4583983736f5"/>
+				<textFieldExpression><![CDATA[$F{NameClient}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="279" y="1" width="78" height="20" uuid="62461075-ced1-403f-b53b-abd7ca11ebd2"/>
+				<textFieldExpression><![CDATA[$F{LastNameClient}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="476" y="0" width="108" height="20" uuid="96e3f64e-c78a-485f-8397-36ad3b70ab75"/>
+				<textFieldExpression><![CDATA[$F{AddressClient}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="584" y="0" width="68" height="20" uuid="2bad8ceb-4728-4a65-b123-0b90ddbad6b5"/>
+				<textFieldExpression><![CDATA[$F{PhoneClient}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="716" y="1" width="36" height="20" uuid="f7c5d597-a760-4560-ad6f-4a5614c6f5a6"/>
+				<textFieldExpression><![CDATA[$F{GenderClient}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="1" width="30" height="20" uuid="da927181-f20b-4028-8633-0000ec67654c"/>
+				<textFieldExpression><![CDATA[$F{IdLogClient}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="30" y="0" width="106" height="20" uuid="c219ec31-1f9d-4aa1-91d7-60c6f33b526e"/>
+				<textFieldExpression><![CDATA[""+$F{DateLogClient}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="671" y="1" width="28" height="20" uuid="23c5c223-ef6d-431b-ae2d-8cd4309444a6"/>
+				<textFieldExpression><![CDATA[$F{StatusAdminClient}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="357" y="1" width="117" height="20" uuid="c80fcc0d-d2da-447d-80c8-211beb272f53"/>
+				<textFieldExpression><![CDATA[$F{EmailClient}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="42">
+			<staticText>
+				<reportElement x="285" y="0" width="189" height="20" uuid="1c73fb94-37a8-479d-a53d-3c84d57935d0"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[SCARAB SYSTEM MANAGEMENT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="288" y="20" width="186" height="20" uuid="b165318c-4a6f-4823-b337-cfa3c9f7b304"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[TDDS™ ]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

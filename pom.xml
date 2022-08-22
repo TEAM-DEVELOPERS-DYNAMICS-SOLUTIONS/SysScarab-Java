@@ -1,57 +1,100 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.tdds</groupId>
-  <artifactId>SysScarab</artifactId>
-  <version>Alfa-1.7</version>
-  <name>Scarab System Management</name>
-  <description>system modular of management for companies</description>
-  <properties>
-  	<java.version>18</java.version>
-        <exec.mainClass>view.Login.Login</exec.mainClass>
-  </properties>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.tdds</groupId>
+    <artifactId>SysScarab</artifactId>
+    <version>Beta-1.2</version>
+    <name>Scarab System Management</name>
+    <packaging>jar</packaging>
+    <description>system modular of management for companies</description>
+    <properties>
+        <java.version>18</java.version>
+        <exec.mainClass>App</exec.mainClass>
+    </properties>
   
-  <dependencies>
-    <dependency>
-        <groupId>unknown.binary</groupId>
-        <artifactId>AbsoluteLayout</artifactId>
-        <version>SNAPSHOT</version>
-    </dependency>
-    <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-      <version>8.0.30</version>
-    </dependency>
+    <dependencies>
+        <dependency>
+            <groupId>unknown.binary</groupId>
+            <artifactId>AbsoluteLayout</artifactId>
+            <version>SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.30</version>
+        </dependency>
     
-    <dependency>
-      <groupId>org.codehaus.groovy</groupId>
-      <artifactId>groovy-all</artifactId>
-      <version>2.1.4</version>
-    </dependency>
-    <dependency>
-      <groupId>net.sf.jasperreports</groupId>
-      <artifactId>jasperreports</artifactId>
-      <version>6.20.0</version>
-    </dependency>
-  </dependencies>
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+            <version>2.1.4</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>6.20.0</version>
+        </dependency>
+    </dependencies>
   
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.10.1</version>
-        <configuration>
-          <argLine>--add-opens java.base/java.lang=ALL_UNNAMED</argLine>
-          <source>${java.version}</source>
-          <target>${java.version}</target>
-          <optimize>true</optimize>
-          <compilerArgs>
-            <arg>--enable-preview</arg>
-          </compilerArgs>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
+    <build>
+        <finalName>Scarab System Management</finalName>
+        <plugins>   
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.10.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <optimize>true</optimize>
+                    <compilerArgs>
+                        <arg>--enable-preview</arg>
+                    </compilerArgs>
+                </configuration>
+            </plugin>
+            
+            <!--
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <archive>
+                        <index>true</index>
+                        <manifest>
+                            <mainClass>view.Login.Login</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            -->
+            
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>            
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>           
+                    <archive>
+                        <manifest>
+                            <mainClass>App</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase> 
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            
+        </plugins>
+    </build>
     <repositories>
         <repository>
             <id>unknown-jars-temp-repo</id>

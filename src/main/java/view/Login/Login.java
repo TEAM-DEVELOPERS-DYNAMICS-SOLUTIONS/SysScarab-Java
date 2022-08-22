@@ -44,12 +44,15 @@ public class Login extends javax.swing.JFrame {
         }
         return Email;
     }
-
+    
+    /**
     @Override
     public Image getIconImage() {
         Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("images\\Icons\\1x\\IsoT\\IconBase-Default.png"));
         return retValue;
     }
+     */
+    
     //</editor-fold>
 
     /**

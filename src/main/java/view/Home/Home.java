@@ -56,11 +56,13 @@ public final class Home extends javax.swing.JFrame {
         jPanel_WorkSpaceInventory.setVisible(false);
     }
     
+    /**
     @Override // this method change default icon for Custom Icon
     public Image getIconImage() {
         Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("images\\Icons\\1x\\IsoT\\IconBase-Default.png"));
         return retValue;
     }
+    */
     //</editor-fold>
 
     //<editor-fold desc="*** Methods">

@@ -1,8 +1,6 @@
 package view.Login;
 
 import controller.user.authenticationUser.AuthenticationUser;
-import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.geom.RoundRectangle2D;
 import view.Home.Home;
 import view.textPrompt.TextPrompt;

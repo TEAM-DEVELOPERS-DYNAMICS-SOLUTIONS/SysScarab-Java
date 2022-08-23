@@ -3,7 +3,6 @@ package view.Home;
 import controller.db.StatementDbSQL;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Dimension;
-import java.awt.Image;
 import java.awt.Toolkit;
 import controller.user.authenticationUser.AuthenticationUser;
 import java.awt.image.BufferedImage;
@@ -56,13 +55,6 @@ public final class Home extends javax.swing.JFrame {
         jPanel_WorkSpaceInventory.setVisible(false);
     }
     
-    /**
-    @Override // this method change default icon for Custom Icon
-    public Image getIconImage() {
-        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("images\\Icons\\1x\\IsoT\\IconBase-Default.png"));
-        return retValue;
-    }
-    */
     //</editor-fold>
 
     //<editor-fold desc="*** Methods">

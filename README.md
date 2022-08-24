@@ -9,7 +9,7 @@
 **Nombre/Name:** Scarab Sistema de Administracion./Scarab System Management\
 **Descripcion/Description:** sistema modular de administracion de empresas./system modular of management for companies\
 **Versión/Version:** Beta-1.0\
-**Java:** 18
+**Java:** [18](https://www.oracle.com/java/technologies/javase/jdk18-archive-downloads.html)
 ### Complementos/Complements
 **Dependencias/Dependencies:**  
 * JasperReports- 6.2.0

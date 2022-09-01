@@ -111,10 +111,6 @@
 	</background>
 	<title>
 		<band height="104" splitType="Stretch">
-			<image>
-				<reportElement x="13" y="12" width="67" height="79" uuid="be849523-42bb-4dc3-8416-431ac8e957dc"/>
-				<imageExpression><![CDATA["D:\\Proyectos\\JavaProjets\\SysScarab\\src\\test\\resources\\images\\Icons\\1x\\IsoT\\IconBase-Default.png"]]></imageExpression>
-			</image>
 			<staticText>
 				<reportElement x="93" y="24" width="100" height="40" uuid="91879539-7118-46d2-93bb-ec09cab5bdde"/>
 				<textElement>
